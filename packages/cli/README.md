@@ -1,5 +1,5 @@
 <!-- omit from toc -->
-# cruncheevos-cli
+# @cruncheevos/cli
 
 **@cruncheevos/cli** is primarily an alternative to [RATools](https://github.com/Jamiras/RATools). You can code achievement sets using JavaScript and use this CLI to update the assets for [RAIntegration](https://github.com/RetroAchievements/RAIntegration/).
 
