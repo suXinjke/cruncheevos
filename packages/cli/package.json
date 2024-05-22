@@ -1,6 +1,6 @@
 {
   "name": "@cruncheevos/cli",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Maintain achievement sets for RetroAchievements.org using JavaScript, an alternative to RATools",
   "keywords": [
     "retroachievements",
