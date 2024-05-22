@@ -9,7 +9,10 @@ export default defineConfig(({ mode }) => {
       lib: {
         entry: resolve(__dirname, 'src/index.ts'),
         name: 'cruncheevos',
-        fileName: mode === 'dev' ? 'cruncheevos' : 'cruncheevos.min',
+        fileName: format => {
+          const prefix = format === 'umd' ? 'umd.' : ''
+          return mode === 'dev' ? `cruncheevos.${prefix}js` : `cruncheevos.min.${prefix}js`
+        },
       },
     },
   }
