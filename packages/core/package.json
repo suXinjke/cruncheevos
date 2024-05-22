@@ -1,0 +1,47 @@
+{
+  "name": "@cruncheevos/core",
+  "version": "0.0.1",
+  "description": "Parse and generate achievements and leaderboards for RetroAchievements.org",
+  "keywords": [
+    "retroachievements",
+    "achievements",
+    "parser"
+  ],
+  "homepage": "https://github.com/suXinjke/cruncheevos",
+  "bugs": "https://github.com/suXinjke/cruncheevos/issues",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/suXinjke/cruncheevos.git",
+    "directory": "packages/core"
+  },
+  "license": "MIT",
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/cruncheevos.js",
+      "require": "./dist/cruncheevos.umd.cjs"
+    },
+    "./util": {
+      "import": "./dist/util.js"
+    }
+  },
+  "main": "./dist/cruncheevos.umd.cjs",
+  "module": "./dist/cruncheevos.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist",
+    "*.md"
+  ],
+  "scripts": {
+    "build": "concurrently npm:bundle:min npm:bundle:dev npm:build:dts npm:build:dev",
+    "build:dev": "tsc --project tsconfig.build.json",
+    "build:dts": "tsc --project tsconfig.build-dts.json",
+    "bundle:dev": "vite build --mode=dev",
+    "bundle:min": "vite build --mode=production",
+    "typecheck": "tsc --project tsconfig.json"
+  },
+  "devDependencies": {
+    "@cruncheevos/tsconfig": "*"
+  }
+}

@@ -1,0 +1,1216 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`generate > filter > by description 1`] = `
+"import { AchievementSet, define as $ } from '@cruncheevos/core'
+const set = new AchievementSet({ gameId: 3050, title: 'GranTurismoSample' })
+
+set.addAchievement({
+  title: 'Legacy Race',
+  description:
+    'Win any race in Arcade mode while driving any of Subaru Legacy cars',
+  points: 2,
+  type: 'win_condition',
+  conditions: {
+    core: $(
+      ['', 'Mem', '32bit', 0x9388b4, '=', 'Value', '', 1],
+      ['AddAddress', 'Mem', '32bit', 0x9c1a9c],
+      ['AddAddress', 'Mem', '32bit', 0x404],
+      ['', 'Mem', '32bit', 0x268, '=', 'Value', '', 1],
+      ['AddAddress', 'Mem', '32bit', 0x9c1a9c],
+      ['AddAddress', 'Mem', '32bit', 0x3804],
+      ['', 'Delta', '32bit', 0x0, '=', 'Value', '', 0],
+      ['AddAddress', 'Mem', '32bit', 0x9c1a9c],
+      ['AddAddress', 'Mem', '32bit', 0x3804],
+      ['', 'Mem', '32bit', 0x0, '=', 'Value', '', 1],
+      ['', 'Mem', '32bit', 0x917984, '!=', 'Value', '', 0x3070306c],
+    ),
+    alt1: $(
+      ['', 'Mem', '32bit', 0x917944, '=', 'Value', '', 0x6b757374],
+      ['', 'Mem', '32bit', 0x9c23b0, '=', 'Value', '', 118],
+    ),
+    alt2: $(
+      ['', 'Mem', '32bit', 0x917944, '=', 'Value', '', 0x6b757374],
+      ['', 'Mem', '32bit', 0x9c23b0, '=', 'Value', '', 119],
+    ),
+    alt3: $(
+      ['', 'Mem', '32bit', 0x917944, '=', 'Value', '', 0x6b757374],
+      ['', 'Mem', '32bit', 0x9c23b0, '=', 'Value', '', 125],
+    ),
+    alt4: $(
+      ['', 'Mem', '32bit', 0x917944, '=', 'Value', '', 0x6b757374],
+      ['', 'Mem', '32bit', 0x9c23b0, '=', 'Value', '', 126],
+    ),
+    alt5: $(
+      ['', 'Mem', '32bit', 0x917944, '=', 'Value', '', 0x7977656e],
+      ['', 'Mem', '32bit', 0x9c23b0, '=', 'Value', '', 118],
+    ),
+    alt6: $(
+      ['', 'Mem', '32bit', 0x917944, '=', 'Value', '', 0x7977656e],
+      ['', 'Mem', '32bit', 0x9c23b0, '=', 'Value', '', 119],
+    ),
+    alt7: $(
+      ['', 'Mem', '32bit', 0x917944, '=', 'Value', '', 0x7977656e],
+      ['', 'Mem', '32bit', 0x9c23b0, '=', 'Value', '', 125],
+    ),
+    alt8: $(
+      ['', 'Mem', '32bit', 0x917944, '=', 'Value', '', 0x7977656e],
+      ['', 'Mem', '32bit', 0x9c23b0, '=', 'Value', '', 126],
+    ),
+    alt9: $(
+      ['', 'Mem', '32bit', 0x917944, '=', 'Value', '', 0x63736966],
+      ['', 'Mem', '32bit', 0x9c23b0, '=', 'Value', '', 118],
+    ),
+    alt10: $(
+      ['', 'Mem', '32bit', 0x917944, '=', 'Value', '', 0x63736966],
+      ['', 'Mem', '32bit', 0x9c23b0, '=', 'Value', '', 119],
+    ),
+    alt11: $(
+      ['', 'Mem', '32bit', 0x917944, '=', 'Value', '', 0x63736966],
+      ['', 'Mem', '32bit', 0x9c23b0, '=', 'Value', '', 125],
+    ),
+    alt12: $(
+      ['', 'Mem', '32bit', 0x917944, '=', 'Value', '', 0x63736966],
+      ['', 'Mem', '32bit', 0x9c23b0, '=', 'Value', '', 126],
+    ),
+  },
+  badge: '279619',
+  id: 251967,
+})
+
+export default set
+"
+`;
+
+exports[`generate > filter > by either name 1`] = `
+"import { AchievementSet, define as $ } from '@cruncheevos/core'
+const set = new AchievementSet({ gameId: 3050, title: 'GranTurismoSample' })
+
+set.addAchievement({
+  title: 'Skyline Race',
+  description:
+    'Win any race in Arcade mode while driving any of Nissan Skyline road cars with NORMAL tyres',
+  points: 2,
+  type: 'missable',
+  conditions: {
+    core: $(
+      ['', 'Mem', '32bit', 0x9388b4, '=', 'Value', '', 1, 1],
+      ['AddAddress', 'Mem', '32bit', 0x5acb70],
+      ['AddAddress', 'Mem', '32bit', 0x404],
+      ['', 'Mem', '32bit', 0x268, '=', 'Value', '', 1],
+      ['AddAddress', 'Mem', '32bit', 0x5acb70],
+      ['AddAddress', 'Mem', '32bit', 0x3804],
+      ['', 'Delta', '32bit', 0x0, '=', 'Value', '', 0],
+      ['AddAddress', 'Mem', '32bit', 0x5acb70],
+      ['AddAddress', 'Mem', '32bit', 0x3804],
+      ['', 'Mem', '32bit', 0x0, '=', 'Value', '', 1],
+      ['', 'Mem', '32bit', 0x917984, '!=', 'Value', '', 0x3070306c],
+      ['', 'Mem', '32bit', 0x917a54, '=', 'Value', '', 3],
+    ),
+    alt1: $(
+      ['', 'Mem', '32bit', 0x917944, '=', 'Value', '', 0x6b757374],
+      ['', 'Mem', '32bit', 0x9c23b0, '=', 'Value', '', 159],
+    ),
+    alt2: $(
+      ['', 'Mem', '32bit', 0x917944, '=', 'Value', '', 0x6b757374],
+      ['', 'Mem', '32bit', 0x9c23b0, '=', 'Value', '', 210],
+    ),
+    alt3: $(
+      ['', 'Mem', '32bit', 0x917944, '=', 'Value', '', 0x6b757374],
+      ['', 'Mem', '32bit', 0x9c23b0, '=', 'Value', '', 74],
+    ),
+    alt4: $(
+      ['', 'Mem', '32bit', 0x917944, '=', 'Value', '', 0x7977656e],
+      ['', 'Mem', '32bit', 0x9c23b0, '=', 'Value', '', 159],
+    ),
+    alt5: $(
+      ['', 'Mem', '32bit', 0x917944, '=', 'Value', '', 0x7977656e],
+      ['', 'Mem', '32bit', 0x9c23b0, '=', 'Value', '', 210],
+    ),
+    alt6: $(
+      ['', 'Mem', '32bit', 0x917944, '=', 'Value', '', 0x7977656e],
+      ['', 'Mem', '32bit', 0x9c23b0, '=', 'Value', '', 74],
+    ),
+    alt7: $(
+      ['', 'Mem', '32bit', 0x917944, '=', 'Value', '', 0x63736966],
+      ['', 'Mem', '32bit', 0x9c23b0, '=', 'Value', '', 159],
+    ),
+    alt8: $(
+      ['', 'Mem', '32bit', 0x917944, '=', 'Value', '', 0x63736966],
+      ['', 'Mem', '32bit', 0x9c23b0, '=', 'Value', '', 210],
+    ),
+    alt9: $(
+      ['', 'Mem', '32bit', 0x917944, '=', 'Value', '', 0x63736966],
+      ['', 'Mem', '32bit', 0x9c23b0, '=', 'Value', '', 74],
+    ),
+  },
+  badge: '279620',
+  id: 251968,
+})
+
+set.addAchievement({
+  title: 'Legacy Race',
+  description:
+    'Win any race in Arcade mode while driving any of Subaru Legacy cars',
+  points: 2,
+  type: 'win_condition',
+  conditions: {
+    core: $(
+      ['', 'Mem', '32bit', 0x9388b4, '=', 'Value', '', 1],
+      ['AddAddress', 'Mem', '32bit', 0x9c1a9c],
+      ['AddAddress', 'Mem', '32bit', 0x404],
+      ['', 'Mem', '32bit', 0x268, '=', 'Value', '', 1],
+      ['AddAddress', 'Mem', '32bit', 0x9c1a9c],
+      ['AddAddress', 'Mem', '32bit', 0x3804],
+      ['', 'Delta', '32bit', 0x0, '=', 'Value', '', 0],
+      ['AddAddress', 'Mem', '32bit', 0x9c1a9c],
+      ['AddAddress', 'Mem', '32bit', 0x3804],
+      ['', 'Mem', '32bit', 0x0, '=', 'Value', '', 1],
+      ['', 'Mem', '32bit', 0x917984, '!=', 'Value', '', 0x3070306c],
+    ),
+    alt1: $(
+      ['', 'Mem', '32bit', 0x917944, '=', 'Value', '', 0x6b757374],
+      ['', 'Mem', '32bit', 0x9c23b0, '=', 'Value', '', 118],
+    ),
+    alt2: $(
+      ['', 'Mem', '32bit', 0x917944, '=', 'Value', '', 0x6b757374],
+      ['', 'Mem', '32bit', 0x9c23b0, '=', 'Value', '', 119],
+    ),
+    alt3: $(
+      ['', 'Mem', '32bit', 0x917944, '=', 'Value', '', 0x6b757374],
+      ['', 'Mem', '32bit', 0x9c23b0, '=', 'Value', '', 125],
+    ),
+    alt4: $(
+      ['', 'Mem', '32bit', 0x917944, '=', 'Value', '', 0x6b757374],
+      ['', 'Mem', '32bit', 0x9c23b0, '=', 'Value', '', 126],
+    ),
+    alt5: $(
+      ['', 'Mem', '32bit', 0x917944, '=', 'Value', '', 0x7977656e],
+      ['', 'Mem', '32bit', 0x9c23b0, '=', 'Value', '', 118],
+    ),
+    alt6: $(
+      ['', 'Mem', '32bit', 0x917944, '=', 'Value', '', 0x7977656e],
+      ['', 'Mem', '32bit', 0x9c23b0, '=', 'Value', '', 119],
+    ),
+    alt7: $(
+      ['', 'Mem', '32bit', 0x917944, '=', 'Value', '', 0x7977656e],
+      ['', 'Mem', '32bit', 0x9c23b0, '=', 'Value', '', 125],
+    ),
+    alt8: $(
+      ['', 'Mem', '32bit', 0x917944, '=', 'Value', '', 0x7977656e],
+      ['', 'Mem', '32bit', 0x9c23b0, '=', 'Value', '', 126],
+    ),
+    alt9: $(
+      ['', 'Mem', '32bit', 0x917944, '=', 'Value', '', 0x63736966],
+      ['', 'Mem', '32bit', 0x9c23b0, '=', 'Value', '', 118],
+    ),
+    alt10: $(
+      ['', 'Mem', '32bit', 0x917944, '=', 'Value', '', 0x63736966],
+      ['', 'Mem', '32bit', 0x9c23b0, '=', 'Value', '', 119],
+    ),
+    alt11: $(
+      ['', 'Mem', '32bit', 0x917944, '=', 'Value', '', 0x63736966],
+      ['', 'Mem', '32bit', 0x9c23b0, '=', 'Value', '', 125],
+    ),
+    alt12: $(
+      ['', 'Mem', '32bit', 0x917944, '=', 'Value', '', 0x63736966],
+      ['', 'Mem', '32bit', 0x9c23b0, '=', 'Value', '', 126],
+    ),
+  },
+  badge: '279619',
+  id: 251967,
+})
+
+set.addAchievement({
+  title: 'Cappucino / Beat Race',
+  description:
+    'Win Tsukuba Circuit race in Arcade mode on PRO difficulty while driving Honda BEAT(J) \`91 or Suzuki Cappuccino \`92 with NORMAL tyres',
+  points: 5,
+  conditions: {
+    core: $(
+      ['', 'Mem', '32bit', 0x9388b4, '=', 'Value', '', 1],
+      ['AddAddress', 'Mem', '32bit', 0x9c1a9c],
+      ['AddAddress', 'Mem', '32bit', 0x404],
+      ['', 'Mem', '32bit', 0x268, '=', 'Value', '', 1],
+      ['AddAddress', 'Mem', '32bit', 0x9c1a9c],
+      ['AddAddress', 'Mem', '32bit', 0x3804],
+      ['', 'Delta', '32bit', 0x0, '=', 'Value', '', 0],
+      ['AddAddress', 'Mem', '32bit', 0x9c1a9c],
+      ['AddAddress', 'Mem', '32bit', 0x3804],
+      ['', 'Mem', '32bit', 0x0, '=', 'Value', '', 1],
+      ['', 'Mem', '32bit', 0x917984, '!=', 'Value', '', 0x3070306c],
+      ['', 'Mem', '32bit', 0x917944, '=', 'Value', '', 0x6b757374],
+      ['', 'Mem', '32bit', 0x9388b0, '>=', 'Value', '', 2],
+      ['', 'Mem', '32bit', 0x917a54, '=', 'Value', '', 3],
+    ),
+    alt1: $(['', 'Mem', '32bit', 0x9c23b0, '=', 'Value', '', 137]),
+    alt2: $(['', 'Mem', '32bit', 0x9c23b0, '=', 'Value', '', 33]),
+  },
+  badge: '279623',
+  id: 251971,
+})
+
+set.addLeaderboard({
+  title: 'Italian Street Course Time Trial',
+  description: 'Fastest time to complete in msec',
+  lowerIsBetter: true,
+  type: 'FRAMES',
+  conditions: {
+    start: $(
+      ['', 'Mem', '24bit', 0x917984, '=', 'Value', '', 0x70306c],
+      ['', 'Mem', '32bit', 0x917987, '=', 'Value', '', 0x35343030],
+      ['', 'Delta', '32bit', 0x9c1aa0, '=', 'Value', '', -2],
+      ['', 'Mem', '32bit', 0x9c1aa0, '<=', 'Value', '', 4],
+      ['', 'Mem', '32bit', 0x9c2518, '!=', 'Value', '', 0x157529ff],
+      ['', 'Mem', '32bit', 0x9c2518, '!=', 'Value', '', 0],
+    ),
+    cancel: $(['', 'Mem', '8bit', 0x917984, '=', 'Value', '', 0]),
+    submit: '1=1',
+    value: $(['Measured', 'Mem', '32bit', 0x9c2518]),
+  },
+  id: 44723,
+})
+
+export default set
+"
+`;
+
+exports[`generate > filter > by id 1`] = `
+"import { AchievementSet, define as $ } from '@cruncheevos/core'
+const set = new AchievementSet({ gameId: 3050, title: 'GranTurismoSample' })
+
+set.addAchievement({
+  title: 'Skyline Race',
+  description:
+    'Win any race in Arcade mode while driving any of Nissan Skyline road cars with NORMAL tyres',
+  points: 2,
+  type: 'missable',
+  conditions: {
+    core: $(
+      ['', 'Mem', '32bit', 0x9388b4, '=', 'Value', '', 1, 1],
+      ['AddAddress', 'Mem', '32bit', 0x5acb70],
+      ['AddAddress', 'Mem', '32bit', 0x404],
+      ['', 'Mem', '32bit', 0x268, '=', 'Value', '', 1],
+      ['AddAddress', 'Mem', '32bit', 0x5acb70],
+      ['AddAddress', 'Mem', '32bit', 0x3804],
+      ['', 'Delta', '32bit', 0x0, '=', 'Value', '', 0],
+      ['AddAddress', 'Mem', '32bit', 0x5acb70],
+      ['AddAddress', 'Mem', '32bit', 0x3804],
+      ['', 'Mem', '32bit', 0x0, '=', 'Value', '', 1],
+      ['', 'Mem', '32bit', 0x917984, '!=', 'Value', '', 0x3070306c],
+      ['', 'Mem', '32bit', 0x917a54, '=', 'Value', '', 3],
+    ),
+    alt1: $(
+      ['', 'Mem', '32bit', 0x917944, '=', 'Value', '', 0x6b757374],
+      ['', 'Mem', '32bit', 0x9c23b0, '=', 'Value', '', 159],
+    ),
+    alt2: $(
+      ['', 'Mem', '32bit', 0x917944, '=', 'Value', '', 0x6b757374],
+      ['', 'Mem', '32bit', 0x9c23b0, '=', 'Value', '', 210],
+    ),
+    alt3: $(
+      ['', 'Mem', '32bit', 0x917944, '=', 'Value', '', 0x6b757374],
+      ['', 'Mem', '32bit', 0x9c23b0, '=', 'Value', '', 74],
+    ),
+    alt4: $(
+      ['', 'Mem', '32bit', 0x917944, '=', 'Value', '', 0x7977656e],
+      ['', 'Mem', '32bit', 0x9c23b0, '=', 'Value', '', 159],
+    ),
+    alt5: $(
+      ['', 'Mem', '32bit', 0x917944, '=', 'Value', '', 0x7977656e],
+      ['', 'Mem', '32bit', 0x9c23b0, '=', 'Value', '', 210],
+    ),
+    alt6: $(
+      ['', 'Mem', '32bit', 0x917944, '=', 'Value', '', 0x7977656e],
+      ['', 'Mem', '32bit', 0x9c23b0, '=', 'Value', '', 74],
+    ),
+    alt7: $(
+      ['', 'Mem', '32bit', 0x917944, '=', 'Value', '', 0x63736966],
+      ['', 'Mem', '32bit', 0x9c23b0, '=', 'Value', '', 159],
+    ),
+    alt8: $(
+      ['', 'Mem', '32bit', 0x917944, '=', 'Value', '', 0x63736966],
+      ['', 'Mem', '32bit', 0x9c23b0, '=', 'Value', '', 210],
+    ),
+    alt9: $(
+      ['', 'Mem', '32bit', 0x917944, '=', 'Value', '', 0x63736966],
+      ['', 'Mem', '32bit', 0x9c23b0, '=', 'Value', '', 74],
+    ),
+  },
+  badge: '279620',
+  id: 251968,
+})
+
+export default set
+"
+`;
+
+exports[`generate > filter > by single name 1`] = `
+"import { AchievementSet, define as $ } from '@cruncheevos/core'
+const set = new AchievementSet({ gameId: 3050, title: 'GranTurismoSample' })
+
+set.addAchievement({
+  title: 'Passed - Learning the Basics of Steering 1',
+  description: \`Your first experience of circuit racing on a Beginner\\\`s course. Beat the time of 1'49.000\`,
+  points: 1,
+  type: 'progression',
+  conditions: $(
+    ['', 'Mem', '24bit', 0x917984, '=', 'Value', '', 0x70306c],
+    ['', 'Mem', '32bit', 0x917987, '=', 'Value', '', 0x31303030],
+    ['', 'Delta', '32bit', 0x9c1aa0, '=', 'Value', '', -2],
+    ['', 'Mem', '32bit', 0x9c1aa0, '<=', 'Value', '', 4],
+    ['', 'Mem', '32bit', 0x9c2518, '<=', 'Value', '', 0x1a9c8],
+  ),
+  badge: '279583',
+  id: 251873,
+})
+
+export default set
+"
+`;
+
+exports[`generate > filter > by two ids 1`] = `
+"import { AchievementSet, define as $ } from '@cruncheevos/core'
+const set = new AchievementSet({ gameId: 3050, title: 'GranTurismoSample' })
+
+set.addAchievement({
+  title: 'Skyline Race',
+  description:
+    'Win any race in Arcade mode while driving any of Nissan Skyline road cars with NORMAL tyres',
+  points: 2,
+  type: 'missable',
+  conditions: {
+    core: $(
+      ['', 'Mem', '32bit', 0x9388b4, '=', 'Value', '', 1, 1],
+      ['AddAddress', 'Mem', '32bit', 0x5acb70],
+      ['AddAddress', 'Mem', '32bit', 0x404],
+      ['', 'Mem', '32bit', 0x268, '=', 'Value', '', 1],
+      ['AddAddress', 'Mem', '32bit', 0x5acb70],
+      ['AddAddress', 'Mem', '32bit', 0x3804],
+      ['', 'Delta', '32bit', 0x0, '=', 'Value', '', 0],
+      ['AddAddress', 'Mem', '32bit', 0x5acb70],
+      ['AddAddress', 'Mem', '32bit', 0x3804],
+      ['', 'Mem', '32bit', 0x0, '=', 'Value', '', 1],
+      ['', 'Mem', '32bit', 0x917984, '!=', 'Value', '', 0x3070306c],
+      ['', 'Mem', '32bit', 0x917a54, '=', 'Value', '', 3],
+    ),
+    alt1: $(
+      ['', 'Mem', '32bit', 0x917944, '=', 'Value', '', 0x6b757374],
+      ['', 'Mem', '32bit', 0x9c23b0, '=', 'Value', '', 159],
+    ),
+    alt2: $(
+      ['', 'Mem', '32bit', 0x917944, '=', 'Value', '', 0x6b757374],
+      ['', 'Mem', '32bit', 0x9c23b0, '=', 'Value', '', 210],
+    ),
+    alt3: $(
+      ['', 'Mem', '32bit', 0x917944, '=', 'Value', '', 0x6b757374],
+      ['', 'Mem', '32bit', 0x9c23b0, '=', 'Value', '', 74],
+    ),
+    alt4: $(
+      ['', 'Mem', '32bit', 0x917944, '=', 'Value', '', 0x7977656e],
+      ['', 'Mem', '32bit', 0x9c23b0, '=', 'Value', '', 159],
+    ),
+    alt5: $(
+      ['', 'Mem', '32bit', 0x917944, '=', 'Value', '', 0x7977656e],
+      ['', 'Mem', '32bit', 0x9c23b0, '=', 'Value', '', 210],
+    ),
+    alt6: $(
+      ['', 'Mem', '32bit', 0x917944, '=', 'Value', '', 0x7977656e],
+      ['', 'Mem', '32bit', 0x9c23b0, '=', 'Value', '', 74],
+    ),
+    alt7: $(
+      ['', 'Mem', '32bit', 0x917944, '=', 'Value', '', 0x63736966],
+      ['', 'Mem', '32bit', 0x9c23b0, '=', 'Value', '', 159],
+    ),
+    alt8: $(
+      ['', 'Mem', '32bit', 0x917944, '=', 'Value', '', 0x63736966],
+      ['', 'Mem', '32bit', 0x9c23b0, '=', 'Value', '', 210],
+    ),
+    alt9: $(
+      ['', 'Mem', '32bit', 0x917944, '=', 'Value', '', 0x63736966],
+      ['', 'Mem', '32bit', 0x9c23b0, '=', 'Value', '', 74],
+    ),
+  },
+  badge: '279620',
+  id: 251968,
+})
+
+set.addAchievement({
+  title: 'Legacy Race',
+  description:
+    'Win any race in Arcade mode while driving any of Subaru Legacy cars',
+  points: 2,
+  type: 'win_condition',
+  conditions: {
+    core: $(
+      ['', 'Mem', '32bit', 0x9388b4, '=', 'Value', '', 1],
+      ['AddAddress', 'Mem', '32bit', 0x9c1a9c],
+      ['AddAddress', 'Mem', '32bit', 0x404],
+      ['', 'Mem', '32bit', 0x268, '=', 'Value', '', 1],
+      ['AddAddress', 'Mem', '32bit', 0x9c1a9c],
+      ['AddAddress', 'Mem', '32bit', 0x3804],
+      ['', 'Delta', '32bit', 0x0, '=', 'Value', '', 0],
+      ['AddAddress', 'Mem', '32bit', 0x9c1a9c],
+      ['AddAddress', 'Mem', '32bit', 0x3804],
+      ['', 'Mem', '32bit', 0x0, '=', 'Value', '', 1],
+      ['', 'Mem', '32bit', 0x917984, '!=', 'Value', '', 0x3070306c],
+    ),
+    alt1: $(
+      ['', 'Mem', '32bit', 0x917944, '=', 'Value', '', 0x6b757374],
+      ['', 'Mem', '32bit', 0x9c23b0, '=', 'Value', '', 118],
+    ),
+    alt2: $(
+      ['', 'Mem', '32bit', 0x917944, '=', 'Value', '', 0x6b757374],
+      ['', 'Mem', '32bit', 0x9c23b0, '=', 'Value', '', 119],
+    ),
+    alt3: $(
+      ['', 'Mem', '32bit', 0x917944, '=', 'Value', '', 0x6b757374],
+      ['', 'Mem', '32bit', 0x9c23b0, '=', 'Value', '', 125],
+    ),
+    alt4: $(
+      ['', 'Mem', '32bit', 0x917944, '=', 'Value', '', 0x6b757374],
+      ['', 'Mem', '32bit', 0x9c23b0, '=', 'Value', '', 126],
+    ),
+    alt5: $(
+      ['', 'Mem', '32bit', 0x917944, '=', 'Value', '', 0x7977656e],
+      ['', 'Mem', '32bit', 0x9c23b0, '=', 'Value', '', 118],
+    ),
+    alt6: $(
+      ['', 'Mem', '32bit', 0x917944, '=', 'Value', '', 0x7977656e],
+      ['', 'Mem', '32bit', 0x9c23b0, '=', 'Value', '', 119],
+    ),
+    alt7: $(
+      ['', 'Mem', '32bit', 0x917944, '=', 'Value', '', 0x7977656e],
+      ['', 'Mem', '32bit', 0x9c23b0, '=', 'Value', '', 125],
+    ),
+    alt8: $(
+      ['', 'Mem', '32bit', 0x917944, '=', 'Value', '', 0x7977656e],
+      ['', 'Mem', '32bit', 0x9c23b0, '=', 'Value', '', 126],
+    ),
+    alt9: $(
+      ['', 'Mem', '32bit', 0x917944, '=', 'Value', '', 0x63736966],
+      ['', 'Mem', '32bit', 0x9c23b0, '=', 'Value', '', 118],
+    ),
+    alt10: $(
+      ['', 'Mem', '32bit', 0x917944, '=', 'Value', '', 0x63736966],
+      ['', 'Mem', '32bit', 0x9c23b0, '=', 'Value', '', 119],
+    ),
+    alt11: $(
+      ['', 'Mem', '32bit', 0x917944, '=', 'Value', '', 0x63736966],
+      ['', 'Mem', '32bit', 0x9c23b0, '=', 'Value', '', 125],
+    ),
+    alt12: $(
+      ['', 'Mem', '32bit', 0x917944, '=', 'Value', '', 0x63736966],
+      ['', 'Mem', '32bit', 0x9c23b0, '=', 'Value', '', 126],
+    ),
+  },
+  badge: '279619',
+  id: 251967,
+})
+
+export default set
+"
+`;
+
+exports[`generate > option to include unofficial assets works 1`] = `
+"import { AchievementSet, define as $ } from '@cruncheevos/core'
+const set = new AchievementSet({ gameId: 3050, title: 'GranTurismoSample' })
+
+set.addAchievement({
+  title: 'Passed - Learning the Basics of Steering 1',
+  description: \`Your first experience of circuit racing on a Beginner\\\`s course. Beat the time of 1'49.000\`,
+  points: 1,
+  type: 'progression',
+  conditions: $(
+    ['', 'Mem', '24bit', 0x917984, '=', 'Value', '', 0x70306c],
+    ['', 'Mem', '32bit', 0x917987, '=', 'Value', '', 0x31303030],
+    ['', 'Delta', '32bit', 0x9c1aa0, '=', 'Value', '', -2],
+    ['', 'Mem', '32bit', 0x9c1aa0, '<=', 'Value', '', 4],
+    ['', 'Mem', '32bit', 0x9c2518, '<=', 'Value', '', 0x1a9c8],
+  ),
+  badge: '279583',
+  id: 251873,
+})
+
+set.addAchievement({
+  title: 'Passed - Learning the Basics of Steering 3',
+  description: \`Learn the 'out-in-out' cornering technique\`,
+  points: 2,
+  conditions: $(
+    ['', 'Mem', '24bit', 0x917984, '=', 'Value', '', 0x70306c],
+    ['', 'Mem', '32bit', 0x917987, '=', 'Value', '', 0x35303030],
+    ['', 'Delta', '32bit', 0x9c1aa0, '=', 'Value', '', -2],
+    ['', 'Mem', '32bit', 0x9c1aa0, '>=', 'Value', '', 2],
+    ['', 'Mem', '32bit', 0x9c1aa0, '<=', 'Value', '', 4],
+  ),
+  badge: '279583',
+  id: 251875,
+})
+
+set.addAchievement({
+  title: 'Skyline Race',
+  description:
+    'Win any race in Arcade mode while driving any of Nissan Skyline road cars with NORMAL tyres',
+  points: 2,
+  type: 'missable',
+  conditions: {
+    core: $(
+      ['', 'Mem', '32bit', 0x9388b4, '=', 'Value', '', 1, 1],
+      ['AddAddress', 'Mem', '32bit', 0x5acb70],
+      ['AddAddress', 'Mem', '32bit', 0x404],
+      ['', 'Mem', '32bit', 0x268, '=', 'Value', '', 1],
+      ['AddAddress', 'Mem', '32bit', 0x5acb70],
+      ['AddAddress', 'Mem', '32bit', 0x3804],
+      ['', 'Delta', '32bit', 0x0, '=', 'Value', '', 0],
+      ['AddAddress', 'Mem', '32bit', 0x5acb70],
+      ['AddAddress', 'Mem', '32bit', 0x3804],
+      ['', 'Mem', '32bit', 0x0, '=', 'Value', '', 1],
+      ['', 'Mem', '32bit', 0x917984, '!=', 'Value', '', 0x3070306c],
+      ['', 'Mem', '32bit', 0x917a54, '=', 'Value', '', 3],
+    ),
+    alt1: $(
+      ['', 'Mem', '32bit', 0x917944, '=', 'Value', '', 0x6b757374],
+      ['', 'Mem', '32bit', 0x9c23b0, '=', 'Value', '', 159],
+    ),
+    alt2: $(
+      ['', 'Mem', '32bit', 0x917944, '=', 'Value', '', 0x6b757374],
+      ['', 'Mem', '32bit', 0x9c23b0, '=', 'Value', '', 210],
+    ),
+    alt3: $(
+      ['', 'Mem', '32bit', 0x917944, '=', 'Value', '', 0x6b757374],
+      ['', 'Mem', '32bit', 0x9c23b0, '=', 'Value', '', 74],
+    ),
+    alt4: $(
+      ['', 'Mem', '32bit', 0x917944, '=', 'Value', '', 0x7977656e],
+      ['', 'Mem', '32bit', 0x9c23b0, '=', 'Value', '', 159],
+    ),
+    alt5: $(
+      ['', 'Mem', '32bit', 0x917944, '=', 'Value', '', 0x7977656e],
+      ['', 'Mem', '32bit', 0x9c23b0, '=', 'Value', '', 210],
+    ),
+    alt6: $(
+      ['', 'Mem', '32bit', 0x917944, '=', 'Value', '', 0x7977656e],
+      ['', 'Mem', '32bit', 0x9c23b0, '=', 'Value', '', 74],
+    ),
+    alt7: $(
+      ['', 'Mem', '32bit', 0x917944, '=', 'Value', '', 0x63736966],
+      ['', 'Mem', '32bit', 0x9c23b0, '=', 'Value', '', 159],
+    ),
+    alt8: $(
+      ['', 'Mem', '32bit', 0x917944, '=', 'Value', '', 0x63736966],
+      ['', 'Mem', '32bit', 0x9c23b0, '=', 'Value', '', 210],
+    ),
+    alt9: $(
+      ['', 'Mem', '32bit', 0x917944, '=', 'Value', '', 0x63736966],
+      ['', 'Mem', '32bit', 0x9c23b0, '=', 'Value', '', 74],
+    ),
+  },
+  badge: '279620',
+  id: 251968,
+})
+
+set.addAchievement({
+  title: 'Legacy Race',
+  description:
+    'Win any race in Arcade mode while driving any of Subaru Legacy cars',
+  points: 2,
+  type: 'win_condition',
+  conditions: {
+    core: $(
+      ['', 'Mem', '32bit', 0x9388b4, '=', 'Value', '', 1],
+      ['AddAddress', 'Mem', '32bit', 0x9c1a9c],
+      ['AddAddress', 'Mem', '32bit', 0x404],
+      ['', 'Mem', '32bit', 0x268, '=', 'Value', '', 1],
+      ['AddAddress', 'Mem', '32bit', 0x9c1a9c],
+      ['AddAddress', 'Mem', '32bit', 0x3804],
+      ['', 'Delta', '32bit', 0x0, '=', 'Value', '', 0],
+      ['AddAddress', 'Mem', '32bit', 0x9c1a9c],
+      ['AddAddress', 'Mem', '32bit', 0x3804],
+      ['', 'Mem', '32bit', 0x0, '=', 'Value', '', 1],
+      ['', 'Mem', '32bit', 0x917984, '!=', 'Value', '', 0x3070306c],
+    ),
+    alt1: $(
+      ['', 'Mem', '32bit', 0x917944, '=', 'Value', '', 0x6b757374],
+      ['', 'Mem', '32bit', 0x9c23b0, '=', 'Value', '', 118],
+    ),
+    alt2: $(
+      ['', 'Mem', '32bit', 0x917944, '=', 'Value', '', 0x6b757374],
+      ['', 'Mem', '32bit', 0x9c23b0, '=', 'Value', '', 119],
+    ),
+    alt3: $(
+      ['', 'Mem', '32bit', 0x917944, '=', 'Value', '', 0x6b757374],
+      ['', 'Mem', '32bit', 0x9c23b0, '=', 'Value', '', 125],
+    ),
+    alt4: $(
+      ['', 'Mem', '32bit', 0x917944, '=', 'Value', '', 0x6b757374],
+      ['', 'Mem', '32bit', 0x9c23b0, '=', 'Value', '', 126],
+    ),
+    alt5: $(
+      ['', 'Mem', '32bit', 0x917944, '=', 'Value', '', 0x7977656e],
+      ['', 'Mem', '32bit', 0x9c23b0, '=', 'Value', '', 118],
+    ),
+    alt6: $(
+      ['', 'Mem', '32bit', 0x917944, '=', 'Value', '', 0x7977656e],
+      ['', 'Mem', '32bit', 0x9c23b0, '=', 'Value', '', 119],
+    ),
+    alt7: $(
+      ['', 'Mem', '32bit', 0x917944, '=', 'Value', '', 0x7977656e],
+      ['', 'Mem', '32bit', 0x9c23b0, '=', 'Value', '', 125],
+    ),
+    alt8: $(
+      ['', 'Mem', '32bit', 0x917944, '=', 'Value', '', 0x7977656e],
+      ['', 'Mem', '32bit', 0x9c23b0, '=', 'Value', '', 126],
+    ),
+    alt9: $(
+      ['', 'Mem', '32bit', 0x917944, '=', 'Value', '', 0x63736966],
+      ['', 'Mem', '32bit', 0x9c23b0, '=', 'Value', '', 118],
+    ),
+    alt10: $(
+      ['', 'Mem', '32bit', 0x917944, '=', 'Value', '', 0x63736966],
+      ['', 'Mem', '32bit', 0x9c23b0, '=', 'Value', '', 119],
+    ),
+    alt11: $(
+      ['', 'Mem', '32bit', 0x917944, '=', 'Value', '', 0x63736966],
+      ['', 'Mem', '32bit', 0x9c23b0, '=', 'Value', '', 125],
+    ),
+    alt12: $(
+      ['', 'Mem', '32bit', 0x917944, '=', 'Value', '', 0x63736966],
+      ['', 'Mem', '32bit', 0x9c23b0, '=', 'Value', '', 126],
+    ),
+  },
+  badge: '279619',
+  id: 251967,
+})
+
+set.addAchievement({
+  title: 'Cappucino / Beat Race',
+  description:
+    'Win Tsukuba Circuit race in Arcade mode on PRO difficulty while driving Honda BEAT(J) \`91 or Suzuki Cappuccino \`92 with NORMAL tyres',
+  points: 5,
+  conditions: {
+    core: $(
+      ['', 'Mem', '32bit', 0x9388b4, '=', 'Value', '', 1],
+      ['AddAddress', 'Mem', '32bit', 0x9c1a9c],
+      ['AddAddress', 'Mem', '32bit', 0x404],
+      ['', 'Mem', '32bit', 0x268, '=', 'Value', '', 1],
+      ['AddAddress', 'Mem', '32bit', 0x9c1a9c],
+      ['AddAddress', 'Mem', '32bit', 0x3804],
+      ['', 'Delta', '32bit', 0x0, '=', 'Value', '', 0],
+      ['AddAddress', 'Mem', '32bit', 0x9c1a9c],
+      ['AddAddress', 'Mem', '32bit', 0x3804],
+      ['', 'Mem', '32bit', 0x0, '=', 'Value', '', 1],
+      ['', 'Mem', '32bit', 0x917984, '!=', 'Value', '', 0x3070306c],
+      ['', 'Mem', '32bit', 0x917944, '=', 'Value', '', 0x6b757374],
+      ['', 'Mem', '32bit', 0x9388b0, '>=', 'Value', '', 2],
+      ['', 'Mem', '32bit', 0x917a54, '=', 'Value', '', 3],
+    ),
+    alt1: $(['', 'Mem', '32bit', 0x9c23b0, '=', 'Value', '', 137]),
+    alt2: $(['', 'Mem', '32bit', 0x9c23b0, '=', 'Value', '', 33]),
+  },
+  badge: '279623',
+  id: 251971,
+})
+
+set.addLeaderboard({
+  title: 'Strategies for Tackling S-Bends',
+  description: 'Fastest time to complete in msec',
+  lowerIsBetter: true,
+  type: 'VALUE',
+  conditions: {
+    start: $(
+      ['', 'Mem', '24bit', 0x917984, '=', 'Value', '', 0x70306c],
+      ['', 'Mem', '32bit', 0x917987, '=', 'Value', '', 0x31323030],
+      ['', 'Delta', '32bit', 0x9c1aa0, '=', 'Value', '', -2],
+      ['', 'Mem', '32bit', 0x9c1aa0, '<=', 'Value', '', 4],
+      ['', 'Mem', '32bit', 0x9c2518, '!=', 'Value', '', 0x157529ff],
+      ['', 'Mem', '32bit', 0x9c2518, '!=', 'Value', '', 0],
+    ),
+    cancel: $(['', 'Mem', '8bit', 0x917984, '=', 'Value', '', 0]),
+    submit: '1=1',
+    value: $(['Measured', 'Mem', '32bit', 0x9c2518]),
+  },
+  id: 44618,
+})
+
+set.addLeaderboard({
+  title: 'Italian Street Course Time Trial',
+  description: 'Fastest time to complete in msec',
+  lowerIsBetter: true,
+  type: 'FRAMES',
+  conditions: {
+    start: $(
+      ['', 'Mem', '24bit', 0x917984, '=', 'Value', '', 0x70306c],
+      ['', 'Mem', '32bit', 0x917987, '=', 'Value', '', 0x35343030],
+      ['', 'Delta', '32bit', 0x9c1aa0, '=', 'Value', '', -2],
+      ['', 'Mem', '32bit', 0x9c1aa0, '<=', 'Value', '', 4],
+      ['', 'Mem', '32bit', 0x9c2518, '!=', 'Value', '', 0x157529ff],
+      ['', 'Mem', '32bit', 0x9c2518, '!=', 'Value', '', 0],
+    ),
+    cancel: $(['', 'Mem', '8bit', 0x917984, '=', 'Value', '', 0]),
+    submit: '1=1',
+    value: $(['Measured', 'Mem', '32bit', 0x9c2518]),
+  },
+  id: 44723,
+})
+
+export default set
+"
+`;
+
+exports[`generate > warns about assets with missing name or description, yet still generates them 1`] = `
+"import { AchievementSet, define as $ } from '@cruncheevos/core'
+const set = new AchievementSet({ gameId: 3050, title: 'GranTurismoSample' })
+
+set.addAchievement({
+  title: '', // FIXME
+  description: \`Your first experience of circuit racing on a Beginner\\\`s course. Beat the time of 1'49.000\`,
+  points: 1,
+  type: 'progression',
+  conditions: $(
+    ['', 'Mem', '24bit', 0x917984, '=', 'Value', '', 0x70306c],
+    ['', 'Mem', '32bit', 0x917987, '=', 'Value', '', 0x31303030],
+    ['', 'Delta', '32bit', 0x9c1aa0, '=', 'Value', '', -2],
+    ['', 'Mem', '32bit', 0x9c1aa0, '<=', 'Value', '', 4],
+    ['', 'Mem', '32bit', 0x9c2518, '<=', 'Value', '', 0x1a9c8],
+  ),
+  badge: '279583',
+  id: 251873,
+})
+
+set.addAchievement({
+  title: 'Skyline Race',
+  description: '', // FIXME
+  points: 2,
+  type: 'missable',
+  conditions: {
+    core: $(
+      ['', 'Mem', '32bit', 0x9388b4, '=', 'Value', '', 1, 1],
+      ['AddAddress', 'Mem', '32bit', 0x5acb70],
+      ['AddAddress', 'Mem', '32bit', 0x404],
+      ['', 'Mem', '32bit', 0x268, '=', 'Value', '', 1],
+      ['AddAddress', 'Mem', '32bit', 0x5acb70],
+      ['AddAddress', 'Mem', '32bit', 0x3804],
+      ['', 'Delta', '32bit', 0x0, '=', 'Value', '', 0],
+      ['AddAddress', 'Mem', '32bit', 0x5acb70],
+      ['AddAddress', 'Mem', '32bit', 0x3804],
+      ['', 'Mem', '32bit', 0x0, '=', 'Value', '', 1],
+      ['', 'Mem', '32bit', 0x917984, '!=', 'Value', '', 0x3070306c],
+      ['', 'Mem', '32bit', 0x917a54, '=', 'Value', '', 3],
+    ),
+    alt1: $(
+      ['', 'Mem', '32bit', 0x917944, '=', 'Value', '', 0x6b757374],
+      ['', 'Mem', '32bit', 0x9c23b0, '=', 'Value', '', 159],
+    ),
+    alt2: $(
+      ['', 'Mem', '32bit', 0x917944, '=', 'Value', '', 0x6b757374],
+      ['', 'Mem', '32bit', 0x9c23b0, '=', 'Value', '', 210],
+    ),
+    alt3: $(
+      ['', 'Mem', '32bit', 0x917944, '=', 'Value', '', 0x6b757374],
+      ['', 'Mem', '32bit', 0x9c23b0, '=', 'Value', '', 74],
+    ),
+    alt4: $(
+      ['', 'Mem', '32bit', 0x917944, '=', 'Value', '', 0x7977656e],
+      ['', 'Mem', '32bit', 0x9c23b0, '=', 'Value', '', 159],
+    ),
+    alt5: $(
+      ['', 'Mem', '32bit', 0x917944, '=', 'Value', '', 0x7977656e],
+      ['', 'Mem', '32bit', 0x9c23b0, '=', 'Value', '', 210],
+    ),
+    alt6: $(
+      ['', 'Mem', '32bit', 0x917944, '=', 'Value', '', 0x7977656e],
+      ['', 'Mem', '32bit', 0x9c23b0, '=', 'Value', '', 74],
+    ),
+    alt7: $(
+      ['', 'Mem', '32bit', 0x917944, '=', 'Value', '', 0x63736966],
+      ['', 'Mem', '32bit', 0x9c23b0, '=', 'Value', '', 159],
+    ),
+    alt8: $(
+      ['', 'Mem', '32bit', 0x917944, '=', 'Value', '', 0x63736966],
+      ['', 'Mem', '32bit', 0x9c23b0, '=', 'Value', '', 210],
+    ),
+    alt9: $(
+      ['', 'Mem', '32bit', 0x917944, '=', 'Value', '', 0x63736966],
+      ['', 'Mem', '32bit', 0x9c23b0, '=', 'Value', '', 74],
+    ),
+  },
+  badge: '279620',
+  id: 251968,
+})
+
+set.addAchievement({
+  title: 'Legacy Race',
+  description:
+    'Win any race in Arcade mode while driving any of Subaru Legacy cars',
+  points: 2,
+  type: 'win_condition',
+  conditions: {
+    core: $(
+      ['', 'Mem', '32bit', 0x9388b4, '=', 'Value', '', 1],
+      ['AddAddress', 'Mem', '32bit', 0x9c1a9c],
+      ['AddAddress', 'Mem', '32bit', 0x404],
+      ['', 'Mem', '32bit', 0x268, '=', 'Value', '', 1],
+      ['AddAddress', 'Mem', '32bit', 0x9c1a9c],
+      ['AddAddress', 'Mem', '32bit', 0x3804],
+      ['', 'Delta', '32bit', 0x0, '=', 'Value', '', 0],
+      ['AddAddress', 'Mem', '32bit', 0x9c1a9c],
+      ['AddAddress', 'Mem', '32bit', 0x3804],
+      ['', 'Mem', '32bit', 0x0, '=', 'Value', '', 1],
+      ['', 'Mem', '32bit', 0x917984, '!=', 'Value', '', 0x3070306c],
+    ),
+    alt1: $(
+      ['', 'Mem', '32bit', 0x917944, '=', 'Value', '', 0x6b757374],
+      ['', 'Mem', '32bit', 0x9c23b0, '=', 'Value', '', 118],
+    ),
+    alt2: $(
+      ['', 'Mem', '32bit', 0x917944, '=', 'Value', '', 0x6b757374],
+      ['', 'Mem', '32bit', 0x9c23b0, '=', 'Value', '', 119],
+    ),
+    alt3: $(
+      ['', 'Mem', '32bit', 0x917944, '=', 'Value', '', 0x6b757374],
+      ['', 'Mem', '32bit', 0x9c23b0, '=', 'Value', '', 125],
+    ),
+    alt4: $(
+      ['', 'Mem', '32bit', 0x917944, '=', 'Value', '', 0x6b757374],
+      ['', 'Mem', '32bit', 0x9c23b0, '=', 'Value', '', 126],
+    ),
+    alt5: $(
+      ['', 'Mem', '32bit', 0x917944, '=', 'Value', '', 0x7977656e],
+      ['', 'Mem', '32bit', 0x9c23b0, '=', 'Value', '', 118],
+    ),
+    alt6: $(
+      ['', 'Mem', '32bit', 0x917944, '=', 'Value', '', 0x7977656e],
+      ['', 'Mem', '32bit', 0x9c23b0, '=', 'Value', '', 119],
+    ),
+    alt7: $(
+      ['', 'Mem', '32bit', 0x917944, '=', 'Value', '', 0x7977656e],
+      ['', 'Mem', '32bit', 0x9c23b0, '=', 'Value', '', 125],
+    ),
+    alt8: $(
+      ['', 'Mem', '32bit', 0x917944, '=', 'Value', '', 0x7977656e],
+      ['', 'Mem', '32bit', 0x9c23b0, '=', 'Value', '', 126],
+    ),
+    alt9: $(
+      ['', 'Mem', '32bit', 0x917944, '=', 'Value', '', 0x63736966],
+      ['', 'Mem', '32bit', 0x9c23b0, '=', 'Value', '', 118],
+    ),
+    alt10: $(
+      ['', 'Mem', '32bit', 0x917944, '=', 'Value', '', 0x63736966],
+      ['', 'Mem', '32bit', 0x9c23b0, '=', 'Value', '', 119],
+    ),
+    alt11: $(
+      ['', 'Mem', '32bit', 0x917944, '=', 'Value', '', 0x63736966],
+      ['', 'Mem', '32bit', 0x9c23b0, '=', 'Value', '', 125],
+    ),
+    alt12: $(
+      ['', 'Mem', '32bit', 0x917944, '=', 'Value', '', 0x63736966],
+      ['', 'Mem', '32bit', 0x9c23b0, '=', 'Value', '', 126],
+    ),
+  },
+  badge: '279619',
+  id: 251967,
+})
+
+set.addAchievement({
+  title: 'Cappucino / Beat Race',
+  description:
+    'Win Tsukuba Circuit race in Arcade mode on PRO difficulty while driving Honda BEAT(J) \`91 or Suzuki Cappuccino \`92 with NORMAL tyres',
+  points: 5,
+  conditions: {
+    core: $(
+      ['', 'Mem', '32bit', 0x9388b4, '=', 'Value', '', 1],
+      ['AddAddress', 'Mem', '32bit', 0x9c1a9c],
+      ['AddAddress', 'Mem', '32bit', 0x404],
+      ['', 'Mem', '32bit', 0x268, '=', 'Value', '', 1],
+      ['AddAddress', 'Mem', '32bit', 0x9c1a9c],
+      ['AddAddress', 'Mem', '32bit', 0x3804],
+      ['', 'Delta', '32bit', 0x0, '=', 'Value', '', 0],
+      ['AddAddress', 'Mem', '32bit', 0x9c1a9c],
+      ['AddAddress', 'Mem', '32bit', 0x3804],
+      ['', 'Mem', '32bit', 0x0, '=', 'Value', '', 1],
+      ['', 'Mem', '32bit', 0x917984, '!=', 'Value', '', 0x3070306c],
+      ['', 'Mem', '32bit', 0x917944, '=', 'Value', '', 0x6b757374],
+      ['', 'Mem', '32bit', 0x9388b0, '>=', 'Value', '', 2],
+      ['', 'Mem', '32bit', 0x917a54, '=', 'Value', '', 3],
+    ),
+    alt1: $(['', 'Mem', '32bit', 0x9c23b0, '=', 'Value', '', 137]),
+    alt2: $(['', 'Mem', '32bit', 0x9c23b0, '=', 'Value', '', 33]),
+  },
+  badge: '279623',
+  id: 251971,
+})
+
+set.addLeaderboard({
+  title: '', // FIXME
+  description: '', // FIXME
+  lowerIsBetter: true,
+  type: 'VALUE',
+  conditions: {
+    start: $(
+      ['', 'Mem', '24bit', 0x917984, '=', 'Value', '', 0x70306c],
+      ['', 'Mem', '32bit', 0x917987, '=', 'Value', '', 0x31323030],
+      ['', 'Delta', '32bit', 0x9c1aa0, '=', 'Value', '', -2],
+      ['', 'Mem', '32bit', 0x9c1aa0, '<=', 'Value', '', 4],
+      ['', 'Mem', '32bit', 0x9c2518, '!=', 'Value', '', 0x157529ff],
+      ['', 'Mem', '32bit', 0x9c2518, '!=', 'Value', '', 0],
+    ),
+    cancel: $(['', 'Mem', '8bit', 0x917984, '=', 'Value', '', 0]),
+    submit: '1=1',
+    value: $(['Measured', 'Mem', '32bit', 0x9c2518]),
+  },
+  id: 44618,
+})
+
+set.addLeaderboard({
+  title: 'Italian Street Course Time Trial',
+  description: 'Fastest time to complete in msec',
+  lowerIsBetter: true,
+  type: 'FRAMES',
+  conditions: {
+    start: $(
+      ['', 'Mem', '24bit', 0x917984, '=', 'Value', '', 0x70306c],
+      ['', 'Mem', '32bit', 0x917987, '=', 'Value', '', 0x35343030],
+      ['', 'Delta', '32bit', 0x9c1aa0, '=', 'Value', '', -2],
+      ['', 'Mem', '32bit', 0x9c1aa0, '<=', 'Value', '', 4],
+      ['', 'Mem', '32bit', 0x9c2518, '!=', 'Value', '', 0x157529ff],
+      ['', 'Mem', '32bit', 0x9c2518, '!=', 'Value', '', 0],
+    ),
+    cancel: $(['', 'Mem', '8bit', 0x917984, '=', 'Value', '', 0]),
+    submit: '1=1',
+    value: $(['Measured', 'Mem', '32bit', 0x9c2518]),
+  },
+  id: 44723,
+})
+
+export default set
+"
+`;
+
+exports[`generate > works when ran without prefetched achievements, generating again doesn't refetch remote code 1`] = `
+"import { AchievementSet, define as $ } from '@cruncheevos/core'
+const set = new AchievementSet({ gameId: 3050, title: 'GranTurismoSample' })
+
+set.addAchievement({
+  title: 'Passed - Learning the Basics of Steering 1',
+  description: \`Your first experience of circuit racing on a Beginner\\\`s course. Beat the time of 1'49.000\`,
+  points: 1,
+  type: 'progression',
+  conditions: $(
+    ['', 'Mem', '24bit', 0x917984, '=', 'Value', '', 0x70306c],
+    ['', 'Mem', '32bit', 0x917987, '=', 'Value', '', 0x31303030],
+    ['', 'Delta', '32bit', 0x9c1aa0, '=', 'Value', '', -2],
+    ['', 'Mem', '32bit', 0x9c1aa0, '<=', 'Value', '', 4],
+    ['', 'Mem', '32bit', 0x9c2518, '<=', 'Value', '', 0x1a9c8],
+  ),
+  badge: '279583',
+  id: 251873,
+})
+
+set.addAchievement({
+  title: 'Skyline Race',
+  description:
+    'Win any race in Arcade mode while driving any of Nissan Skyline road cars with NORMAL tyres',
+  points: 2,
+  type: 'missable',
+  conditions: {
+    core: $(
+      ['', 'Mem', '32bit', 0x9388b4, '=', 'Value', '', 1, 1],
+      ['AddAddress', 'Mem', '32bit', 0x5acb70],
+      ['AddAddress', 'Mem', '32bit', 0x404],
+      ['', 'Mem', '32bit', 0x268, '=', 'Value', '', 1],
+      ['AddAddress', 'Mem', '32bit', 0x5acb70],
+      ['AddAddress', 'Mem', '32bit', 0x3804],
+      ['', 'Delta', '32bit', 0x0, '=', 'Value', '', 0],
+      ['AddAddress', 'Mem', '32bit', 0x5acb70],
+      ['AddAddress', 'Mem', '32bit', 0x3804],
+      ['', 'Mem', '32bit', 0x0, '=', 'Value', '', 1],
+      ['', 'Mem', '32bit', 0x917984, '!=', 'Value', '', 0x3070306c],
+      ['', 'Mem', '32bit', 0x917a54, '=', 'Value', '', 3],
+    ),
+    alt1: $(
+      ['', 'Mem', '32bit', 0x917944, '=', 'Value', '', 0x6b757374],
+      ['', 'Mem', '32bit', 0x9c23b0, '=', 'Value', '', 159],
+    ),
+    alt2: $(
+      ['', 'Mem', '32bit', 0x917944, '=', 'Value', '', 0x6b757374],
+      ['', 'Mem', '32bit', 0x9c23b0, '=', 'Value', '', 210],
+    ),
+    alt3: $(
+      ['', 'Mem', '32bit', 0x917944, '=', 'Value', '', 0x6b757374],
+      ['', 'Mem', '32bit', 0x9c23b0, '=', 'Value', '', 74],
+    ),
+    alt4: $(
+      ['', 'Mem', '32bit', 0x917944, '=', 'Value', '', 0x7977656e],
+      ['', 'Mem', '32bit', 0x9c23b0, '=', 'Value', '', 159],
+    ),
+    alt5: $(
+      ['', 'Mem', '32bit', 0x917944, '=', 'Value', '', 0x7977656e],
+      ['', 'Mem', '32bit', 0x9c23b0, '=', 'Value', '', 210],
+    ),
+    alt6: $(
+      ['', 'Mem', '32bit', 0x917944, '=', 'Value', '', 0x7977656e],
+      ['', 'Mem', '32bit', 0x9c23b0, '=', 'Value', '', 74],
+    ),
+    alt7: $(
+      ['', 'Mem', '32bit', 0x917944, '=', 'Value', '', 0x63736966],
+      ['', 'Mem', '32bit', 0x9c23b0, '=', 'Value', '', 159],
+    ),
+    alt8: $(
+      ['', 'Mem', '32bit', 0x917944, '=', 'Value', '', 0x63736966],
+      ['', 'Mem', '32bit', 0x9c23b0, '=', 'Value', '', 210],
+    ),
+    alt9: $(
+      ['', 'Mem', '32bit', 0x917944, '=', 'Value', '', 0x63736966],
+      ['', 'Mem', '32bit', 0x9c23b0, '=', 'Value', '', 74],
+    ),
+  },
+  badge: '279620',
+  id: 251968,
+})
+
+set.addAchievement({
+  title: 'Legacy Race',
+  description:
+    'Win any race in Arcade mode while driving any of Subaru Legacy cars',
+  points: 2,
+  type: 'win_condition',
+  conditions: {
+    core: $(
+      ['', 'Mem', '32bit', 0x9388b4, '=', 'Value', '', 1],
+      ['AddAddress', 'Mem', '32bit', 0x9c1a9c],
+      ['AddAddress', 'Mem', '32bit', 0x404],
+      ['', 'Mem', '32bit', 0x268, '=', 'Value', '', 1],
+      ['AddAddress', 'Mem', '32bit', 0x9c1a9c],
+      ['AddAddress', 'Mem', '32bit', 0x3804],
+      ['', 'Delta', '32bit', 0x0, '=', 'Value', '', 0],
+      ['AddAddress', 'Mem', '32bit', 0x9c1a9c],
+      ['AddAddress', 'Mem', '32bit', 0x3804],
+      ['', 'Mem', '32bit', 0x0, '=', 'Value', '', 1],
+      ['', 'Mem', '32bit', 0x917984, '!=', 'Value', '', 0x3070306c],
+    ),
+    alt1: $(
+      ['', 'Mem', '32bit', 0x917944, '=', 'Value', '', 0x6b757374],
+      ['', 'Mem', '32bit', 0x9c23b0, '=', 'Value', '', 118],
+    ),
+    alt2: $(
+      ['', 'Mem', '32bit', 0x917944, '=', 'Value', '', 0x6b757374],
+      ['', 'Mem', '32bit', 0x9c23b0, '=', 'Value', '', 119],
+    ),
+    alt3: $(
+      ['', 'Mem', '32bit', 0x917944, '=', 'Value', '', 0x6b757374],
+      ['', 'Mem', '32bit', 0x9c23b0, '=', 'Value', '', 125],
+    ),
+    alt4: $(
+      ['', 'Mem', '32bit', 0x917944, '=', 'Value', '', 0x6b757374],
+      ['', 'Mem', '32bit', 0x9c23b0, '=', 'Value', '', 126],
+    ),
+    alt5: $(
+      ['', 'Mem', '32bit', 0x917944, '=', 'Value', '', 0x7977656e],
+      ['', 'Mem', '32bit', 0x9c23b0, '=', 'Value', '', 118],
+    ),
+    alt6: $(
+      ['', 'Mem', '32bit', 0x917944, '=', 'Value', '', 0x7977656e],
+      ['', 'Mem', '32bit', 0x9c23b0, '=', 'Value', '', 119],
+    ),
+    alt7: $(
+      ['', 'Mem', '32bit', 0x917944, '=', 'Value', '', 0x7977656e],
+      ['', 'Mem', '32bit', 0x9c23b0, '=', 'Value', '', 125],
+    ),
+    alt8: $(
+      ['', 'Mem', '32bit', 0x917944, '=', 'Value', '', 0x7977656e],
+      ['', 'Mem', '32bit', 0x9c23b0, '=', 'Value', '', 126],
+    ),
+    alt9: $(
+      ['', 'Mem', '32bit', 0x917944, '=', 'Value', '', 0x63736966],
+      ['', 'Mem', '32bit', 0x9c23b0, '=', 'Value', '', 118],
+    ),
+    alt10: $(
+      ['', 'Mem', '32bit', 0x917944, '=', 'Value', '', 0x63736966],
+      ['', 'Mem', '32bit', 0x9c23b0, '=', 'Value', '', 119],
+    ),
+    alt11: $(
+      ['', 'Mem', '32bit', 0x917944, '=', 'Value', '', 0x63736966],
+      ['', 'Mem', '32bit', 0x9c23b0, '=', 'Value', '', 125],
+    ),
+    alt12: $(
+      ['', 'Mem', '32bit', 0x917944, '=', 'Value', '', 0x63736966],
+      ['', 'Mem', '32bit', 0x9c23b0, '=', 'Value', '', 126],
+    ),
+  },
+  badge: '279619',
+  id: 251967,
+})
+
+set.addAchievement({
+  title: 'Cappucino / Beat Race',
+  description:
+    'Win Tsukuba Circuit race in Arcade mode on PRO difficulty while driving Honda BEAT(J) \`91 or Suzuki Cappuccino \`92 with NORMAL tyres',
+  points: 5,
+  conditions: {
+    core: $(
+      ['', 'Mem', '32bit', 0x9388b4, '=', 'Value', '', 1],
+      ['AddAddress', 'Mem', '32bit', 0x9c1a9c],
+      ['AddAddress', 'Mem', '32bit', 0x404],
+      ['', 'Mem', '32bit', 0x268, '=', 'Value', '', 1],
+      ['AddAddress', 'Mem', '32bit', 0x9c1a9c],
+      ['AddAddress', 'Mem', '32bit', 0x3804],
+      ['', 'Delta', '32bit', 0x0, '=', 'Value', '', 0],
+      ['AddAddress', 'Mem', '32bit', 0x9c1a9c],
+      ['AddAddress', 'Mem', '32bit', 0x3804],
+      ['', 'Mem', '32bit', 0x0, '=', 'Value', '', 1],
+      ['', 'Mem', '32bit', 0x917984, '!=', 'Value', '', 0x3070306c],
+      ['', 'Mem', '32bit', 0x917944, '=', 'Value', '', 0x6b757374],
+      ['', 'Mem', '32bit', 0x9388b0, '>=', 'Value', '', 2],
+      ['', 'Mem', '32bit', 0x917a54, '=', 'Value', '', 3],
+    ),
+    alt1: $(['', 'Mem', '32bit', 0x9c23b0, '=', 'Value', '', 137]),
+    alt2: $(['', 'Mem', '32bit', 0x9c23b0, '=', 'Value', '', 33]),
+  },
+  badge: '279623',
+  id: 251971,
+})
+
+set.addLeaderboard({
+  title: 'Strategies for Tackling S-Bends',
+  description: 'Fastest time to complete in msec',
+  lowerIsBetter: true,
+  type: 'VALUE',
+  conditions: {
+    start: $(
+      ['', 'Mem', '24bit', 0x917984, '=', 'Value', '', 0x70306c],
+      ['', 'Mem', '32bit', 0x917987, '=', 'Value', '', 0x31323030],
+      ['', 'Delta', '32bit', 0x9c1aa0, '=', 'Value', '', -2],
+      ['', 'Mem', '32bit', 0x9c1aa0, '<=', 'Value', '', 4],
+      ['', 'Mem', '32bit', 0x9c2518, '!=', 'Value', '', 0x157529ff],
+      ['', 'Mem', '32bit', 0x9c2518, '!=', 'Value', '', 0],
+    ),
+    cancel: $(['', 'Mem', '8bit', 0x917984, '=', 'Value', '', 0]),
+    submit: '1=1',
+    value: $(['Measured', 'Mem', '32bit', 0x9c2518]),
+  },
+  id: 44618,
+})
+
+set.addLeaderboard({
+  title: 'Italian Street Course Time Trial',
+  description: 'Fastest time to complete in msec',
+  lowerIsBetter: true,
+  type: 'FRAMES',
+  conditions: {
+    start: $(
+      ['', 'Mem', '24bit', 0x917984, '=', 'Value', '', 0x70306c],
+      ['', 'Mem', '32bit', 0x917987, '=', 'Value', '', 0x35343030],
+      ['', 'Delta', '32bit', 0x9c1aa0, '=', 'Value', '', -2],
+      ['', 'Mem', '32bit', 0x9c1aa0, '<=', 'Value', '', 4],
+      ['', 'Mem', '32bit', 0x9c2518, '!=', 'Value', '', 0x157529ff],
+      ['', 'Mem', '32bit', 0x9c2518, '!=', 'Value', '', 0],
+    ),
+    cancel: $(['', 'Mem', '8bit', 0x917984, '=', 'Value', '', 0]),
+    submit: '1=1',
+    value: $(['Measured', 'Mem', '32bit', 0x9c2518]),
+  },
+  id: 44723,
+})
+
+export default set
+"
+`;

@@ -1,0 +1,32 @@
+{
+  "name": "@cruncheevos/monorepo",
+  "version": "0.0.1",
+  "private": true,
+  "type": "module",
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "build": "turbo run --no-daemon build",
+    "test": "vitest run --coverage",
+    "test:watch": "vitest",
+    "typecheck": "turbo run --no-daemon typecheck"
+  },
+  "devDependencies": {
+    "@typescript-eslint/parser": "^7.8.0",
+    "@typescript-eslint/eslint-plugin": "^7.8.0",
+    "@vitest/coverage-istanbul": "^1.6.0",
+    "concurrently": "^8.2.2",
+    "eslint": "^8.57.0",
+    "eslint-plugin-es": "^4.1.0",
+    "github-slugger": "^2.0.0",
+    "prettier": "latest",
+    "turbo": "latest",
+    "typedoc": "^0.25.12",
+    "typedoc-plugin-missing-exports": "^2.2.0",
+    "typescript": "^5.4.3",
+    "vite": "^5.2.11",
+    "vite-tsconfig-paths": "^4.3.2",
+    "vitest": "^1.6.0"
+  }
+}

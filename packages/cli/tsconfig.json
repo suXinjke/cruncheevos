@@ -1,0 +1,13 @@
+{
+  "extends": "@cruncheevos/tsconfig/base.json",
+  "compilerOptions": {
+    "baseUrl": "./src",
+    "skipLibCheck": true,
+    "outDir": "./dist",
+    "allowJs": true,
+    "paths": {
+      "@cruncheevos/core": ["../../core/src/index.js"],
+      "@cruncheevos/core/util": ["../../core/src/util.js"]
+    }
+  }
+}
