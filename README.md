@@ -51,9 +51,9 @@ export default set
 
 ## Contributing
 
-* You're welcome to [report issues](./issues)
+* You're welcome to [report issues](https://github.com/suXinjke/cruncheevos/issues)
   * Using the CLI? Include information about your OS and node.js version in that case (or the fact you tried to use bun)
-* You're welcome to [request features](./issues)
+* You're welcome to [request features](https://github.com/suXinjke/cruncheevos/issues)
   * When doing so, please show how you would use the feature and what problem of yours it solves
   * The [core library](./packages/core) should stay minimal and zero-dependency. If you want something there - it has to be universally helpful for all library users. If many users implement same feature on their own - the feature might be considered for core library.
 * Restrain from making code-related Pull Requests until the core library hits 1.0.0 version, just report an issue or feature request instead
