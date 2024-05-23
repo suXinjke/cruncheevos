@@ -5,6 +5,8 @@
 * Output condition, achievement and leaderboard strings
 * Validation at runtime
 
+The library is provided in both ESM and UMD format, it expects your environment to support atleast ES2018, if that's a problem - include the package into your build step.
+
 ## Additional documentation
 
 * [API](https://github.com/suXinjke/cruncheevos/blob/master/packages/core/api-core.md) - mirrors jsdoc comments

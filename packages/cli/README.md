@@ -3,6 +3,8 @@
 
 **@cruncheevos/cli** is primarily an alternative to [RATools](https://github.com/Jamiras/RATools). You can code achievement sets using JavaScript and use this CLI to update the assets for [RAIntegration](https://github.com/RetroAchievements/RAIntegration/).
 
+CLI expects Node 20 LTS and only respects working in ESM environment.
+
 - [Why use this instead of RATools?](#why-use-this-instead-of-ratools)
 - [Getting started](#getting-started)
   - [I want to create new achievement set from scratch](#i-want-to-create-new-achievement-set-from-scratch)
