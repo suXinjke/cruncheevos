@@ -20,13 +20,13 @@
     ".": {
       "types": "./dist/index.d.ts",
       "import": "./dist/cruncheevos.js",
-      "require": "./dist/cruncheevos.umd.cjs"
+      "require": "./dist/cruncheevos.umd.js"
     },
     "./util": {
       "import": "./dist/util.js"
     }
   },
-  "main": "./dist/cruncheevos.umd.cjs",
+  "main": "./dist/cruncheevos.umd.js",
   "module": "./dist/cruncheevos.js",
   "types": "./dist/index.d.ts",
   "files": [
