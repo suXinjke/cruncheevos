@@ -47,6 +47,7 @@ export default set
 ## Achievement set examples
 
 * [suXinjke/RAScripts](https://github.com/suXinjke/RAScripts)
+* [wolfman2000/cruncheevos](https://github.com/wolfman2000/cruncheevos)
 * .. your repository here? ..
 
 ## Contributing
