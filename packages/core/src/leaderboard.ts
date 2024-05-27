@@ -144,11 +144,6 @@ const validate = {
       throw new Error(eatSymbols`expected conditions to be an object, but got ${conditions}`)
     }
 
-    if (result.value.length === 0) {
-      // TODO
-      throw new Error('value has no conditions')
-    }
-
     for (const group of result.value) {
       const hasMeasuredFlag = group.some(x => x.flag === 'Measured')
       if (hasMeasuredFlag === false) {
