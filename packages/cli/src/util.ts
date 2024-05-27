@@ -416,10 +416,16 @@ function makeMatcher(inputSet: AchievementSet, remoteSet: AchievementSet) {
       const inputAndRemote = compareAssets(inputMatch, remoteMatch)
       remoteMatchables.delete(remoteMatch)
 
-      if (inputAndRemote.areSame && badgeIsSetAgainstRemote(remoteMatch, inputMatch) === false) {
+      const shouldNotSetBadge = badgeIsSetAgainstRemote(remoteMatch, inputMatch) === false
+      if (inputAndRemote.areSame && shouldNotSetBadge) {
         return { type: 'delete' }
       } else {
-        return { type: 'write', asset: inputMatch, old: local }
+        return {
+          type: 'write',
+          asset: inputMatch,
+          old: local,
+          preserveBadge: shouldNotSetBadge,
+        }
       }
     }
 
@@ -467,8 +473,14 @@ function makeMatcher(inputSet: AchievementSet, remoteSet: AchievementSet) {
     remoteMatchables.delete(remote)
 
     const they = compareAssets(remote, inputAsset)
-    if (they.areDifferent || badgeIsSetAgainstRemote(remote, inputAsset)) {
-      return { type: 'write', asset: inputAsset, old: remote }
+    const shouldSetBadge = badgeIsSetAgainstRemote(remote, inputAsset)
+    if (they.areDifferent || shouldSetBadge) {
+      return {
+        type: 'write',
+        asset: inputAsset,
+        old: remote,
+        preserveBadge: shouldSetBadge === false,
+      }
     } else {
       return { type: 'skip' }
     }
@@ -521,8 +533,17 @@ function makeMatcher(inputSet: AchievementSet, remoteSet: AchievementSet) {
       inputMatchables.delete(inputCandidate)
 
       const they = compareAssets(inputCandidate, local)
-      if (they.areDifferent || badgeIsSetAgainstLocal(local, inputCandidate)) {
-        return { type: 'write', asset: inputCandidate, old: local }
+      const shouldSetBadge = badgeIsSetAgainstLocal(local, inputCandidate)
+      if (they.areDifferent || shouldSetBadge) {
+        return {
+          type: 'write',
+          asset: inputCandidate,
+          old: local,
+          preserveBadge:
+            idIsUnique(local) &&
+            inputCandidate instanceof Achievement &&
+            badgeIsSet(inputCandidate.badge) === false,
+        }
       } else {
         return { type: 'keep' }
       }
@@ -684,10 +705,18 @@ export function calculateSetChanges(
       if (match.type === 'write') {
         // If local asset originally had unique ID and
         // input matched asset doesn't - preserve it
-        const inputAsset =
+        let inputAsset =
           idIsUnique(local.asset) && idIsUnique(match.asset) === false
             ? match.asset.with({ id: local.asset.id })
             : match.asset
+
+        if (
+          match.preserveBadge &&
+          match.old instanceof Achievement &&
+          inputAsset instanceof Achievement
+        ) {
+          inputAsset = inputAsset.with({ badge: match.old.badge })
+        }
 
         if (filtersMatch(inputAsset, filters)) {
           newLocalFileLines.push(inputAsset.toString())

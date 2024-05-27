@@ -837,6 +837,10 @@ describe('diff', () => {
             ...genericAchievement,
             badge: '0',
           },
+          4: {
+            ...genericAchievement,
+            badge: 1236,
+          },
         },
       }),
       remote: () => {},
@@ -844,6 +848,7 @@ describe('diff', () => {
         delete base.achievements[1]
         delete base.achievements[2]
         delete base.achievements[3]
+        delete base.achievements[4]
       },
       input: ({ base }) => {
         // change expected because proper IDs are changed
@@ -855,6 +860,10 @@ describe('diff', () => {
 
         // change expected because remote badge is not set
         base.achievements[3].badge = 'local\\\\peepy.png'
+
+        // title change expected, badge change not expected
+        base.achievements[4].title = 'new_title'
+        base.achievements[4].badge = undefined
       },
     })
 
@@ -869,6 +878,11 @@ describe('diff', () => {
         A.ID│ 3 (compared to remote)
        Title│ Ach_3
        Badge│ 00000 -> local\\\\peepy.png
+
+        A.ID│ 4 (compared to remote)
+       Title│ - Ach_4
+            │ + new_title
+       Desc.│ Ach_4 description
     `)
   })
 
@@ -902,6 +916,14 @@ describe('diff', () => {
             ...genericAchievement,
             badge: 5,
           },
+          6: {
+            ...genericAchievement,
+            badge: 6,
+          },
+          7: {
+            ...genericAchievement,
+            badge: 7,
+          },
         },
       }),
       remote: ({ base }) => {
@@ -927,6 +949,15 @@ describe('diff', () => {
         // change expected because it's only against local
         base.achievements[4].badge = 777
         base.achievements[5].badge = 'local\\\\peepy.png'
+
+        // title change expected
+        // badge change not expected (it's already set in remote)
+        base.achievements[6].title = 'new_title'
+        base.achievements[6].badge = undefined
+
+        base.achievements[7].title = 'new_title'
+        base.achievements[7].badge = undefined
+        base.achievements[7].id = undefined
       },
     })
 
@@ -938,6 +969,16 @@ describe('diff', () => {
         A.ID│ 2 (compared to local)
        Title│ Ach_2
        Badge│ 02222 -> 02233
+
+        A.ID│ 6 (compared to local)
+       Title│ - Ach_6
+            │ + new_title
+       Desc.│ Ach_6 description
+
+        A.ID│ 7 (compared to local)
+       Title│ - Ach_7
+            │ + new_title
+       Desc.│ Ach_7 description
 
         A.ID│ 111000001 (compared to local)
        Title│ Ach_4
