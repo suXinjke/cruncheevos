@@ -4,7 +4,7 @@ import prettier from 'prettier'
 import chalk from 'chalk'
 
 import { RemoteData, getRemoteData } from './command-fetch.js'
-import { getFs, log } from './mockable.js'
+import { confirm, getFs, log } from './mockable.js'
 import { AssetFilter, filtersMatch } from './util.js'
 const fs = getFs()
 
@@ -256,6 +256,14 @@ export default async function generate(
     filter?: AssetFilter[]
   },
 ) {
+  const fileAlreadyExists = fs.existsSync(outputFilePath)
+  if (fileAlreadyExists) {
+    const agreedToOverwrite = await confirm(`file ${outputFilePath} already exists, overwrite?`)
+    if (agreedToOverwrite === false) {
+      return
+    }
+  }
+
   const { refetch, includeUnofficial, filter = [], timeout = 1000 } = opts
   const remoteData = await getRemoteData({ gameId, refetch, timeout })
 

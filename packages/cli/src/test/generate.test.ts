@@ -1,6 +1,7 @@
 import { describe, beforeAll, expect, test, beforeEach } from 'vitest'
 
 import * as realFs from 'fs'
+import prompts from 'prompts'
 
 import { fs, vol, log, server, defaultFiles, resolveRACache } from './test-util.js'
 import { runTestCLI } from '../cli.js'
@@ -17,6 +18,7 @@ beforeAll(() => {
 beforeEach(() => {
   log.mockClear()
   server.events.removeAllListeners()
+  vol.reset()
 })
 
 describe('generate', () => {
@@ -172,5 +174,36 @@ describe('generate', () => {
       Leaderboard with ID 44618 lacks title and description, marked with FIXME
       generated code for achievement set for gameId 3050: ./3050.js
     `)
+  })
+
+  describe('warns about overwriting an existing file', () => {
+    beforeEach(() => {
+      vol.fromJSON({
+        ...defaultFiles,
+        './RACache/Data/3050.json': realFs.readFileSync(resolveRACache('./3050.json')).toString(),
+        './3050.js': ':))))))',
+      })
+    })
+
+    test('agree to overwrite file', async ctx => {
+      prompts.inject([true])
+      await runTestCLI(['generate', 3050, '-fid:251968', './3050.js'])
+
+      const generatedCode = fs.readFileSync('./3050.js').toString()
+      expect(generatedCode).not.toBe(':))))))')
+      ctx.expect(log).toMatchInlineSnapshot(`
+          file ./3050.js already exists, overwrite? [y/N]
+          generated code for achievement set for gameId 3050: ./3050.js
+        `)
+    })
+
+    test('do nothing', async ctx => {
+      prompts.inject([false])
+      await runTestCLI(['generate', 3050, '-fid:251968', './3050.js'])
+
+      const generatedCode = fs.readFileSync('./3050.js').toString()
+      expect(generatedCode).toBe(':))))))')
+      ctx.expect(log).toMatchInlineSnapshot(`file ./3050.js already exists, overwrite? [y/N]`)
+    })
   })
 })
