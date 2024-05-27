@@ -150,15 +150,7 @@ const validate = {
         for (let i = 0; i < group.length; i++) {
           const condition = group[i]
           if (condition.flag === '') {
-            group[i] = group[i].with({
-              flag: 'Measured',
-              cmp: '',
-              rvalue: {
-                size: '',
-                type: '',
-                value: 0,
-              },
-            })
+            group[i] = condition.with({ flag: 'Measured' })
             break
           }
         }

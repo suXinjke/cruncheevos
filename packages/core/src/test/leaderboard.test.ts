@@ -1,6 +1,6 @@
 import { describe, expect, test } from 'vitest'
-import { Leaderboard } from '../index.js'
-import { normalizedConditionGroupSetFromString } from '../condition.js'
+import { Leaderboard, define as $ } from '../index.js'
+import { Condition, normalizedConditionGroupSetFromString } from '../condition.js'
 import { deepObjectCopy } from '../util.js'
 
 function checkie(str: string, def: Leaderboard.InputObject) {
@@ -188,6 +188,41 @@ describe('Leaderboards', () => {
 
       expect(lb.conditions.value).toEqual(expectedResult)
     })
+  })
+
+  test('automatically injects measured flag in the value group', () => {
+    for (const value of [
+      [
+        ['', 'Value', '', 1, '=', 'Value', '', 1],
+        ['', 'Value', '', 2, '=', 'Value', '', 2],
+      ] as Condition.Group,
+      $('1=1', '2=2'),
+    ] as const) {
+      const lb = new Leaderboard({
+        id: 1,
+        title: 'title',
+        type: 'VALUE',
+        lowerIsBetter: false,
+        conditions: {
+          start: '1=0',
+          cancel: '1=0',
+          submit: '1=0',
+          value: {
+            core: value,
+            alt1: value,
+          },
+        },
+      })
+
+      const expectedValue1 = ['Measured', 'Value', '', 1, '=', 'Value', '', 1, 0]
+      const expectedValue2 = ['', 'Value', '', 2, '=', 'Value', '', 2, 0]
+      expect(lb.conditions.value[0][0].toArray()).toEqual(expectedValue1)
+      expect(lb.conditions.value[0][1].toArray()).toEqual(expectedValue2)
+
+      expect(lb.conditions.value[1][0].toArray()).toEqual(expectedValue1)
+      expect(lb.conditions.value[1][1].toArray()).toEqual(expectedValue2)
+      expect(new Leaderboard(lb.toString())).toEqual(lb)
+    }
   })
 
   test('with different id', () => {
