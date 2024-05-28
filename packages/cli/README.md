@@ -500,7 +500,7 @@ Here's how it may look like
 import type { Condition } from '@cruncheevos/core'
 
 declare module '@cruncheevos/core' {
-  class Condition {
+  interface Condition {
     cmpInverted(): Condition
     delta(): Condition
   }
