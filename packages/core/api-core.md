@@ -64,7 +64,7 @@ Conditions are immutable, if you need to a make a new condition instance based o
 
 Affects condition logic or the way it reads memory.
 
-Individual documentation for each flag [can be seen here](https://docs.retroachievements.org/Achievement-Development-Overview/#flags).
+Individual documentation for each flag [can be seen here](https://docs.retroachievements.org/developer-docs/achievement-development-overview.html#flags).
 
 #### `lvalue: Condition.Value`
 
@@ -80,7 +80,7 @@ Condition's optional right value. If it's not set - rvalue properties are empty 
 
 #### `hits: number`
 
-Amount of hits set (also known as Hit Count), additional explanation [can be seen here](https://docs.retroachievements.org/Hit-Counts/).
+Amount of hits set (also known as Hit Count), additional explanation [can be seen here](https://docs.retroachievements.org/developer-docs/hit-counts.html).
 
 ---
 
@@ -340,7 +340,7 @@ Description of an Asset, required by server, but optional for library.
 
 Specifies how to interpret Leaderboard's value.
 
-Additional info [can be seen here](https://docs.retroachievements.org/Leaderboards/#value-format)
+Additional info [can be seen here](https://docs.retroachievements.org/developer-docs/leaderboards.html#value-format)
 
 #### `lowerIsBetter: boolean`
 

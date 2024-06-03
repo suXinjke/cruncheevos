@@ -56,7 +56,7 @@ interface LeaderboardCommon extends AssetData<string | number> {
   /**
    * Specifies how to interpret Leaderboard's value.
    *
-   * Additional info [can be seen here](https://docs.retroachievements.org/Leaderboards/#value-format)
+   * Additional info [can be seen here](https://docs.retroachievements.org/developer-docs/leaderboards.html#value-format)
    */
   type: Leaderboard.Type
 

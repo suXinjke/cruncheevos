@@ -9,7 +9,7 @@
 
 Follow individual package README for additional documentation and usage examples
 
-Using these packages assumes familiarity with [RetroAchievements workflow](https://docs.retroachievements.org/Developer-Docs/)
+Using these packages assumes familiarity with [RetroAchievements workflow](https://docs.retroachievements.org/developer-docs/)
 
 ## Small demo
 
