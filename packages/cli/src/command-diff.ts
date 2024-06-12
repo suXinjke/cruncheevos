@@ -109,6 +109,12 @@ function makeConditionGroupReports(opts: {
       longestNumberWidth = Math.max(longestNumberWidth, res.longestNumberWidth)
 
       if (res.report.length > 0) {
+        if (!original.conditions[i] && modified.conditions[i].length === 0) {
+          res.report.push([' ', '+', 'no conditions', '', '', '', '', '', '', '', ''])
+        } else if (!modified.conditions[i] && original.conditions[i].length === 0) {
+          res.report.push(['-', ' ', 'no conditions', '', '', '', '', '', '', '', ''])
+        }
+
         conditionGroupReports.push([i === 0 ? 'Core' : `Alt ${i}`, res.report])
       }
     }
@@ -278,6 +284,10 @@ function makeAssetDiffReport(opts: {
       if (line[0] === '······') {
         spanningCells.push({ row: lines.length - 1, col: 0, colSpan: 2, alignment: 'center' })
       }
+
+      if (line[2] === 'no conditions') {
+        spanningCells.push({ row: lines.length - 1, col: 2, colSpan: 8 })
+      }
     })
   }
 
@@ -327,7 +337,7 @@ function makeAssetDiffReport(opts: {
         if (x.match(/^\s*\+/)) {
           return colorTheLine(x, 'greenBright')
         }
-        if (x.match(/^\s*\d+\s+-/)) {
+        if (x.match(/^\s*\d+\s+-/) || x.includes('-   │ no conditions')) {
           return colorTheLine(x, 'redBright')
         }
 

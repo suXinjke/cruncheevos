@@ -1181,6 +1181,85 @@ describe('diff', () => {
     `)
   })
 
+  describe('adding and removing empty alts is shown explicitly', () => {
+    test('adding', async ctx => {
+      prepareFakeAssets({
+        baseConditions: () => ({
+          achievements: {
+            1: {
+              conditions: {
+                core: '1=0',
+              },
+            },
+          },
+        }),
+        remote: () => {},
+        input: ({ base }) => {
+          base.achievements[1].conditions['alt1'] = ''
+          base.achievements[1].conditions['alt2'] = ''
+        },
+      })
+
+      await runTestCLI(['diff', './mySet.js'])
+      ctx.expect(log).toMatchInlineSnapshot(`
+      local file ./RACache/Data/1234-User.txt doesn't exist, will not diff against local file
+      Assets changed:
+
+        A.ID│ 1 (compared to remote)
+       Title│ Ach_1
+      ──────┼──────────────────────────────────────────────
+        Code│ Alt 1
+            │ Flag Type Size Value Cmp Type Size Value Hits
+      ──────┼──────────────────────────────────────────────
+           +│ no conditions
+      ──────┼──────────────────────────────────────────────
+        Code│ Alt 2
+            │ Flag Type Size Value Cmp Type Size Value Hits
+      ──────┼──────────────────────────────────────────────
+           +│ no conditions
+    `)
+    })
+    test('removing', async ctx => {
+      prepareFakeAssets({
+        baseConditions: () => ({
+          achievements: {
+            1: {
+              conditions: {
+                core: '1=0',
+                alt1: '',
+                alt2: '',
+              },
+            },
+          },
+        }),
+        remote: () => {},
+        input: ({ base }) => {
+          delete base.achievements[1].conditions['alt1']
+          delete base.achievements[1].conditions['alt2']
+        },
+      })
+
+      await runTestCLI(['diff', './mySet.js'])
+      ctx.expect(log).toMatchInlineSnapshot(`
+        local file ./RACache/Data/1234-User.txt doesn't exist, will not diff against local file
+        Assets changed:
+
+          A.ID│ 1 (compared to remote)
+         Title│ Ach_1
+        ──────┼──────────────────────────────────────────────
+          Code│ Alt 1
+              │ Flag Type Size Value Cmp Type Size Value Hits
+        ──────┼──────────────────────────────────────────────
+          -   │ no conditions
+        ──────┼──────────────────────────────────────────────
+          Code│ Alt 2
+              │ Flag Type Size Value Cmp Type Size Value Hits
+        ──────┼──────────────────────────────────────────────
+          -   │ no conditions
+      `)
+    })
+  })
+
   test('correctly reports some error within the set', async ctx => {
     prepareFakeAssets({
       gameId: 1234,
