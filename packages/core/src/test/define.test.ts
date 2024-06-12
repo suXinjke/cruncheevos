@@ -95,6 +95,14 @@ describe('define', () => {
     ).toMatchInlineSnapshot(`"1=1_O:2=2_O:3=3_N:8=8_9=9"`)
   })
 
+  test('empty define calls must actually be treated as such', () => {
+    expect(orNext('1=0', '1=0', define()).toString()).toMatchInlineSnapshot(`"O:1=0_1=0"`)
+    expect(andNext('1=0', '1=0', define()).toString()).toMatchInlineSnapshot(`"N:1=0_1=0"`)
+    expect(andNext('1=0', '1=0', define(false && '1=0')).toString()).toMatchInlineSnapshot(
+      `"N:1=0_1=0"`,
+    )
+  })
+
   describe('allow to put define into achievement conditions', () => {
     test('as core implicitly', () => {
       const ach = new Achievement({

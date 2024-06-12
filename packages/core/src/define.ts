@@ -447,6 +447,10 @@ function pushArgsToBuilder(
       return false
     }
 
+    if (arg instanceof ConditionBuilder && arg.conditions.length === 0) {
+      return false
+    }
+
     return Boolean(arg)
   }) as Array<Condition.Input | ConditionBuilder>
 
