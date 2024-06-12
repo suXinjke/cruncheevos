@@ -1,4 +1,11 @@
 # Changelog
+## 0.0.4 (2024-06-12)
+
+
+### Fixes
+
+* explicitly show alt groups without conditions being added or removed when using diff command ([484a8c9](https://github.com/suXinjke/cruncheevos/commit/484a8c9abbc7a6abb06293ba8e2f75efe392a17a))
+
 ## 0.0.3 (2024-05-27)
 
 
