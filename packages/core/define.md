@@ -14,6 +14,7 @@ To keep things concise, all examples focus on usage of the function and how it a
 - [Accessing conditions directly](#accessing-conditions-directly)
 - [Iterating](#iterating)
 - [Mapping](#mapping)
+- [withLast](#withlast)
 - [toString / toJSON](#tostring--tojson)
 
 
@@ -313,6 +314,20 @@ allCheatsOff.toString() // 0xX1001=0_0xX1002=0_0xX1003=0
 const anyCheatOn = orNext(
   allCheatsOff.map(c => c.with({ cmp: '!=' }))
 ).toString() // O:0xX1001!=0_O:0xX1002!=0_0xX1003!=0
+```
+
+## withLast
+
+Acts like [`Condition.with`](https://github.com/suXinjke/cruncheevos/blob/master/packages/core/api-core.md#conditionwithdata-deeppartialconditiondata-condition) applied to final condition in the chain. This is mostly useful when dealing with pointer chains:
+
+```js
+$(
+  ['AddAddress', 'Mem', '32bit', 0xcafe],
+  ['AddAddress', 'Mem', '32bit', 0xbeef],
+  ['', 'Mem', '32bit', 0, '=', 'Value', '', 120],
+)
+  .withLast({ cmp: '!=', rvalue: { value: 9 } })
+  .toString() // I:0xXcafe_I:0xXbeef_0xX0!=9
 ```
 
 ## toString / toJSON

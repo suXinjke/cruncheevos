@@ -58,6 +58,18 @@ describe('define', () => {
     ).toMatchInlineSnapshot(`"N:0xH41ff4=1_0xX34a68=132.1."`)
   })
 
+  test('withLast', () => {
+    expect(
+      define(
+        ['AddAddress', 'Mem', '32bit', 0xcafe],
+        ['AddAddress', 'Mem', '32bit', 0xbeef],
+        ['', 'Mem', '32bit', 0, '=', 'Value', '', 120],
+      )
+        .withLast({ cmp: '!=', rvalue: { value: 9 } })
+        .toString(),
+    ).toMatchInlineSnapshot(`"I:0xXcafe_I:0xXbeef_0xX0!=9"`)
+  })
+
   test(`AndNext and OrNext must not leave its flag in the final condition`, () => {
     expect(orNext('1=1', '2=2').toString()).toMatchInlineSnapshot(`"O:1=1_2=2"`)
 

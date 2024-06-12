@@ -1,4 +1,5 @@
 import { Condition } from './condition.js'
+import { DeepPartial } from './util.js'
 
 type ConditionBuilderInput = Array<boolean | Condition.Input | ConditionBuilder>
 
@@ -395,6 +396,32 @@ export class ConditionBuilder {
   map(cb: (c: Condition, idx: number, array: Condition[]) => Condition) {
     const mappedConditions = this.conditions.map(cb)
     return new ConditionBuilder().also(...mappedConditions)
+  }
+
+  /**
+   * Returns new instance of ConditionBuilder with different
+   * values merged into last condition
+   *
+   * Useful when combined with pointer chains
+   *
+   * @param {DeepPartial<Condition.Data>} data DeepPartial<Condition.Data>
+   *
+   * @example
+   * $(
+   *   ['AddAddress', 'Mem', '32bit', 0xcafe],
+   *   ['AddAddress', 'Mem', '32bit', 0xbeef],
+   *   ['', 'Mem', '32bit', 0, '=', 'Value', '', 120],
+   * ).withLast({ cmp: '!=', rvalue: { value: 9 } })
+   *  .toString() // I:0xXcafe_I:0xXbeef_0xX0!=9
+   */
+  withLast(data: DeepPartial<Condition.Data>): ConditionBuilder {
+    return this.map((c, idx, array) => {
+      if (idx !== array.length - 1) {
+        return c
+      }
+
+      return c.with(data)
+    })
   }
 
   /**
