@@ -906,8 +906,14 @@ export function normalizedConditionGroupSetFromString(
   return conditionStrings.map((group, groupIndex) =>
     group.map((conditionString, conditionIndex) => {
       if (parseAsLegacy) {
-        const isLastElement = conditionIndex === group.length - 1
+        if (conditionString.match(regExes.legacyTrailingFloat)) {
+          conditionString = conditionString.replace(
+            regExes.legacyTrailingFloat,
+            match => 'f' + match,
+          )
+        }
 
+        const isLastElement = conditionIndex === group.length - 1
         conditionString = (isLastElement ? 'M' : 'A') + ':' + conditionString
       }
 
@@ -1067,5 +1073,7 @@ const regExes = (() => {
     valueHex: /^(-?h[\dabcdef]+)/i,
     valueInteger: /^(-?\d+)/,
     valueFloat: /^f(-?\d+\.\d+)/i,
+
+    legacyTrailingFloat: /(-?\d+\.\d+)$/,
   }
 })()

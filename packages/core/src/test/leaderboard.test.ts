@@ -114,6 +114,15 @@ describe('Leaderboards', () => {
     ).toEqual(lb.conditions.value)
   })
 
+  test('passing conditions as string, value is multiplied by float', () => {
+    const lb = new Leaderboard({
+      ...def,
+      conditions: `STA:0=1::CAN:0=1::SUB:1=1::VAL:0xX1d5e90*0.1`,
+    })
+
+    expect(lb.conditions.value[0].toString()).toMatchInlineSnapshot(`"M:0xX1d5e90*f0.1"`)
+  })
+
   describe('passing legacy value conditions', () => {
     const expectedResult = [
       [
