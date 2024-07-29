@@ -913,6 +913,26 @@ export function normalizedConditionGroupSetFromString(
           )
         }
 
+        const valueMatch = conditionString.match(regExes.legacyValue)
+        if (valueMatch) {
+          const sign = valueMatch[1] || '+'
+          let value = Number(valueMatch[2])
+
+          if (value < 0) {
+            value = parseUnderflow(value)
+          }
+
+          if (value > 0x7fffffff) {
+            value = 0x7fffffff
+          }
+
+          if (sign === '-' && value > 0) {
+            value = -value
+          }
+
+          conditionString = value.toString()
+        }
+
         const isLastElement = conditionIndex === group.length - 1
         conditionString = (isLastElement ? 'M' : 'A') + ':' + conditionString
       }
@@ -1075,5 +1095,6 @@ const regExes = (() => {
     valueFloat: /^f(-?\d+\.\d+)/i,
 
     legacyTrailingFloat: /(-?\d+\.\d+)$/,
+    legacyValue: /^v([-+])?([-+]?\d+)$/i,
   }
 })()

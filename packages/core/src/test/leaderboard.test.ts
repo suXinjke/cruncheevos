@@ -123,6 +123,32 @@ describe('Leaderboards', () => {
     expect(lb.conditions.value[0].toString()).toMatchInlineSnapshot(`"M:0xX1d5e90*f0.1"`)
   })
 
+  // original implementation in rcheevos is weird
+  // and can attempt to parse signed value as unsigned.
+  // the operand and unary sign are considered separate
+  test("passing conditions as string, referring to value as 'v'", () => {
+    const cases = [
+      ['0xCAFE', 'A:0x cafe'],
+      ['v2', 'A:2'],
+      ['v+2', 'A:2'],
+      ['v++2', 'A:2'],
+      ['v-2', 'A:4294967294'], // signed -2 treated as unsigned 0xFFFFFFFE
+      ['v-+3', 'A:4294967293'], // signed +3 turned into signed -3 treated as unsigned 0xFFFFFFFD
+      ['v+-5', 'A:2147483647'], // signed -5 treated as unsigned 0xFFFFFFFB truncated into 0x7FFFFFFF
+      ['v+-6', 'A:2147483647'], // signed -6 treated as unsigned 0xFFFFFFFA truncated into 0x7FFFFFFF
+      ['v--5', 'A:2147483649'], // signed -5 treated as unsigned 0xFFFFFFFB truncated into 0x7FFFFFFF then negated into 0x80000001
+      ['v--6', 'A:2147483649'], // signed -6 treated as unsigned 0xFFFFFFFA truncated into 0x7FFFFFFF then negated into 0x80000001
+      ['v2147483650', 'M:2147483647'], // signed 2147483650 treated as 0x80000002 truncated into 0x7FFFFFFF
+    ]
+
+    const lb = new Leaderboard({
+      ...def,
+      conditions: `STA:0=1::CAN:0=1::SUB:1=1::VAL:` + cases.map(x => x[0]).join('_'),
+    })
+
+    expect(lb.conditions.value[0].join('_')).toBe(cases.map(x => x[1]).join('_'))
+  })
+
   describe('passing legacy value conditions', () => {
     const expectedResult = [
       [
