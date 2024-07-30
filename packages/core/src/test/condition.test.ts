@@ -217,6 +217,30 @@ describe('Basic conditions, condition array into string into condition into stri
       condition: ['SubSource', 'Mem', '32bitBE', 4276996862, '/', 'Delta', '32bitBE', 4276996862],
     }),
   )
+
+  test(
+    ...arrayInputBackAndForthTest({
+      msg: 'AddSource Value 1 + Value 2',
+      raw: 'A:1+2',
+      condition: ['AddSource', 'Value', '', 1, '+', 'Value', '', 2],
+    }),
+  )
+
+  test(
+    ...arrayInputBackAndForthTest({
+      msg: 'SubSource Value 2 - Value 1',
+      raw: 'B:2-1',
+      condition: ['SubSource', 'Value', '', 2, '-', 'Value', '', 1],
+    }),
+  )
+
+  test(
+    ...arrayInputBackAndForthTest({
+      msg: 'AddSource Mem 32-bit % Value 2',
+      raw: 'A:0xXcafe%2',
+      condition: ['AddSource', 'Mem', '32bit', 0xcafe, '%', 'Value', '', 2],
+    }),
+  )
 })
 
 describe('Basic conditions, condition data into string into condition into string again matches expected string', () => {

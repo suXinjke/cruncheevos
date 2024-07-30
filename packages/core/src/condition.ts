@@ -70,7 +70,7 @@ export namespace Condition {
   export type Flag = FlagForReading | FlagForCalculation
 
   export type OperatorComparison = '=' | '!=' | '<' | '<=' | '>' | '>='
-  export type OperatorModifier = '*' | '/' | '&' | '^'
+  export type OperatorModifier = '+' | '-' | '*' | '/' | '%' | '&' | '^'
   export type Operator = '' | OperatorComparison | OperatorModifier
 
   export type SizeRegular =
@@ -237,7 +237,7 @@ const sizesExt = (() => {
 
 const cmp = {
   forReading: ['=', '!=', '<', '<=', '>', '>='] satisfies Condition.OperatorComparison[],
-  forCalc: ['*', '/', '&', '^'] satisfies Condition.OperatorModifier[],
+  forCalc: ['+', '-', '*', '/', '%', '&', '^'] satisfies Condition.OperatorModifier[],
 
   isLegalForReading(cmp: any) {
     return typeof cmp === 'string' && this.forReading.includes(cmp as Condition.OperatorComparison)

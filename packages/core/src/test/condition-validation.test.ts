@@ -175,7 +175,7 @@ describe('Condition validations', () => {
         for (const type of flagsForCalc) {
           expect(
             () => new Condition([type, 'Mem', '32bit', 0xcafe, '', 'Mem', '32bit', 0xcafe]),
-          ).toThrowError(`expected an accumulation operator (* / & ^), but got ""`)
+          ).toThrowError(`expected an accumulation operator (+ - * / % & ^), but got ""`)
         }
       })
 
@@ -191,7 +191,9 @@ describe('Condition validations', () => {
           ] satisfies Condition.OperatorComparison[]) {
             expect(
               () => new Condition([type, 'Mem', '32bit', 0xcafe, operator, 'Mem', '32bit', 0xcafe]),
-            ).toThrowError(`expected an accumulation operator (* / & ^), but got "${operator}"`)
+            ).toThrowError(
+              `expected an accumulation operator (+ - * / % & ^), but got "${operator}"`,
+            )
           }
         }
       })

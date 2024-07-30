@@ -3,7 +3,7 @@
 - [Condition](#condition)
   - [`flag`](#flag---pauseif--resetif--resetnextif--addhits--subhits--andnext--ornext--measured--measured--measuredif--trigger--addsource--subsource--addaddress)
   - [`lvalue`](#lvalue-conditionvalue)
-  - [`cmp`](#cmp---------------------)
+  - [`cmp`](#cmp----------------------------)
   - [`rvalue`](#rvalue-conditionvalue)
   - [`hits`](#hits-number)
   - [Condition.Value](#conditionvalue)
@@ -70,7 +70,7 @@ Individual documentation for each flag [can be seen here](https://docs.retroachi
 
 Condition's left value, it always exists.
 
-#### `cmp: '' | '=' | '!=' | '<' | '<=' | '>' | '>=' | '*' | '/' | '&' | '^'`
+#### `cmp: '' | '=' | '!=' | '<' | '<=' | '>' | '>=' | '+' | '-' | '*' | '/' | '%' | '&' | '^'`
 
 An operator set between left and right value. Empty string is allowed for conditions that don't specify right value.
 
