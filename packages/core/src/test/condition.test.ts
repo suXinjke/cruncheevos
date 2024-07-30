@@ -287,7 +287,9 @@ describe('Basic conditions, condition data into string into condition into strin
       },
     }),
   )
+})
 
+describe('Exclusive string -> condition data conversions', () => {
   test(
     ...stringInputTest({
       msg: 'Mem 16-bit (without whitespace in raw code) = Value',
@@ -375,9 +377,7 @@ describe('Basic conditions, condition data into string into condition into strin
       },
     }),
   )
-})
 
-describe('Exclusive string -> condition data conversions', () => {
   test(
     ...stringInputTest({
       msg: 'Value (negative) != Value (negative) (123)',
