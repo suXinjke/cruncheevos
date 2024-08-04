@@ -5,3 +5,4 @@ import { AchievementSet } from './set.js'
 
 export { Condition, Achievement, Leaderboard, AchievementSet }
 export * from './define.js'
+export { RichPresence } from './rich.js'
