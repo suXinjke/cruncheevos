@@ -59,6 +59,11 @@ const options = {
     'completely overwrite the local data instead of updating only matching assets, THIS MAY RESULT IN LOSS OF LOCAL DATA!',
   ),
 
+  richForceRewrite: new Option(
+    '-f --force-rewrite',
+    'skip prompting to overwrite local Rich Presence file if it exists',
+  ),
+
   filter: new Option(
     '-f, --filter <filter:value...>',
     `only output assets that matches the filter. available filters are: ${[...availableFilterTypes].join(', ')}\nid accepts comma separated list of ids, everything else accepts a regular expression`,
@@ -165,6 +170,18 @@ export function makeCLI() {
     .addOption(options.timeout)
     .action(async (gameId, outputFilePath, opts) => {
       await commands.generate(gameId, outputFilePath, opts)
+    })
+
+  program
+    .command('rich-save')
+    .description(
+      `saves the Rich Presence exported by JavaScript module as string named 'rich' or object returned by RichPresence function, into local file in RACache directory` +
+        RACacheDescriptionHelp,
+    )
+    .addArgument(argument.inputFilePath)
+    .addOption(options.richForceRewrite)
+    .action(async (inputFilePath, opts) => {
+      await commands.richSave(inputFilePath, opts)
     })
 
   return program

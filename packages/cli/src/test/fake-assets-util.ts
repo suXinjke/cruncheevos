@@ -1,4 +1,10 @@
-import { Achievement, AchievementSet, Condition, Leaderboard } from '@cruncheevos/core'
+import {
+  Achievement,
+  AchievementSet,
+  Condition,
+  Leaderboard,
+  RichPresence,
+} from '@cruncheevos/core'
 import { produce } from 'immer'
 
 import { defaultFiles, vol, achievementSetImportMock } from './test-util.js'
@@ -177,6 +183,7 @@ export function prepareFakeAssets(
     baseConditions?: (opts: Omit<FakeAssetContext, 'base'>) => RenameLater
     remote?: (opts: FakeAssetContext) => void
     local?: (opts: FakeAssetContext) => void
+    rich?: string | ReturnType<typeof RichPresence>
   } & (
     | {
         input: (opts: FakeAssetContext) => void
@@ -229,13 +236,24 @@ export function prepareFakeAssets(
   vol.mkdirSync('./RACache/Data', { recursive: true })
   vol.fromJSON(mockedFiles)
 
-  achievementSetImportMock.mockImplementation(async () => ({
-    default: opts.inputModule
-      ? opts.inputModule
-      : makeSet(
-          gameId,
-          title,
-          produce(base, base => opts.input({ repeat, repeatGroups, base })),
-        ),
-  }))
+  achievementSetImportMock.mockImplementation(async () => {
+    const result = {
+      default: opts.inputModule
+        ? opts.inputModule
+        : makeSet(
+            gameId,
+            title,
+            produce(base, base => opts.input({ repeat, repeatGroups, base })),
+          ),
+    } as {
+      default: typeof opts.inputModule
+      rich?: string | ReturnType<typeof RichPresence>
+    }
+
+    if (opts.hasOwnProperty('rich')) {
+      result.rich = opts.rich
+    }
+
+    return result
+  })
 }
