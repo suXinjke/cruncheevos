@@ -54,7 +54,7 @@ const options = {
 
   refetch: new Option('-r --refetch', 'force refetching of remote data'),
 
-  forceRewrite: new Option(
+  assetForceRewrite: new Option(
     '--force-rewrite',
     'completely overwrite the local data instead of updating only matching assets, THIS MAY RESULT IN LOSS OF LOCAL DATA!',
   ),
@@ -112,7 +112,7 @@ export function makeCLI() {
     .addOption(options.includeUnofficial)
     .addOption(options.refetch)
     .addOption(options.timeout)
-    .addOption(options.forceRewrite)
+    .addOption(options.assetForceRewrite)
     .action(async (inputFilePath, opts) => {
       await commands.save(inputFilePath, opts)
     })
@@ -130,7 +130,7 @@ export function makeCLI() {
     .addOption(options.contextLines)
     .addOption(options.refetch)
     .addOption(options.timeout)
-    .addOption(options.forceRewrite)
+    .addOption(options.assetForceRewrite)
     .action(async (inputFilePath, opts) => {
       await commands.diffSave(inputFilePath, opts)
     })
