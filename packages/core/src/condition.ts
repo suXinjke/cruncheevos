@@ -66,7 +66,7 @@ export namespace Condition {
     | 'MeasuredIf'
     | 'Trigger'
 
-  export type FlagForCalculation = 'AddSource' | 'SubSource' | 'AddAddress'
+  export type FlagForCalculation = 'AddSource' | 'SubSource' | 'AddAddress' | 'Remember'
   export type Flag = FlagForReading | FlagForCalculation
 
   export type OperatorComparison = '=' | '!=' | '<' | '<=' | '>' | '>='
@@ -98,7 +98,7 @@ export namespace Condition {
   export type Size = SizeRegular | SizeExtended
 
   export type ValueTypeSized = 'Mem' | 'Delta' | 'Prior' | 'BCD' | 'Invert'
-  export type ValueTypeNoSize = 'Value' | 'Float'
+  export type ValueTypeNoSize = 'Value' | 'Float' | 'Recall'
   export type ValueType = '' | ValueTypeSized | ValueTypeNoSize
 
   export type GroupNormalized = Condition[][]
@@ -144,6 +144,7 @@ const flags = (() => {
     AddSource: 'A',
     SubSource: 'B',
     AddAddress: 'I',
+    Remember: 'K',
   }
 
   const toRaw = {
@@ -185,7 +186,7 @@ const types = (() => {
     },
 
     withoutSize: {
-      array: ['Value', 'Float'] satisfies Condition.ValueTypeNoSize[],
+      array: ['Value', 'Float', 'Recall'] satisfies Condition.ValueTypeNoSize[],
     },
   }
 })()
@@ -260,6 +261,10 @@ function flagNeedsCalculationOperator(def: Condition.Data) {
   return flags.forCalc.toRaw.hasOwnProperty(def.flag)
 }
 
+function isBareRecall(def: Condition.Data) {
+  return def.lvalue.type === 'Recall' && hasRValueDefined(def) === false
+}
+
 function isBareMeasured(def: Condition.Data) {
   return def.flag === 'Measured' && hasRValueDefined(def) === false
 }
@@ -298,6 +303,12 @@ const validateAndNormalize = {
         throw new Error(
           `expected ${placement} memory address to be within the range of 0x0 .. 0xFFFFFFFF, but got ` +
             eatSymbols`${value.value}`,
+        )
+      }
+    } else if (value.type === 'Recall') {
+      if (value.value !== 0 && (placement === 'lvalue' ? true : value.size !== undefined)) {
+        throw new Error(
+          `expected Recall ${placement} value to be 0, but got ` + eatSymbols`${value.value}`,
         )
       }
     } else if (value.type === 'Value') {
@@ -349,6 +360,12 @@ const validateAndNormalize = {
         ...value,
         value: parseUnderflow(value.value),
       }
+    } else if (value.type === 'Recall' && placement === 'rvalue') {
+      return {
+        ...value,
+        size: value.size === undefined ? '' : value.size,
+        value: value.value === undefined ? 0 : value.value,
+      }
     } else {
       return value
     }
@@ -380,6 +397,7 @@ const validateAndNormalize = {
   memoryComparisons(def: Condition) {
     if (
       flagNeedsComparisonOperator(def) === false ||
+      isBareRecall(def) ||
       isBareMeasured(def) ||
       isMeasuredLeaderboardValue(def)
     ) {
@@ -407,6 +425,17 @@ const validate = {
       [def.lvalue, 'lvalue'],
       [def.rvalue, 'rvalue'],
     ] as const) {
+      if (value.type === 'Recall') {
+        if (value.size !== '' && (valueSide === 'lvalue' ? true : value.size !== undefined)) {
+          throw new Error(
+            `expected Recall ${valueSide} size to be empty string, but got ` +
+              eatSymbols`${value.size}`,
+          )
+        }
+
+        continue
+      }
+
       if (
         sizesRegular.toRaw.hasOwnProperty(value.size) === false &&
         sizesExt.toRaw.hasOwnProperty(value.size) === false
@@ -467,7 +496,10 @@ const consume = {
       integersAllowed = false
     }
 
-    if ((match = str.match(regExes.valueFloat))) {
+    if (str.startsWith('{recall}')) {
+      str = str.slice('{recall}'.length)
+      def.type = 'Recall'
+    } else if ((match = str.match(regExes.valueFloat))) {
       str = str.slice(match[0].length)
       def.type = 'Float'
       def.value = Number(match[1])
@@ -662,6 +694,8 @@ function conditionValueToString(def: Condition.Value) {
     if (Number.isInteger(def.value)) {
       res += '.0'
     }
+  } else if (def.type === 'Recall') {
+    res += '{recall}'
   } else {
     res += types.withSize.toRaw[def.type]
     if (sizesExt.toRaw.hasOwnProperty(def.size)) {
@@ -873,6 +907,7 @@ export class Condition implements Condition.Data {
    * // [ "", "Value", "", "0xffffefff", ">", "Value", "", "-1", "" ]
    */
   toArrayPretty(): string[] {
+    const rValueIsRecall = this.rvalue.type === 'Recall'
     const rValueIsDefined = hasRValueDefined(this)
     return [
       this.flag,
@@ -881,8 +916,14 @@ export class Condition implements Condition.Data {
       conditionValueValueToString(this.lvalue),
       this.cmp,
       rValueIsDefined ? this.rvalue.type : '',
-      rValueIsDefined ? this.rvalue.size : '',
-      rValueIsDefined ? conditionValueValueToString(this.rvalue) : '',
+      // prettier-ignore
+      rValueIsRecall ? '' :
+      rValueIsDefined ? this.rvalue.size :
+      '',
+      // prettier-ignore
+      rValueIsRecall ? '' :
+      rValueIsDefined ? conditionValueValueToString(this.rvalue) :
+      '',
       this.hits > 0 ? this.hits.toString() : '',
     ] as const
   }

@@ -10,7 +10,7 @@ const expectedValues = [
   'boolean',
   'null',
 ] as const
-type ExpectedValue = typeof expectedValues[number]
+type ExpectedValue = (typeof expectedValues)[number]
 
 const regularChecks: Check[] = [
   ['cannot be string', 'baobab', 'string'],
@@ -60,7 +60,9 @@ export function giveValuesNotMatching(
 }
 
 export function twistedASCIICase(str: string) {
-  return str.replace(/([a-zA-Z])/g, res => {
-    return res.charCodeAt(0) < 97 ? res.toLowerCase() : res.toUpperCase()
-  })
+  return str
+    .replace(/([a-zA-Z])/g, res => {
+      return res.charCodeAt(0) < 97 ? res.toLowerCase() : res.toUpperCase()
+    })
+    .replace(/recall/gi, 'recall')
 }

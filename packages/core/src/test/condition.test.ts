@@ -241,6 +241,38 @@ describe('Basic conditions, condition array into string into condition into stri
       condition: ['AddSource', 'Mem', '32bit', 0xcafe, '%', 'Value', '', 2],
     }),
   )
+
+  test(
+    ...arrayInputBackAndForthTest({
+      msg: 'Remember Mem 32-bit + Value 2',
+      raw: 'K:0xXcafe+2',
+      condition: ['Remember', 'Mem', '32bit', 0xcafe, '+', 'Value', '', 2],
+    }),
+  )
+
+  test(
+    ...arrayInputBackAndForthTest({
+      msg: 'Mem 32-bit = Recall',
+      raw: '0xXcafe={recall}',
+      condition: ['', 'Mem', '32bit', 0xcafe, '=', 'Recall'],
+    }),
+  )
+
+  test(
+    ...arrayInputBackAndForthTest({
+      msg: 'Recall >= Float',
+      raw: '{recall}>=f5.0',
+      condition: ['', 'Recall', '', 0, '>=', 'Float', '', 5.0],
+    }),
+  )
+
+  test(
+    ...arrayInputBackAndForthTest({
+      msg: 'Recall = Recall',
+      raw: '{recall}={recall}',
+      condition: ['', 'Recall', '', 0, '=', 'Recall'],
+    }),
+  )
 })
 
 describe('Basic conditions, condition data into string into condition into string again matches expected string', () => {
@@ -284,6 +316,28 @@ describe('Basic conditions, condition data into string into condition into strin
           value: 71,
         },
         hits: 123,
+      },
+    }),
+  )
+
+  test(
+    ...objectInputBackAndForthTest({
+      msg: 'ResetIf Mem 32bit = Recall (10)',
+      raw: 'R:0xXcafe={recall}.10.',
+      condition: {
+        flag: 'ResetIf',
+        lvalue: {
+          type: 'Mem',
+          size: '32bit',
+          value: 0xcafe,
+        },
+        cmp: '=',
+        rvalue: {
+          type: 'Recall',
+          size: '',
+          value: 0,
+        },
+        hits: 10,
       },
     }),
   )
@@ -440,6 +494,27 @@ describe('Exclusive string -> condition data conversions', () => {
           value: 0,
         },
         hits: 0,
+      },
+    }),
+  )
+  test(
+    ...stringInputTest({
+      msg: 'Recall = Recall (10)',
+      raw: '{recall}={recall}.10.',
+      condition: {
+        flag: '',
+        lvalue: {
+          type: 'Recall',
+          size: '',
+          value: 0,
+        },
+        cmp: '=',
+        rvalue: {
+          type: 'Recall',
+          size: '',
+          value: 0,
+        },
+        hits: 10,
       },
     }),
   )

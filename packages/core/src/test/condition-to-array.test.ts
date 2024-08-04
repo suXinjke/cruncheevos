@@ -36,4 +36,11 @@ describe('condition pretty arrays', () => {
       array: ['AddAddress', 'Mem', '24bit', '0xfeedcafe', '', '', '', '', ''],
     }),
   )
+
+  test(
+    ...stringInputTest({
+      raw: 'R:0xXfeedcafe={recall}',
+      array: ['ResetIf', 'Mem', '32bit', '0xfeedcafe', '=', 'Recall', '', '', ''],
+    }),
+  )
 })

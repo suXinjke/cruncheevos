@@ -151,6 +151,52 @@ describe('Condition validations', () => {
       })
     })
 
+    describe('Value type - Recall', () => {
+      describe('lvalue.size', () => {
+        giveValuesNotMatching('string', t =>
+          test(t.assertion, () =>
+            expect(() => new Condition(['', 'Recall', t.value, 0])).toThrowError(
+              'expected Recall lvalue size to be empty string, but got ' + eatSymbols`${t.value}`,
+            ),
+          ),
+        )
+      })
+
+      describe('rvalue.size', () => {
+        giveValuesNotMatching(['string', 'undefined'], t =>
+          test(t.assertion, () =>
+            expect(
+              () => new Condition(['', 'Recall', '', 0, '=', 'Recall', t.value, 0]),
+            ).toThrowError(
+              'expected Recall rvalue size to be empty string, but got ' + eatSymbols`${t.value}`,
+            ),
+          ),
+        )
+      })
+
+      describe('lvalue.value', () => {
+        giveValuesNotMatching('number', t =>
+          test(t.assertion, () =>
+            expect(() => new Condition(['', 'Recall', '', t.value])).toThrowError(
+              'expected Recall lvalue value to be 0, but got ' + eatSymbols`${t.value}`,
+            ),
+          ),
+        )
+      })
+
+      describe('rvalue.value', () => {
+        giveValuesNotMatching(['number', 'undefined'], t =>
+          test(t.assertion, () =>
+            expect(
+              () => new Condition(['', 'Recall', '', 0, '=', 'Recall', '', t.value]),
+            ).toThrowError(
+              'expected Recall rvalue value to be 0, but got ' + eatSymbols`${t.value}`,
+            ),
+          ),
+        )
+      })
+    })
+
     test('must have correct comparison operator', () =>
       expect(
         () => new Condition(['', 'Mem', '32bit', 0xfeed, 'GARBAGE' as any, 'Mem', '32bit', 0xfeed]),

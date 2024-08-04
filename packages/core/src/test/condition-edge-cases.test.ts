@@ -63,3 +63,9 @@ test('putting comparison operators on calculations suppresses the operator and r
     })
   }
 })
+
+test('Recall rvalue is normalized correctly when defined in array', () => {
+  const c = new Condition(['', 'Value', '', 0, '=', 'Recall'])
+  expect(c.rvalue.size).toBe('')
+  expect(c.rvalue.value).toBe(0)
+})
