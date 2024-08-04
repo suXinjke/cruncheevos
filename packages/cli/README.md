@@ -270,7 +270,7 @@ const code = {
  * It assumes that you need only one alt group per revision.
  * @param {CodeCallback} cb
  */
-function multiRegionalConditions(cb) {
+function multiRevisionalConditions(cb) {
   return {
     core: '1=1',
     alt1: cb(code.rev00),
@@ -282,7 +282,7 @@ set.addAchievement({
   title: 'Super Ring Collector',
   description: 'Collect 1000 rings',
   points: 50,
-  conditions: multiRegionalConditions(c => c.gotRings(1000)),
+  conditions: multiRevisionalConditions(c => c.gotRings(1000)),
   badge: '250341',
   id: 1,
 })
