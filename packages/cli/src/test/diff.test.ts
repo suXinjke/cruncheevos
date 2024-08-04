@@ -206,7 +206,8 @@ describe('diff', () => {
           local: () => {},
           remote: () => {},
           input: ({ base }) => {
-            base.achievements[1].conditions['alt7'][0] = '0xcafe=0xfeed'
+            base.achievements[1].conditions['alt7'][0] = 'K:0xcafe'
+            base.achievements[1].conditions['alt7'][1] = '0xcafe={recall}'
           },
         })
 
@@ -216,13 +217,14 @@ describe('diff', () => {
 
             A.ID│ 1 (compared to local)
            Title│ Ach_1
-          ──────┼────────────────────────────────────────────────────
+          ──────┼───────────────────────────────────────────────────────
             Code│ Alt 7
-                │ Flag Type  Size   Value Cmp Type  Size   Value Hits
-          ──────┼────────────────────────────────────────────────────
-            +  1│      Mem   16bit 0xcafe  =  Mem   16bit 0xfeed
-            1  2│      Value            1  =  Value            0
-            2  -│      Value            1  =  Value            0
+                │ Flag     Type  Size   Value Cmp Type   Size Value Hits
+          ──────┼───────────────────────────────────────────────────────
+            1  -│          Value            1  =  Value           0
+            2  -│          Value            1  =  Value           0
+            +  1│ Remember Mem   16bit 0xcafe
+            +  2│          Mem   16bit 0xcafe  =  Recall
         `)
       })
 
