@@ -42,8 +42,12 @@ export function capitalizeWord(word: string) {
   return word[0].toUpperCase() + word.slice(1)
 }
 
-export function formatNumberAsHex(num: number) {
-  return `${num < 0 ? '-' : ''}0x` + Math.abs(num).toString(16)
+export function formatNumberAsHex(num: number, upperCase = false) {
+  let rvalue = Math.abs(num).toString(16)
+  if (upperCase) {
+    rvalue = rvalue.toUpperCase()
+  }
+  return `${num < 0 ? '-' : ''}0x` + rvalue
 }
 
 export function eatSymbols(str: TemplateStringsArray, ...args: any[]) {
