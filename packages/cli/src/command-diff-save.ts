@@ -1,7 +1,7 @@
 import chalk from 'chalk'
 
 import * as path from 'path'
-import { log, confirm, resolveRACache } from './mockable.js'
+import { log, confirm, resolveRACache, achievementSetImport } from './mockable.js'
 
 import {
   AssetFilter,
@@ -34,7 +34,9 @@ export default async function diffSave(
     timeout = 1000,
   } = opts
 
-  const inputSet = await extractAchievementSetFromModule(path.resolve(inputFilePath))
+  const absoluteModulePath = path.resolve(inputFilePath)
+  const module = await achievementSetImport(absoluteModulePath)
+  const inputSet = await extractAchievementSetFromModule(module, absoluteModulePath)
   const { gameId } = inputSet
 
   const achievementCount = Object.keys(inputSet.achievements).length

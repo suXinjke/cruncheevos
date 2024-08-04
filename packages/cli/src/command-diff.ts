@@ -3,7 +3,7 @@ import { SpanningCellConfig, table } from 'table'
 import chalk from 'chalk'
 
 import * as path from 'path'
-import { log, resolveRACache } from './mockable.js'
+import { achievementSetImport, log, resolveRACache } from './mockable.js'
 
 import { Condition, Leaderboard, Achievement } from '@cruncheevos/core'
 import { capitalizeWord, Asset } from '@cruncheevos/core/util'
@@ -421,7 +421,9 @@ export default async function diff(
 ) {
   const { refetch, includeUnofficial, contextLines, filter = [], timeout = 1000 } = opts
 
-  const inputSet = await extractAchievementSetFromModule(path.resolve(inputFilePath))
+  const absoluteModulePath = path.resolve(inputFilePath)
+  const module = await achievementSetImport(absoluteModulePath)
+  const inputSet = await extractAchievementSetFromModule(module, absoluteModulePath)
   const { gameId } = inputSet
 
   const achievementCount = Object.keys(inputSet.achievements).length

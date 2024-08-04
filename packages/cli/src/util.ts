@@ -2,7 +2,7 @@ import { Achievement, AchievementSet, Leaderboard, Condition } from '@cruncheevo
 import chalk from 'chalk'
 
 const fs = getFs()
-import { getFs, log, resolveRACache, achievementSetImport } from './mockable.js'
+import { getFs, log, resolveRACache } from './mockable.js'
 import { wrappedError, Asset, AssetData } from '@cruncheevos/core/util'
 
 function conditionGroupSetsAreSame(
@@ -31,10 +31,9 @@ function conditionGroupSetsAreSame(
 }
 
 export async function extractAchievementSetFromModule(
+  module: any,
   absoluteModulePath: string,
 ): Promise<AchievementSet> {
-  const module = await achievementSetImport(absoluteModulePath)
-
   if (typeof module.default === 'function') {
     const setOrThenable = module.default()
     if (setOrThenable.then) {

@@ -2,7 +2,7 @@ import { Achievement, Leaderboard } from '@cruncheevos/core'
 import * as path from 'path'
 import chalk from 'chalk'
 
-import { getFs, log, resolveRACache } from './mockable.js'
+import { achievementSetImport, getFs, log, resolveRACache } from './mockable.js'
 const fs = getFs()
 
 import {
@@ -136,7 +136,9 @@ export default async function save(
 ) {
   const { refetch, includeUnofficial, forceRewrite, filter = [], timeout = 1000 } = opts
 
-  const inputSet = await extractAchievementSetFromModule(path.resolve(inputFilePath))
+  const absoluteModulePath = path.resolve(inputFilePath)
+  const module = await achievementSetImport(absoluteModulePath)
+  const inputSet = await extractAchievementSetFromModule(module, absoluteModulePath)
   const { gameId } = inputSet
 
   const achievementCount = Object.keys(inputSet.achievements).length
