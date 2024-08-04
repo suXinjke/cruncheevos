@@ -23,6 +23,7 @@ CLI expects Node 20 LTS and only respects working in ESM environment.
   - [diff-save](#diff-save)
   - [fetch](#fetch)
   - [generate](#generate)
+  - [rich-save](#rich-save)
 
 ## Why use this instead of RATools?
 
@@ -390,43 +391,31 @@ Such badge will not be applied if achievement was already uploaded on server wit
 
 ### Rich Presence
 
-Currently, `@cruncheevos/core` does not provide any helpers to produce Rich Presence, but you can do it on your own.
+If you export an object returned by `RichPresence` function and name it `rich`, you can use [rich-save](#rich-save) command to transfer it to the `RACache/Data/1-Rich.txt` file.
 
-Instead of passing the script to CLI, you can run the script using `node` with a command line argument that you check for in the script. The resulting output can be copied afterwards:
+If you wish to generate Rich Presence manually, you can do so and export a string named `rich`.
+
+`@cruncheevos/core` provides [`RichPresence` export](https://github.com/suXinjke/cruncheevos/blob/master/packages/core/api-core.md#richpresenceparams-richpresenceparams) which you can use to define Rich Presence. Check the example below, and also examples in the core package.
 
 ```js
+import { RichPresence } from '@cruncheevos/core'
+
 // ...
 
-function makeLookup(name, prefix, obj) {
-  let rich = `Lookup:${name}\n`
-  for (const key in obj) {
-    rich += `0x${Number(key).toString(16).toUpperCase().padStart(2, '0')}=${obj[key]}\n`
-  }
-
-  return {
-    rich,
-    at(address) {
-      return `@${name}(0x${prefix}${address.toString(16).toUpperCase()})`
+export const rich = RichPresence({
+  lookup: {
+    LevelName: {
+      values: {
+        0x00: 'Green Hill Zone Act 1',
+        0x01: 'Green Hill Zone Act 2',
+        0x02: 'Green Hill Zone Act 3',
+      }
     }
-  }
-}
-
-if (process.argv.includes('rich')) {
-  const LevelName = makeLookup('LevelName', '', {
-    0x00: 'Green Hill Zone Act 1',
-    0x01: 'Green Hill Zone Act 2',
-    0x02: 'Green Hill Zone Act 3',
-  })
-
-  let rich = ''
-  rich += LevelName.rich
-  rich += '\n'
-
-  rich += 'Display:\n'
-  rich += `Sonic is exploring ${LevelName.at(addresses.levelId)}`
-
-  console.log(rich)
-}
+  },
+  displays: ({ lookup, tag }) => [
+    `Sonic is exploring ${lookup.LevelName.at(addresses.levelId)}`
+  ]
+})
 
 export default set
 ```
@@ -699,4 +688,26 @@ Options:
   -r --refetch                    force refetching of remote data
   -t --timeout <number>           amount of milliseconds after which the remote data fetching is
                                   considered failed (default: 3000)
+```
+
+### rich-save
+
+```
+Usage: cruncheevos rich-save [options] <input_file_path>
+
+saves the Rich Presence exported by JavaScript module as string named 'rich' or
+object returned by RichPresence function, into local file in RACache directory
+
+assumes that RACACHE environment variable is set - it must contain absolute
+path to emulator directory containing the RACache directory. If there's .env
+file locally available - RACACHE value will be read from that.
+
+Arguments:
+  input_file_path     path to the JavaScript module which default exports
+                      AchievementSet or (async) function returning
+                      AchievementSet
+
+Options:
+  -f --force-rewrite  skip prompting to overwrite local Rich Presence file if
+                      it exists
 ```
