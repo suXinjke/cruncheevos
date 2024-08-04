@@ -13,8 +13,8 @@
     "typecheck": "turbo run --no-daemon typecheck"
   },
   "devDependencies": {
-    "@typescript-eslint/parser": "^7.8.0",
-    "@typescript-eslint/eslint-plugin": "^7.8.0",
+    "@typescript-eslint/parser": "^8.0.0",
+    "@typescript-eslint/eslint-plugin": "^8.0.0",
     "@vitest/coverage-istanbul": "^1.6.0",
     "concurrently": "^8.2.2",
     "eslint": "^8.57.0",
