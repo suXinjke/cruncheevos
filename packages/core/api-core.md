@@ -48,10 +48,16 @@
   - [`achievements`](#achievements--id-string-achievement-)
   - [`leaderboards`](#leaderboards--id-string-leaderboard-)
   - [`new AchievementSet(opts: AchievementSet.Input)`](#new-achievementsetopts-achievementsetinput)
-  - [`addAchievement(def: Achievement | AchievementInput): AchievementSet`](#achievementsetaddachievementdef-achievement--achievementinput-achievementset)
-  - [`addLeaderboard(def: Leaderboard | LeaderboardInput): AchievementSet`](#achievementsetaddleaderboarddef-leaderboard--leaderboardinput-achievementset)
+  - [`addAchievement(def: Achievement | AchievementSet.AchievementInput): AchievementSet`](#achievementsetaddachievementdef-achievement--achievementsetachievementinput-achievementset)
+  - [`addLeaderboard(def: Leaderboard | AchievementSet.LeaderboardInput): AchievementSet`](#achievementsetaddleaderboarddef-leaderboard--achievementsetleaderboardinput-achievementset)
   - [`[Symbol.iterator]()`](#achievementsetsymboliterator)
   - [`toString(): string`](#achievementsettostring-string)
+- [RichPresence(params: RichPresence.Params)](#richpresenceparams-richpresenceparams)
+  - [`RichPresence.display(condition: ConditionBuilder | Condition.Input, displayString: string)`](#richpresencedisplaycondition-conditionbuilder--conditioninput-displaystring-string)
+  - [`RichPresence.format(params: RichPresence.FormatParams)`](#richpresenceformatparams-richpresenceformatparams)
+  - [`RichPresence.lookup(params: RichPresence.LookupParams)`](#richpresencelookupparams-richpresencelookupparams)
+  - [`RichPresence.tag(strings: TemplateStringsArray, args: undefined)`](#richpresencetagstrings-templatestringsarray-args-undefined)
+  - [`RichPresence.macro`](#richpresencemacro)
 ## Condition
 
 This class represents a code piece that can be part of achievements, leaderboards or rich presence for RetroAchievements.
@@ -463,7 +469,7 @@ Creates AchievementSet.
 ```ts
 new AchievementSet({ gameId: 1234, title: 'Funny Game' })
 ```
-#### `achievementSet.addAchievement(def: Achievement | AchievementInput): AchievementSet`
+#### `achievementSet.addAchievement(def: Achievement | AchievementSet.AchievementInput): AchievementSet`
 
 Adds Achievement to the set, accepts same data as Achievement class constructor,
 but you're allowed to omit id when passing an object (id will be assigned automatically, similar to how RAIntegration does it).
@@ -495,7 +501,7 @@ set.addAchievement({
   }
 }).addAchievement(...)
 ```
-#### `achievementSet.addLeaderboard(def: Leaderboard | LeaderboardInput): AchievementSet`
+#### `achievementSet.addLeaderboard(def: Leaderboard | AchievementSet.LeaderboardInput): AchievementSet`
 
 Adds Leaderboard to the set, accepts same data as Leaderboard class constructor,
 but you're allowed to omit id when passing an object (id will be assigned automatically, similar to how RAIntegration does it).
@@ -572,5 +578,155 @@ Funny Game
 L58:"0x cafe=102":"0=1":"1=1":"M:0x feed":FRAMES:Lb2:Desc2:1
 L111000001:"0x cafe=101":"0=1":"1=1":"M:0x feed":SCORE:Lb1:Desc1:0
 `
+```
+
+## RichPresence(params: RichPresence.Params)
+
+Provides declarative API to produce Rich Presence string
+
+```ts
+import { define as $, RichPresence } from '@cruncheevos/core'
+
+RichPresence({
+  lookupDefaultParameters: { keyFormat: 'hex', compressRanges: true },
+  // Wraps calls to RichPresence.format
+  format: {
+    Score: 'VALUE',
+  },
+  // Wraps calls to RichPresence.lookup
+  lookup: {
+    Song: {
+      // No need to specify name, it's taken from object
+      values: {
+        '*': 'Unknown value',
+        1: 'Same value',
+        2: 'Same value',
+        3: 'Same value',
+      },
+      // overrides lookupDefaultParameters.keyFormat
+      keyFormat: 'dec',
+      defaultAt: 0x100,
+    },
+    Mode: {
+      values: {
+        1: 'Mode 1',
+        2: 'Mode 2',
+      },
+      // overrides lookupDefaultParameters.compressRanges
+      compressRanges: false
+    },
+  },
+  // Callback function that must return an array of display strings.
+  // All the previously specified Lookups and Formats are provided
+  // through `lookup` and `format` objects respectively,
+  // along with the `tag` function to inject lookups into display strings.
+  displays: ({ lookup, format, macro, tag }) => [
+    [
+      $(['', 'Mem', '16bit', 0xcafe, '=', 'Value', '', 1]),
+
+      // Passing lookup.Song to this tagged template literal function causes
+      // `lookup.Song.at()` call with previosly set `defaultAt` value
+      tag`Cafe at value 1, Song: ${lookup.Song}, Mode: ${lookup.Mode.at(0x990)}`,
+    ],
+
+    ['0xCAFE=2', tag`Cafe at value 2, format example: ${format.Score.at(0x600)}`],
+
+    // `macro` is an object providing several pre-existing Formats
+    ['0xCAFE=3', tag`Default macro test ${macro.Score.at('0xfeed')}`],
+    'Playing a good game',
+  ],
+ })
+
+ `Format:Score
+ FormatType=VALUE
+
+ Lookup:Song
+ 1-3=Same value
+ *=Unknown value
+
+ Lookup:Mode
+ 0x1=Mode 1
+ 0x2=Mode 2
+
+ Display:
+ ?0x cafe=1?Cafe at value 1, Song: ＠Song(0x100), Mode: ＠Mode(0x990)
+ ?0xCAFE=2?Cafe at value 2, format example: ＠Score(0x600)
+ ?0xCAFE=3?Default macro test @Score(0xfeed)
+ Playing a good game`
+```
+---
+#### `RichPresence.display(condition: ConditionBuilder | Condition.Input, displayString: string)`
+
+Returns a string representing Rich Presence Display line
+
+Does not check if provided arguments are of correct type
+
+```ts
+import { RichPresence } from '@cruncheevos/core'
+RichPresence.display('0=1', 'Nothing is happening'))
+// '?0=1?Nothing is happening'
+```
+#### `RichPresence.format(params: RichPresence.FormatParams)`
+
+Creates an object representing Rich Presence Format
+
+```ts
+import { RichPresence } from '@cruncheevos/core'
+
+const format = RichPresence.format({
+  name: 'Score',
+  type: 'VALUE',
+})
+
+format.at('0xCAFE_v1') // '@Score(0xCAFE_v1)'
+format.at($(['Measured', 'Mem', '16bit', 0xCAFE])) // '@Score(0xcafe)'
+format.toString() // 'Format:Score\nFormatType=VALUE'
+```
+#### `RichPresence.lookup(params: RichPresence.LookupParams)`
+
+Creates an object representing Rich Presence Lookup
+
+```ts
+import { RichPresence } from '@cruncheevos/core'
+
+const lookup = RichPresence.lookup({
+  name: 'Car',
+  keyFormat: 'hex',
+  values: {
+    1: 'First!',
+    2: 'Second!',
+    4: 'Same',
+    5: 'Same',
+  },
+  defaultAt: 0xfeed,
+  compressRanges: true
+})
+
+lookup.at() // '@Car(0xfeed)'
+lookup.at('0xCAFE_v1') // '@Score(0xCAFE_v1)'
+lookup.at($(['Measured', 'Mem', 'Float', 0xCAFE])) // '@Car(fFcafe)'
+lookup.toString() // `Lookup:Car\n0x1=First!\n0x2=Second!\n0x4-0x5=Same'
+```
+#### `RichPresence.tag(strings: TemplateStringsArray, args: undefined)`
+
+Tagged template literal function which can accept Rich Presence Lookup instances.
+This allows for less noisy display strings.
+
+```ts
+import { RichPresence } from '@cruncheevos/core'
+
+const lookup = RichPresence.lookup({ name: 'Song', defaultAddress: 0xfeed, values: { ... } })
+
+RichPresence.tag`${lookup} - now playing` // '@Song(0xfeed) - now playing'
+```
+#### `RichPresence.macro`
+
+Provides an object containing default Rich Presence Macros
+
+```ts
+import { RichPresence } from '@cruncheevos/core'
+
+RichPresence.macro.Score.at('0xCAFE') // '@Score(0xCAFE)'
+RichPresence.macro.ASCIIChar.at('0xCAFE') // '@ASCIIChar(0xCAFE)'
 ```
 

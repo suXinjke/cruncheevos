@@ -1,4 +1,4 @@
-import typedoc, { ReflectionKind } from 'typedoc'
+import typedoc, { ContainerReflection, ReflectionKind } from 'typedoc'
 import * as fs from 'fs'
 import GithubSlugger from 'github-slugger'
 
@@ -49,6 +49,27 @@ function getPropertyType(p) {
   return p.type.qualifiedName || p.type.name
 }
 
+function getParams(parameters) {
+  return parameters.map(p => {
+    let type = p.type.qualifiedName || p.type.name
+    if (p.type.type === 'union') {
+      type = p.type.types
+        .map(t => {
+          if (t.type === 'reference') {
+            return t.qualifiedName || t.name
+          }
+
+          return `'${t.value}'`
+        })
+        .join(' | ')
+    } else if (p.comment?.summary) {
+      type = p.comment.summary[0].text
+    }
+
+    return `${p.name}: ${type}`
+  })
+}
+
 /**
  * What one tries to do instead of figuring typedoc-plugin-markdown
  *
@@ -83,24 +104,7 @@ export default async function (app, ref) {
           return
         }
 
-        const params = s.parameters.map(p => {
-          let type = p.type.qualifiedName || p.type.name
-          if (p.type.type === 'union') {
-            type = p.type.types
-              .map(t => {
-                if (t.type === 'reference') {
-                  return t.name
-                }
-
-                return `'${t.value}'`
-              })
-              .join(' | ')
-          } else if (p.comment?.summary) {
-            type = p.comment.summary[0].text
-          }
-
-          return `${p.name}: ${type}`
-        })
+        const params = getParams(s.parameters)
 
         let signature = `${s.name}(${params.join(', ')})`
         if (isMethod && s.type) {
@@ -161,12 +165,39 @@ export default async function (app, ref) {
     })
   })
 
+  /** @type ContainerReflection */
+  const rp = ref
+    .getReflectionsByKind(ReflectionKind.Function)
+    .filter(x => x.name.includes('Rich'))[0]
+  const rpParams = getParams(rp.signatures[0].parameters)
+
+  classes.push({
+    title: `RichPresence(${rpParams.join(', ')})`,
+    summary: getSummary(rp.signatures[0]),
+    example: rp.signatures[0].comment?.blockTags[0]?.content[0]?.text,
+    methods: rp.children.map(c => {
+      let signature = `RichPresence.${c.name}`
+      if (c.type.declaration.signatures) {
+        const params = getParams(c.type.declaration.signatures[0].parameters)
+        signature += `(${params.join(', ')})`
+      }
+
+      return {
+        isMethod: false,
+        signature,
+        summary: getSummary(c),
+        example: c.comment?.blockTags[0]?.content[0]?.text,
+      }
+    }),
+    propertyGroups: [],
+  })
+
   const slugger = new GithubSlugger()
   function wrapSlug(str, slug) {
     return `[${str}](#${slug})`
   }
 
-  for (const { title, summary, propertyGroups, methods } of classes) {
+  for (const { title, summary, propertyGroups, methods, example } of classes) {
     tableOfContents += `- ${wrapSlug(title, slugger.slug(title))}\n`
     content += `## ${title}\n\n`
     content += `${summary}\n\n`
@@ -194,6 +225,10 @@ export default async function (app, ref) {
         content += `#### \`${header}\`\n\n`
         content += p.summary + '\n\n'
       }
+    }
+
+    if (example) {
+      content += example + '\n'
     }
 
     content += '---\n'
