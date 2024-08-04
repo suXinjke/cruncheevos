@@ -1,4 +1,11 @@
 # Changelog
+## 0.0.5 (2024-08-04)
+
+
+### Features
+
+* add rich-save command ([2193ac1](https://github.com/suXinjke/cruncheevos/commit/2193ac19a0c55d11a2cc07be59716b9b2fe92b5e))
+
 ## 0.0.4 (2024-06-12)
 
 
