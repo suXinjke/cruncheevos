@@ -975,5 +975,80 @@ describe('save', () => {
         ctx.expect(after).toBe(before)
       })
     })
+
+    test(`preserve original ID for matched local asset if there's an ID mismatch`, async ctx => {
+      prepareFakeAssets({
+        gameId: 1234,
+        remote: () => {},
+        local: () => {},
+        inputModule: () => {
+          return new AchievementSet({
+            gameId: 1234,
+            title: 'Gran Turismo 3: A-Spec',
+          })
+            .addAchievement({
+              title: 'License B-3',
+              description: 'Earn the gold reward',
+              conditions: '0=1',
+              points: 2,
+            })
+            .addAchievement({
+              title: 'Sunday Cup',
+              description: 'Win all events of Sunday Cup in one sitting.',
+              conditions: '0=6',
+              points: 3,
+            })
+            .addLeaderboard({
+              title: 'LB1',
+              description: 'Desc_1',
+              lowerIsBetter: true,
+              type: 'FIXED3',
+              conditions: { start: '0=5', cancel: '0=1', submit: '1=1', value: 'M:0x1' },
+            })
+            .addLeaderboard({
+              title: 'LB3',
+              description: 'Desc_3',
+              lowerIsBetter: true,
+              type: 'FIXED3',
+              conditions: { start: '0=8', cancel: '0=1', submit: '1=1', value: 'M:0x1' },
+            })
+        },
+      })
+
+      const before = [
+        '1.3.0.0',
+        'Gran Turismo 3: A-Spec',
+        '111000001:"0=1":License B-3:Earn the gold reward::::cruncheevos:2:::::00000',
+        '111000002:"0=2":cars:::::suXin:0:::::00000',
+        '111000004:"0=4":Sunday Cup:Win all events of Sunday Cup in one sitting.::::cruncheevos:3:::::00000',
+        'L111000001:"0=5":"0=1":"1=1":"M:0x1":FIXED3:"LB1":Desc_1:1',
+        'L111000002:"0=6":"0=1":"1=1":"M:0x1":FIXED3:"lb_not_in_the_set":Desc_2:1',
+        'L111000003:"0=7":"0=1":"1=1":"M:0x1":FIXED3:"LB3":Desc_3:1',
+        '',
+      ]
+
+      fs.writeFileSync('./RACache/Data/1234-User.txt', before.join('\n'))
+
+      await runTestCLI(['save', './mySet.js'])
+      ctx.expect(log).toMatchInlineSnapshot(`
+        dumped local data for gameId: 1234: ./RACache/Data/1234-User.txt
+        updated: 1 achievement, 1 leaderboard
+      `)
+
+      const after = fs.readFileSync('./RACache/Data/1234-User.txt').toString().split('\n')
+      ctx.expect(stringDiff(before, after)).toMatchInlineSnapshot(`
+        "  1.3.0.0
+          Gran Turismo 3: A-Spec
+          111000001:"0=1":License B-3:Earn the gold reward::::cruncheevos:2:::::00000
+          111000002:"0=2":cars:::::suXin:0:::::00000
+        - 111000004:"0=4":Sunday Cup:Win all events of Sunday Cup in one sitting.::::cruncheevos:3:::::00000
+        + 111000004:"0=6":Sunday Cup:Win all events of Sunday Cup in one sitting.::::cruncheevos:3:::::00000
+          L111000001:"0=5":"0=1":"1=1":"M:0x1":FIXED3:"LB1":Desc_1:1
+          L111000002:"0=6":"0=1":"1=1":"M:0x1":FIXED3:"lb_not_in_the_set":Desc_2:1
+        - L111000003:"0=7":"0=1":"1=1":"M:0x1":FIXED3:"LB3":Desc_3:1
+        + L111000003:"0=8":"0=1":"1=1":"M:0x 1":FIXED3:LB3:Desc_3:1
+          "
+      `)
+    })
   })
 })

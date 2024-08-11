@@ -702,12 +702,18 @@ export function calculateSetChanges(
       }
 
       if (match.type === 'write') {
-        // If local asset originally had unique ID and
-        // input matched asset doesn't - preserve it
-        let inputAsset =
-          idIsUnique(local.asset) && idIsUnique(match.asset) === false
-            ? match.asset.with({ id: local.asset.id })
-            : match.asset
+        let inputAsset = match.asset
+
+        const preserveRemoteId = idIsUnique(local.asset) && idIsUnique(match.asset) === false
+
+        const preserveOriginalLocalId =
+          idIsUnique(local.asset) === false &&
+          idIsUnique(match.asset) === false &&
+          local.asset.id !== match.asset.id
+
+        if (preserveRemoteId || preserveOriginalLocalId) {
+          inputAsset = match.asset.with({ id: local.asset.id })
+        }
 
         if (
           match.preserveBadge &&
