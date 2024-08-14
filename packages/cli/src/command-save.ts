@@ -128,13 +128,13 @@ export default async function save(
   inputFilePath: string,
   opts: {
     refetch?: boolean
-    includeUnofficial?: boolean
+    excludeUnofficial?: boolean
     timeout?: number
     forceRewrite?: boolean
     filter?: AssetFilter[]
   },
 ) {
-  const { refetch, includeUnofficial, forceRewrite, filter = [], timeout = 1000 } = opts
+  const { refetch, excludeUnofficial, forceRewrite, filter = [], timeout = 1000 } = opts
 
   const absoluteModulePath = path.resolve(inputFilePath)
   const module = await achievementSetImport(absoluteModulePath)
@@ -165,7 +165,7 @@ export default async function save(
   }
 
   try {
-    var remoteSet = await getSetFromRemote({ gameId, includeUnofficial, refetch, timeout })
+    var remoteSet = await getSetFromRemote({ gameId, excludeUnofficial, refetch, timeout })
   } catch (err) {
     log(chalk.redBright(err.message))
     log(chalk.redBright(`remote data got issues, cannot proceed with the save`))

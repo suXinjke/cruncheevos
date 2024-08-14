@@ -75,6 +75,11 @@ const options = {
     '--include-unofficial',
     'do not ignore unofficial achievements on the server when executing this operation',
   ),
+
+  excludeUnofficial: new Option(
+    '--exclude-unofficial',
+    'ignore unofficial achievements on the server when executing this operation',
+  ),
 }
 
 export function makeCLI() {
@@ -97,7 +102,7 @@ export function makeCLI() {
     )
     .addArgument(argument.inputFilePath)
     .addOption(options.filter)
-    .addOption(options.includeUnofficial)
+    .addOption(options.excludeUnofficial)
     .addOption(options.contextLines)
     .addOption(options.refetch)
     .addOption(options.timeout)
@@ -114,7 +119,7 @@ export function makeCLI() {
     )
     .addArgument(argument.inputFilePath)
     .addOption(options.filter)
-    .addOption(options.includeUnofficial)
+    .addOption(options.excludeUnofficial)
     .addOption(options.refetch)
     .addOption(options.timeout)
     .addOption(options.assetForceRewrite)
@@ -131,7 +136,7 @@ export function makeCLI() {
     )
     .addArgument(argument.inputFilePath)
     .addOption(options.filter)
-    .addOption(options.includeUnofficial)
+    .addOption(options.excludeUnofficial)
     .addOption(options.contextLines)
     .addOption(options.refetch)
     .addOption(options.timeout)

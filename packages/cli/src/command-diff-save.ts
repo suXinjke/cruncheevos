@@ -18,7 +18,7 @@ export default async function diffSave(
   inputFilePath: string,
   opts: {
     refetch?: boolean
-    includeUnofficial?: boolean
+    excludeUnofficial?: boolean
     contextLines?: number
     timeout?: number
     forceRewrite?: boolean
@@ -27,7 +27,7 @@ export default async function diffSave(
 ) {
   const {
     refetch,
-    includeUnofficial,
+    excludeUnofficial,
     contextLines,
     forceRewrite,
     filter = [],
@@ -65,7 +65,7 @@ export default async function diffSave(
   }
 
   try {
-    var remoteSet = await getSetFromRemote({ gameId, includeUnofficial, refetch, timeout })
+    var remoteSet = await getSetFromRemote({ gameId, excludeUnofficial, refetch, timeout })
   } catch (err) {
     log(chalk.redBright(`remote data got issues, cannot proceed with the diff-save`))
     throw err

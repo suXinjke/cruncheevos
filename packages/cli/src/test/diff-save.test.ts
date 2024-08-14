@@ -313,7 +313,7 @@ describe('diff-save', () => {
     })
 
     prompts.inject([true])
-    await runTestCLI(['diff-save', '--include-unofficial', './mySet.js'])
+    await runTestCLI(['diff-save', './mySet.js'])
     ctx.expect(log).toMatchInlineSnapshot(`
       Assets changed:
 
@@ -336,6 +336,54 @@ describe('diff-save', () => {
       "+ 1.0
       + SampleAchievementSet
       + 1:"0=2":Ach_1:Ach_1 description::::AchAuthor:1:::::00000
+      + "
+    `)
+  })
+
+  test('properly excludes unofficial achievements', async ctx => {
+    prepareFakeAssets({
+      baseConditions: () => ({
+        achievements: {
+          1: {
+            conditions: '0=1',
+            flags: 5,
+          },
+          2: {
+            conditions: '0=1',
+          },
+        },
+      }),
+      remote: () => {},
+      input: ({ base }) => {
+        delete base.achievements[1]
+        base.achievements[2].conditions = '0=2'
+      },
+    })
+
+    prompts.inject([true])
+    await runTestCLI(['diff-save', '--exclude-unofficial', './mySet.js'])
+    ctx.expect(log).toMatchInlineSnapshot(`
+      Assets changed:
+
+        A.ID│ 2 (compared to remote)
+       Title│ Ach_2
+      ──────┼────────────────────────────────────────────────
+        Code│ Core
+            │ Flag Type  Size Value Cmp Type  Size Value Hits
+      ──────┼────────────────────────────────────────────────
+        1  -│      Value          0  =  Value          1
+        +  1│      Value          0  =  Value          2
+
+      Proceed to save changes to local file? [y/N]
+      dumped local data for gameId: 1234: ./RACache/Data/1234-User.txt
+      updated: 1 achievement
+    `)
+
+    const after = fs.readFileSync('./RACache/Data/1234-User.txt').toString().split('\n')
+    ctx.expect(stringDiff([], after)).toMatchInlineSnapshot(`
+      "+ 1.0
+      + SampleAchievementSet
+      + 2:"0=2":Ach_2:Ach_2 description::::AchAuthor:1:::::00000
       + "
     `)
   })

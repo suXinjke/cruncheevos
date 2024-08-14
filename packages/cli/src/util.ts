@@ -407,8 +407,7 @@ function makeMatcher(inputSet: AchievementSet, remoteSet: AchievementSet) {
           `Input asset ${inputMatch.title} (${inputMatch.id}) matched against local one by ID, ` +
             `but there's no match by this ID against remote, that doesn't make sense. ` +
             `You may need to refetch remote assets, if that doesn't help - ` +
-            `specify correct ID, add '--include-unofficial' option if asset with this ID ` +
-            `is published to unofficial, or remove asset with invalid ID from local.`,
+            `specify correct ID or remove asset with invalid ID from local.`,
         )
       }
 
@@ -464,8 +463,7 @@ function makeMatcher(inputSet: AchievementSet, remoteSet: AchievementSet) {
       throw new Error(
         `Input asset ${inputAsset.title} (${inputAsset.id}) didn't match against anything in local and remote by ID. ` +
           `You may need to refetch remote assets, if that doesn't help - ` +
-          `specify correct ID, add '--include-unofficial' option if asset with this ID ` +
-          `is published to unofficial, or remove the ID.`,
+          `specify correct ID or remove the ID.`,
       )
     }
 

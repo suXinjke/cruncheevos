@@ -158,7 +158,7 @@ export async function getRemoteData({
 
 async function _getSetFromRemote(opts: {
   gameId: number
-  includeUnofficial: boolean
+  excludeUnofficial: boolean
   refetch: boolean
   timeout: number
 }) {
@@ -172,7 +172,11 @@ async function _getSetFromRemote(opts: {
   })
 
   gameData.Achievements.forEach((ach, i) => {
-    if (ach.Flags !== 3 && !(ach.Flags === 5 && opts.includeUnofficial)) {
+    if (ach.Flags === 5 && opts.excludeUnofficial) {
+      return
+    }
+
+    if (ach.Flags !== 3 && ach.Flags !== 5) {
       return
     }
 
@@ -220,12 +224,12 @@ async function _getSetFromRemote(opts: {
 export async function getSetFromRemote(opts: {
   gameId: number
   refetch: boolean
-  includeUnofficial: boolean
+  excludeUnofficial: boolean
   timeout: number
 }) {
-  const { gameId, includeUnofficial, refetch, timeout } = opts
+  const { gameId, excludeUnofficial, refetch, timeout } = opts
   try {
-    return await _getSetFromRemote({ gameId, includeUnofficial, refetch, timeout })
+    return await _getSetFromRemote({ gameId, excludeUnofficial, refetch, timeout })
   } catch (err) {
     if (refetch) {
       throw err
@@ -233,6 +237,6 @@ export async function getSetFromRemote(opts: {
 
     log(chalk.yellowBright(err.message))
     log(chalk.yellowBright(`remote data got issues, will attempt to refetch it`))
-    return await _getSetFromRemote({ gameId, includeUnofficial, refetch: true, timeout })
+    return await _getSetFromRemote({ gameId, excludeUnofficial, refetch: true, timeout })
   }
 }
