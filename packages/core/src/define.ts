@@ -1,5 +1,5 @@
 import { Condition } from './condition.js'
-import { DeepPartial } from './util.js'
+import { DeepPartial, stringToNumberLE } from './util.js'
 
 type ConditionBuilderInput = Array<boolean | Condition.Input | ConditionBuilder>
 
@@ -16,6 +16,37 @@ type DefineFunction = ((...args: ConditionBuilderInput) => ConditionBuilder) & {
    * const notNTSC = isNTSC.with({ cmp: '!=' })
    */
   one: (arg: Condition.Input) => Condition
+
+  /**
+   * Allows to generate conditions for comparing strings
+   *
+   * The string is split into numeric chunks, little endian, up to 32bit,
+   * which are provided to the supplied callback. The final result is also
+   * wrapped with `andNext`
+   *
+   * Internally, TextEncoder is used and the input is treated as UTF-8
+   *
+   * If you need to treat input as UTF-16, currently you need to convert it to UTF-16 yourself
+   *
+   * @example
+   * import { define as $ } from '@cruncheevos/core'
+   *
+   * $.str(
+   *   'abcde',
+   *   (size, value) => $(
+   *     ['AddAddress', 'Mem', '32bit', 0xcafe],
+   *     ['AddAddress', 'Mem', '32bit', 0xfeed],
+   *     ['', 'Mem', size, 0xabcd, '=', ...value],
+   *   )
+   * )
+   * // "I:0xXcafe_I:0xXfeed_N:0xXabcd=1684234849_I:0xXcafe_I:0xXfeed_0xHabcd=101"
+   * // abcd = 0x64636261 = 1684234849
+   * //    e = 0x65       = 101
+   */
+  str: (
+    input: string,
+    callback: (s: Condition.Size, v: ['Value', '', number]) => ConditionBuilder,
+  ) => ConditionBuilder
 }
 
 function makeBuilder(flag: Condition.Flag) {
@@ -50,6 +81,25 @@ define.one = function (arg) {
     throw new Error('expected only one condition argument, but got ' + arguments.length)
   }
   return new Condition(arg)
+}
+
+define.str = function (
+  input: string,
+  cb: (s: Condition.Size, v: ['Value', '', number]) => ConditionBuilder,
+) {
+  return andNext(
+    ...stringToNumberLE(input).map(value =>
+      cb(
+        // prettier-ignore
+        value > 0xFFFFFF ? '32bit' :
+        value > 0xFFFF ? '24bit' :
+        value > 0xFF ? '16bit' :
+        '8bit',
+
+        ['Value', '', value],
+      ),
+    ),
+  )
 }
 
 /**

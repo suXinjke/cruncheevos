@@ -16,7 +16,7 @@ To keep things concise, all examples focus on usage of the function and how it a
 - [Mapping](#mapping)
 - [withLast](#withlast)
 - [toString / toJSON](#tostring--tojson)
-
+- [String comparisons](#string-comparisons)
 
 ## Basic usage
 
@@ -346,4 +346,29 @@ JSON.stringify({ conditions1, conditions2 }, null, 2 )
   "conditions2": "0=3_0=4"
 }
 */
+```
+
+## String comparisons
+
+Sometimes you need to compare strings, which can be tedious if you have long strings and AddAddress chains.
+
+`define.str` function helps defining such comparisons:
+
+```js
+import { define as $ } from '@cruncheevos/core'
+
+$.str(
+  'abcde',
+  (
+    size, // '32bit' | '24bit' | '16bit' | '8bit'
+    value // ['Value', '', someNumber]
+  ) => $(
+    ['AddAddress', 'Mem', '32bit', 0xcafe],
+    ['AddAddress', 'Mem', '32bit', 0xfeed],
+    ['', 'Mem', size, 0xabcd, '=', ...value],
+  )
+)
+// "I:0xXcafe_I:0xXfeed_N:0xXabcd=1684234849_I:0xXcafe_I:0xXfeed_0xHabcd=101"
+// abcd = 0x64636261 = 1684234849
+//    e = 0x65       = 101
 ```

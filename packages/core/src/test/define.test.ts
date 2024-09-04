@@ -206,3 +206,54 @@ describe('define', () => {
     ).toThrowErrorMatchingInlineSnapshot(`[Error: expected only one condition argument, but got 3]`)
   })
 })
+
+describe('ASCII to Conditions', () => {
+  const $ = define
+
+  test('regular tests', () => {
+    expect($.str('a', (s, v) => $(['', 'Mem', s, 0xcafe, '=', ...v]))).toMatchInlineSnapshot(
+      `"0xHcafe=97"`,
+    )
+    expect($.str('ab', (s, v) => $(['', 'Mem', s, 0xcafe, '=', ...v]))).toMatchInlineSnapshot(
+      `"0x cafe=25185"`,
+    )
+    expect($.str('abc', (s, v) => $(['', 'Mem', s, 0xcafe, '=', ...v]))).toMatchInlineSnapshot(
+      `"0xWcafe=6513249"`,
+    )
+    expect($.str('abcd', (s, v) => $(['', 'Mem', s, 0xcafe, '=', ...v]))).toMatchInlineSnapshot(
+      `"0xXcafe=1684234849"`,
+    )
+    expect($.str('abcde', (s, v) => $(['', 'Mem', s, 0xcafe, '=', ...v]))).toMatchInlineSnapshot(
+      `"N:0xXcafe=1684234849_0xHcafe=101"`,
+    )
+    expect($.str('abcdef', (s, v) => $(['', 'Mem', s, 0xcafe, '=', ...v]))).toMatchInlineSnapshot(
+      `"N:0xXcafe=1684234849_0x cafe=26213"`,
+    )
+  })
+
+  test('unicode hack', () => {
+    expect($.str('\u0000a', (s, v) => $(['', 'Mem', s, 0xcafe, '=', ...v]))).toMatchInlineSnapshot(
+      `"0x cafe=24832"`,
+    )
+  })
+
+  test('with a pointer', () => {
+    const builder = (s: Condition.Size, v: ['Value', '', number]) =>
+      $(
+        ['AddAddress', 'Mem', '32bit', 0xcafe],
+        ['AddAddress', 'Mem', '32bit', 0xfeed],
+        ['', 'Mem', s, 0xabcd, '=', ...v],
+      )
+
+    expect($.str('a', builder)).toMatchInlineSnapshot(`"I:0xXcafe_I:0xXfeed_0xHabcd=97"`)
+    expect($.str('ab', builder)).toMatchInlineSnapshot(`"I:0xXcafe_I:0xXfeed_0x abcd=25185"`)
+    expect($.str('abc', builder)).toMatchInlineSnapshot(`"I:0xXcafe_I:0xXfeed_0xWabcd=6513249"`)
+    expect($.str('abcd', builder)).toMatchInlineSnapshot(`"I:0xXcafe_I:0xXfeed_0xXabcd=1684234849"`)
+    expect($.str('abcde', builder)).toMatchInlineSnapshot(
+      `"I:0xXcafe_I:0xXfeed_N:0xXabcd=1684234849_I:0xXcafe_I:0xXfeed_0xHabcd=101"`,
+    )
+    expect($.str('abcdef', builder)).toMatchInlineSnapshot(
+      `"I:0xXcafe_I:0xXfeed_N:0xXabcd=1684234849_I:0xXcafe_I:0xXfeed_0x abcd=26213"`,
+    )
+  })
+})

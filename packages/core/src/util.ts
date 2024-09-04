@@ -222,3 +222,26 @@ export const validate = {
 export function indexToConditionGroupName(index: number) {
   return index === 0 ? 'Core' : `Alt ${index}`
 }
+
+/**
+ * Splits string into numeric chunks, little endian
+ *
+ * @example
+ * stringToNumberLE('abcde') // [ 1684234849, 101 ]
+ * // abcd = 0x64636261 = 1684234849
+ * //    e = 0x65       = 101
+ */
+export function stringToNumberLE(input: string) {
+  const bytes = new TextEncoder().encode(input)
+  const values: number[] = []
+
+  for (let i = 0; i < bytes.length; i += 4) {
+    const value = [...bytes.slice(i, i + 4)]
+      .reverse()
+      .map(x => x.toString(16).padStart(2, '0'))
+      .join('')
+    values.push(parseInt(value, 16))
+  }
+
+  return values
+}
