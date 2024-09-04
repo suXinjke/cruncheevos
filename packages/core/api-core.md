@@ -1,13 +1,13 @@
 # @cruncheevos/core API
 
 - [Condition](#condition)
-  - [`flag`](#flag---pauseif--resetif--resetnextif--addhits--subhits--andnext--ornext--measured--measured--measuredif--trigger--addsource--subsource--addaddress)
+  - [`flag`](#flag---pauseif--resetif--resetnextif--addhits--subhits--andnext--ornext--measured--measured--measuredif--trigger--addsource--subsource--addaddress--remember)
   - [`lvalue`](#lvalue-conditionvalue)
   - [`cmp`](#cmp----------------------------)
   - [`rvalue`](#rvalue-conditionvalue)
   - [`hits`](#hits-number)
   - [Condition.Value](#conditionvalue)
-    - [`type`](#type---mem--delta--prior--bcd--invert--value--float)
+    - [`type`](#type---mem--delta--prior--bcd--invert--value--float--recall)
     - [`size`](#size---bit0--bit1--bit2--bit3--bit4--bit5--bit6--bit7--lower4--upper4--8bit--16bit--24bit--32bit--16bitbe--24bitbe--32bitbe--bitcount--float--floatbe--double32--double32be--mbf32--mbf32le)
     - [`value`](#value-number)
   - [`new Condition(def: Condition.Array)`](#new-conditiondef-conditionarray)
@@ -66,7 +66,7 @@ Conditions are immutable, if you need to a make a new condition instance based o
 
 ---
 
-#### `flag: '' | 'PauseIf' | 'ResetIf' | 'ResetNextIf' | 'AddHits' | 'SubHits' | 'AndNext' | 'OrNext' | 'Measured' | 'Measured%' | 'MeasuredIf' | 'Trigger' | 'AddSource' | 'SubSource' | 'AddAddress'`
+#### `flag: '' | 'PauseIf' | 'ResetIf' | 'ResetNextIf' | 'AddHits' | 'SubHits' | 'AndNext' | 'OrNext' | 'Measured' | 'Measured%' | 'MeasuredIf' | 'Trigger' | 'AddSource' | 'SubSource' | 'AddAddress' | 'Remember'`
 
 Affects condition logic or the way it reads memory.
 
@@ -92,7 +92,7 @@ Amount of hits set (also known as Hit Count), additional explanation [can be see
 
 ### Condition.Value
 
-#### `type: '' | 'Mem' | 'Delta' | 'Prior' | 'BCD' | 'Invert' | 'Value' | 'Float'`
+#### `type: '' | 'Mem' | 'Delta' | 'Prior' | 'BCD' | 'Invert' | 'Value' | 'Float' | 'Recall'`
 
 Specifies if value is read from memory and the way it's read/interpreted, or if value is constant. Empty string is allowed for rvalue.
 
