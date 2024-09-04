@@ -1,4 +1,11 @@
 # Changelog
+## 0.0.6 (2024-09-04)
+
+
+### Features
+
+* add `define.str` and `stringToNumberLE` functions to help generating conditions for comparing strings ([1468954](https://github.com/suXinjke/cruncheevos/commit/14689543c9fdf925549cbbebc9cb651be4b2ccfa))
+
 ## 0.0.5 (2024-08-04)
 
 

@@ -1,4 +1,16 @@
 # Changelog
+## 0.0.6 (2024-09-04)
+
+
+### Features
+
+* commands save, diff, diff-save now compare against unofficial achievement by default, use --exclude-unofficial option instead of --include-unofficial ([c11ce99](https://github.com/suXinjke/cruncheevos/commit/c11ce994ddfe8fc42f1bb5cc19eadc4dfd79e162))
+
+
+### Fixes
+
+* correctly preserve IDs of local assets, avoiding a situation when `save` command wold result in assets having same IDs ([3b0a662](https://github.com/suXinjke/cruncheevos/commit/3b0a66227d6e81cd9fd0f446622513afb51a2408))
+
 ## 0.0.5 (2024-08-04)
 
 
