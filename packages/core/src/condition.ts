@@ -740,7 +740,7 @@ export function validateRegularMeasuredConditions(conditions: Condition.GroupNor
 /**
  * This class represents a code piece that can be part of achievements, leaderboards or rich presence for RetroAchievements.
  *
- * Conditions are immutable, if you need to a make a new condition instance based of existing one - use `with()` method.
+ * Conditions are immutable, if you need to a make a new Condition instance based of existing one - use `with()` method.
  */
 export class Condition implements Condition.Data {
   flag: Condition.Flag

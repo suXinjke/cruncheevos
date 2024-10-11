@@ -214,7 +214,7 @@ const moveConditions = Symbol()
 /**
  * This class represents an achievement for RetroAchievements. Achievement can be a part of AchievementSet class instance, or used separately if your goal is to parse and produce string representations of achievement that would go into local RACache file.
  *
- * Achievements are immutable, if you need to a make a new condition instance based of existing one - use `with()` method.
+ * Achievements are immutable, if you need to a make a new Achievement instance based of existing one - use `with()` method.
  */
 export class Achievement implements AchievementData {
   id: number

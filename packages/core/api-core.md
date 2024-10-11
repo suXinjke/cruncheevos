@@ -62,7 +62,7 @@
 
 This class represents a code piece that can be part of achievements, leaderboards or rich presence for RetroAchievements.
 
-Conditions are immutable, if you need to a make a new condition instance based of existing one - use `with()` method.
+Conditions are immutable, if you need to a make a new Condition instance based of existing one - use `with()` method.
 
 ---
 
@@ -194,7 +194,7 @@ new cruncheevos.Condition(['', 'Value', '', -4097, '>', 'Value', '', -1]).toArra
 
 This class represents an achievement for RetroAchievements. Achievement can be a part of AchievementSet class instance, or used separately if your goal is to parse and produce string representations of achievement that would go into local RACache file.
 
-Achievements are immutable, if you need to a make a new condition instance based of existing one - use `with()` method.
+Achievements are immutable, if you need to a make a new Achievement instance based of existing one - use `with()` method.
 
 ---
 
@@ -323,7 +323,7 @@ someAchievement.toString('conditions') // '0=1'
 
 This class represents a leaderboard for RetroAchievements. Leaderboards can be a part of AchievementSet class instances, or used separately if your goal is to parse and produce string representations of leaderboard that would go into local RACache file.
 
-Leaderboard are immutable, if you need to a make a new condition instance based of existing one - use `with()` method.
+Leaderboard are immutable, if you need to a make a new Leaderboard instance based of existing one - use `with()` method.
 
 ---
 

@@ -243,7 +243,7 @@ const moveConditions = Symbol()
 /**
  * This class represents a leaderboard for RetroAchievements. Leaderboards can be a part of AchievementSet class instances, or used separately if your goal is to parse and produce string representations of leaderboard that would go into local RACache file.
  *
- * Leaderboard are immutable, if you need to a make a new condition instance based of existing one - use `with()` method.
+ * Leaderboard are immutable, if you need to a make a new Leaderboard instance based of existing one - use `with()` method.
  */
 export class Leaderboard implements LeaderboardData {
   id: number
