@@ -16,7 +16,7 @@ vi.mock('../mockable.js', async () => {
   } as typeof mod
 })
 import * as importModule from '../mockable.js'
-export const log = importModule.log as Mock<Parameters<typeof importModule.log>>
+export const log = importModule.log as Mock<typeof importModule.log>
 
 test(`generate real script and diff it to ensure that generated code is valid`, async ctx => {
   const filePath = resolveRACache('./3050.js')

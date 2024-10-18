@@ -152,9 +152,7 @@ describe('RichPresence.lookup', () => {
           name: 'Car',
           values: invalidValue,
         }),
-      ).toThrowErrorMatchingInlineSnapshot(
-        `[Error: Rich Presence Lookup "Car" must define at least one key-value pair]`,
-      )
+      ).toThrowError(`Rich Presence Lookup "Car" must define at least one key-value pair`)
     }
   })
 

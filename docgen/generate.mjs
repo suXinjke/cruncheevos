@@ -173,8 +173,8 @@ export default async function (app, ref) {
 
   classes.push({
     title: `RichPresence(${rpParams.join(', ')})`,
-    summary: getSummary(rp.signatures[0]),
-    example: rp.signatures[0].comment?.blockTags[0]?.content[0]?.text,
+    summary: getSummary(rp),
+    example: rp.comment?.blockTags[0]?.content[0]?.text,
     methods: rp.children.map(c => {
       let signature = `RichPresence.${c.name}`
       if (c.type.declaration.signatures) {

@@ -17,7 +17,7 @@ vi.mock('../mockable.js', async () => {
   } as typeof mod
 })
 import * as importModule from '../mockable.js'
-export const log = importModule.log as Mock<Parameters<typeof importModule.log>>
+export const log = importModule.log as Mock<typeof importModule.log>
 
 test(`attempt to import rich presence from real module, reject overwriting, must not throw`, async () => {
   prompts.inject([false])

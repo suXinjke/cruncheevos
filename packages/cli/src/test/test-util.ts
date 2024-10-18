@@ -31,9 +31,9 @@ vi.mock('../mockable.js', async () => {
 import * as importModule from '../mockable.js'
 export const fs = importModule.getFs()
 export const achievementSetImportMock = importModule.achievementSetImport as Mock<
-  Parameters<typeof importModule.achievementSetImport>
+  typeof importModule.achievementSetImport
 >
-export const log = importModule.log as Mock<Parameters<typeof importModule.log>>
+export const log = importModule.log as Mock<typeof importModule.log>
 
 export const expectedCredentials = { Username: 'cheeseburger', Token: 'bigtoken' }
 
