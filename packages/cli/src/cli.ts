@@ -73,12 +73,12 @@ const options = {
 
   includeUnofficial: new Option(
     '--include-unofficial',
-    'do not ignore unofficial achievements on the server when executing this operation',
+    'do not ignore unofficial achievements and hidden leaderboards on the server when executing this operation',
   ),
 
   excludeUnofficial: new Option(
     '--exclude-unofficial',
-    'ignore unofficial achievements on the server when executing this operation',
+    'ignore unofficial achievements and hidden leaderboards on the server when executing this operation',
   ),
 }
 

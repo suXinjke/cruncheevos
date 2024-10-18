@@ -197,7 +197,7 @@ async function _getSetFromRemote(opts: {
   })
 
   gameData.Leaderboards.forEach((lb, i) => {
-    if (lb.Hidden) {
+    if (lb.Hidden && opts.excludeUnofficial) {
       return
     }
 

@@ -752,6 +752,75 @@ set.addLeaderboard({
   id: 44723,
 })
 
+set.addLeaderboard({
+  title: 'MR-2 Time Trial',
+  description: 'Fastest time to complete in msec',
+  lowerIsBetter: true,
+  type: 'VALUE',
+  conditions: {
+    start: $(
+      ['AddAddress', 'Mem', '32bit', 0x5acb70],
+      ['', 'Mem', '32bit', 0x3804, '!=', 'Value', '', 0],
+      ['AddAddress', 'Mem', '32bit', 0x5acb70],
+      ['AddAddress', 'Mem', '32bit', 0x404],
+      ['', 'Delta', '32bit', 0x364, '=', 'Value', '', 0],
+      ['AddAddress', 'Mem', '32bit', 0x5acb70],
+      ['AddAddress', 'Mem', '32bit', 0x404],
+      ['', 'Mem', '32bit', 0x364, '>', 'Value', '', 0],
+      ['', 'Mem', '32bit', 0x9388b4, '=', 'Value', '', 0],
+      ['', 'Mem', '32bit', 0x917944, '=', 'Value', '', 0x69737361],
+      ['', 'Mem', '32bit', 0x9c23b0, '=', 'Value', '', 207],
+      ['', 'Mem', '32bit', 0x9388b0, '=', 'Value', '', 0],
+      ['', 'Mem', '32bit', 0x917a54, '=', 'Value', '', 3],
+      ['', 'Mem', '32bit', 0x9388ac, '=', 'Value', '', 0],
+      ['', 'Mem', '32bit', 0x917a50, '=', 'Value', '', 0],
+    ),
+    cancel: {
+      core: $(['', 'Value', '', 1, '=', 'Value', '', 1]),
+      alt1: $(
+        ['AddAddress', 'Mem', '32bit', 0x9c23a8],
+        ['', 'Delta', '16bit', 0x5ac, '=', 'Value', '', 0],
+        ['AddAddress', 'Mem', '32bit', 0x9c23a8],
+        ['', 'Mem', '16bit', 0x5ac, '>', 'Value', '', 0],
+      ),
+      alt2: $(
+        ['AddAddress', 'Mem', '32bit', 0x9c23a8],
+        ['', 'Delta', '16bit', 0x5ae, '=', 'Value', '', 0],
+        ['AddAddress', 'Mem', '32bit', 0x9c23a8],
+        ['', 'Mem', '16bit', 0x5ae, '>', 'Value', '', 0],
+      ),
+      alt3: $(
+        ['AddAddress', 'Mem', '32bit', 0x5acb70],
+        ['AddAddress', 'Mem', '32bit', 0x404],
+        ['', 'Mem', '32bit', 0x364, '=', 'Value', '', 0],
+      ),
+      alt4: $(
+        ['AddAddress', 'Mem', '32bit', 0x5acb70],
+        ['AddAddress', 'Mem', '32bit', 0x404],
+        ['', 'Mem', '32bit', 0x364, '=', 'Value', '', -1],
+      ),
+      alt5: $(
+        ['AddAddress', 'Mem', '32bit', 0x5acb70],
+        ['', 'Mem', '32bit', 0x3804, '=', 'Value', '', 0],
+      ),
+    },
+    submit: $(
+      ['AddAddress', 'Mem', '32bit', 0x5acb70],
+      ['AddAddress', 'Mem', '32bit', 0x3804],
+      ['', 'Delta', '32bit', 0x0, '=', 'Value', '', 0],
+      ['AddAddress', 'Mem', '32bit', 0x5acb70],
+      ['AddAddress', 'Mem', '32bit', 0x3804],
+      ['', 'Mem', '32bit', 0x0, '=', 'Value', '', 1],
+    ),
+    value: $(
+      ['AddAddress', 'Mem', '32bit', 0x5acb70],
+      ['AddAddress', 'Mem', '32bit', 0x404],
+      ['Measured', 'Mem', '32bit', 0x364],
+    ),
+  },
+  id: 44731,
+})
+
 export default set
 "
 `;

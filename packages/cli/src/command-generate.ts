@@ -198,7 +198,7 @@ function remoteDataToJSCode(
   }
 
   for (const lb of remoteData.Leaderboards) {
-    if (lb.Hidden) {
+    if (lb.Hidden && !includeUnofficial) {
       continue
     }
 

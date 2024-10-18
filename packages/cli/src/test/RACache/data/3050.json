@@ -148,7 +148,7 @@
       "Format": "VALUE",
       "LowerIsBetter": true,
       "Title": "MR-2 Time Trial",
-      "Description": "Italian Street Course / EASY / NORMAL Tyres",
+      "Description": "Fastest time to complete in msec",
       "Hidden": true
     }
   ]
