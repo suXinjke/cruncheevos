@@ -38,10 +38,12 @@ describe('define', () => {
 
   test('conditional definitions', () => {
     function wrapper(opts: { ship?: number } = {}) {
+      let emptyString = ''
+      let nullValue = null
       return define(
         opts.ship >= 0 && ['AndNext', 'Mem', '8bit', 0x41ff4, '=', 'Value', '', opts.ship],
-        '' && ['', 'Mem', '32bit', 0x34a68, '=', 'Value', '', 132],
-        null && ['', 'Mem', '32bit', 0x34a68, '=', 'Value', '', 132],
+        emptyString && ['', 'Mem', '32bit', 0x34a68, '=', 'Value', '', 132],
+        nullValue && ['', 'Mem', '32bit', 0x34a68, '=', 'Value', '', 132],
         ['', 'Mem', '32bit', 0x34a68, '=', 'Value', '', 132, 1],
       )
     }
