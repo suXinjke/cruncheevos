@@ -151,10 +151,20 @@ new Condition({
 
 Returns new Condition instance with different values merged.
 
+`lvalue` and `rvalue` can be specified as partial array, which can be less verbose
+
 ```ts
 new Condition('0=1')
   .with({ cmp: '!=', rvalue: { value: 47 } })
   .toString() // 0!=47
+
+new Condition('0xXcafe=0xXfeed')
+  .with({ rvalue: ['Delta', '16bit', 0xabcd] })
+  .toString() // 0xXcafe=d0x abcd
+
+new Condition('0xXcafe=0xXfeed')
+  .with({ rvalue: ['Delta'] })
+  .toString() // 0xXcafe=d0xXfeed
 ```
 #### `condition.toString(): string`
 

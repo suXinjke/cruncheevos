@@ -61,15 +61,19 @@ describe('define', () => {
   })
 
   test('withLast', () => {
+    const original = define(
+      ['AddAddress', 'Mem', '32bit', 0xcafe],
+      ['AddAddress', 'Mem', '32bit', 0xbeef],
+      ['', 'Mem', '32bit', 0, '=', 'Value', '', 120],
+    )
+
+    expect(original.withLast({ cmp: '!=', rvalue: { value: 9 } }).toString()).toMatchInlineSnapshot(
+      `"I:0xXcafe_I:0xXbeef_0xX0!=9"`,
+    )
+
     expect(
-      define(
-        ['AddAddress', 'Mem', '32bit', 0xcafe],
-        ['AddAddress', 'Mem', '32bit', 0xbeef],
-        ['', 'Mem', '32bit', 0, '=', 'Value', '', 120],
-      )
-        .withLast({ cmp: '!=', rvalue: { value: 9 } })
-        .toString(),
-    ).toMatchInlineSnapshot(`"I:0xXcafe_I:0xXbeef_0xX0!=9"`)
+      original.withLast({ cmp: '!=', rvalue: ['Delta', '32bit', 0] }).toString(),
+    ).toMatchInlineSnapshot(`"I:0xXcafe_I:0xXbeef_0xX0!=d0xX0"`)
   })
 
   test(`AndNext and OrNext must not leave its flag in the final condition`, () => {

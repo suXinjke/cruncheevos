@@ -520,6 +520,44 @@ describe('Exclusive string -> condition data conversions', () => {
   )
 })
 
+describe('with', () => {
+  const original = new Condition('0x cafe=0x feed')
+  test('regular usage', () => {
+    expect(
+      original
+        .with({
+          flag: 'AndNext',
+          lvalue: { value: 0xfeed },
+          cmp: '!=',
+          rvalue: { type: 'Delta', value: 0xcafe },
+        })
+        .toString(),
+    ).toMatchInlineSnapshot(`"N:0x feed!=d0x cafe"`)
+  })
+
+  test('pass array lvalue and rvalue instead of objects', () => {
+    expect(
+      original
+        .with({
+          lvalue: ['Delta', '8bit'],
+          cmp: '!=',
+          rvalue: ['Delta', '32bit', 0xcafe],
+        })
+        .toString(),
+    ).toMatchInlineSnapshot(`"d0xHcafe!=d0xXcafe"`)
+
+    expect(
+      original
+        .with({
+          lvalue: ['Delta'],
+          cmp: '!=',
+          rvalue: [],
+        })
+        .toString(),
+    ).toMatchInlineSnapshot(`"d0x cafe!=0x feed"`)
+  })
+})
+
 test('move constructor', () => {
   const original = new Condition('0xcafe=0xfeed')
   const copy = new Condition(original)

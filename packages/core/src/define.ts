@@ -452,9 +452,11 @@ export class ConditionBuilder {
    * Returns new instance of ConditionBuilder with different
    * values merged into last condition
    *
+   * `lvalue` and `rvalue` can be specified as partial array, which can be less verbose
+   *
    * Useful when combined with pointer chains
    *
-   * @param {DeepPartial<Condition.Data>} data DeepPartial<Condition.Data>
+   * @param {Condition.PartialMergedData} data Condition.PartialMergedData
    *
    * @example
    * $(
@@ -463,8 +465,15 @@ export class ConditionBuilder {
    *   ['', 'Mem', '32bit', 0, '=', 'Value', '', 120],
    * ).withLast({ cmp: '!=', rvalue: { value: 9 } })
    *  .toString() // I:0xXcafe_I:0xXbeef_0xX0!=9
+   *
+   * $(
+   *   ['AddAddress', 'Mem', '32bit', 0xcafe],
+   *   ['AddAddress', 'Mem', '32bit', 0xbeef],
+   *   ['', 'Mem', '32bit', 0, '=', 'Value', '', 120],
+   * ).withLast({ cmp: '!=', rvalue: rvalue: ['Delta', '32bit', 0] })
+   *  .toString() // I:0xXcafe_I:0xXbeef_0xX0!=d0xX0
    */
-  withLast(data: DeepPartial<Condition.Data>): ConditionBuilder {
+  withLast(data: Condition.PartialMergedData): ConditionBuilder {
     return this.map((c, idx, array) => {
       if (idx !== array.length - 1) {
         return c

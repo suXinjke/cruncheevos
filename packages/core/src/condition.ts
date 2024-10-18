@@ -21,6 +21,11 @@ export namespace Condition {
     /** If value type implies reading from memory - this specifies memory address, otherwise specifies constant value. */
     value: number
   }
+  export type ValueArray = [ValueType, Size, number]
+
+  // HACK: I wish I could spread ValueArray, but it makes typedoc treat Condition.Array
+  // type as just a tuple, which results in undefined appearing in the docs.
+  // May not necessary be typedoc's fault but it's reliance on TypeScript
   export type Array = [Flag, ValueType, Size, number, Operator?, ValueType?, Size?, number?, Hits?]
   export interface Data {
     /**
@@ -50,6 +55,12 @@ export namespace Condition {
      */
     hits: number
   }
+  export type PartialMergedData =
+    | DeepPartial<Data>
+    | {
+        lvalue?: Partial<ValueArray>
+        rvalue?: Partial<ValueArray>
+      }
   export type Input = Condition.Data | Condition.Array | string | Condition
 
   export type FlagForReading =
@@ -737,6 +748,19 @@ export function validateRegularMeasuredConditions(conditions: Condition.GroupNor
   })
 }
 
+function normalizeMergedValue(value: Partial<Condition.Value> | Partial<Condition.ValueArray>) {
+  if (Array.isArray(value)) {
+    return Object.assign(
+      {},
+      typeof value[0] === 'string' && { type: value[0] },
+      typeof value[1] === 'string' && { size: value[1] },
+      typeof value[2] === 'number' && { value: value[2] },
+    )
+  }
+
+  return value
+}
+
 /**
  * This class represents a code piece that can be part of achievements, leaderboards or rich presence for RetroAchievements.
  *
@@ -828,19 +852,29 @@ export class Condition implements Condition.Data {
   /**
    * Returns new Condition instance with different values merged.
    *
+   * `lvalue` and `rvalue` can be specified as partial array, which can be less verbose
+   *
    * @param {DeepPartial<Condition.Data>} data DeepPartial<Condition.Data>
    *
    * @example
    * new Condition('0=1')
    *   .with({ cmp: '!=', rvalue: { value: 47 } })
    *   .toString() // 0!=47
+   *
+   * new Condition('0xXcafe=0xXfeed')
+   *   .with({ rvalue: ['Delta', '16bit', 0xabcd] })
+   *   .toString() // 0xXcafe=d0x abcd
+   *
+   * new Condition('0xXcafe=0xXfeed')
+   *   .with({ rvalue: ['Delta'] })
+   *   .toString() // 0xXcafe=d0xXfeed
    */
-  with(data: DeepPartial<Condition.Data>) {
+  with(data: Condition.PartialMergedData) {
     return new Condition({
       ...this,
       ...data,
-      lvalue: { ...this.lvalue, ...(data.lvalue || {}) },
-      rvalue: { ...this.rvalue, ...(data.rvalue || {}) },
+      lvalue: { ...this.lvalue, ...normalizeMergedValue(data.lvalue) },
+      rvalue: { ...this.rvalue, ...normalizeMergedValue(data.rvalue) },
     })
   }
 
