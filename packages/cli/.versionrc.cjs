@@ -1,6 +1,5 @@
 module.exports = {
   header: '# Changelog',
-  tagPrefix: 'cli/',
   skip: {
     commit: true,
     tag: true,

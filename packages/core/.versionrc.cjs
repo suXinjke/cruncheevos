@@ -4,7 +4,6 @@ module.exports = {
     commit: true,
     tag: true,
   },
-  tagPrefix: 'core/',
   types: [
     {
       type: 'feat',
