@@ -1,4 +1,11 @@
 # Changelog
+## 0.0.7 (2024-10-19)
+
+
+### Fixes
+
+* --include-unofficial and --exclude-unofficial options now account for hidden leaderboards ([0cfbd75](https://github.com/suXinjke/cruncheevos/commit/0cfbd7521f5a6e8e0f8a6a2a729d2f4f928b4955))
+
 ## 0.0.6 (2024-09-04)
 
 

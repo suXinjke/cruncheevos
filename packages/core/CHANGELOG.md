@@ -1,4 +1,11 @@
 # Changelog
+## 0.0.7 (2024-10-19)
+
+
+### Features
+
+* allow providing lvalue or rvalue as partial array to Condition.with and ConditionBuilder.withLast functions ([b8d83c4](https://github.com/suXinjke/cruncheevos/commit/b8d83c44364516bb1c03cd47ea13e8d3561415f1))
+
 ## 0.0.6 (2024-09-04)
 
 
