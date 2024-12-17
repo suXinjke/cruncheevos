@@ -1,4 +1,11 @@
 # Changelog
+## 0.0.8 (2024-12-17)
+
+
+### Fixes
+
+* correctly set offsets when calling `define.str` function ([0422b57](https://github.com/suXinjke/cruncheevos/commit/0422b57552ca34547f4fae5cf5fdd0d2522fb608))
+
 ## 0.0.7 (2024-10-19)
 
 

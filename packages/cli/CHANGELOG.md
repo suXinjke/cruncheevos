@@ -1,4 +1,11 @@
 # Changelog
+## 0.0.8 (2024-12-17)
+
+
+### Features
+
+* add warnings for long asset title and description length ([8a08e17](https://github.com/suXinjke/cruncheevos/commit/8a08e178d0f7252e908509e3828bf8a573e8a908))
+
 ## 0.0.7 (2024-10-19)
 
 
