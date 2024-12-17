@@ -88,8 +88,8 @@ define.str = function (
   cb: (s: Condition.Size, v: ['Value', '', number]) => ConditionBuilder,
 ) {
   return andNext(
-    ...stringToNumberLE(input).map(value =>
-      cb(
+    ...stringToNumberLE(input).map((value, index) => {
+      let c = cb(
         // prettier-ignore
         value > 0xFFFFFF ? '32bit' :
         value > 0xFFFF ? '24bit' :
@@ -97,8 +97,15 @@ define.str = function (
         '8bit',
 
         ['Value', '', value],
-      ),
-    ),
+      )
+      if (index > 0) {
+        return c.withLast({
+          lvalue: { value: c.conditions[c.conditions.length - 1].lvalue.value + index * 4 },
+        })
+      }
+
+      return c
+    }),
   )
 }
 

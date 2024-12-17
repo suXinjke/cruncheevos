@@ -230,10 +230,10 @@ describe('ASCII to Conditions', () => {
       `"0xXcafe=1684234849"`,
     )
     expect($.str('abcde', (s, v) => $(['', 'Mem', s, 0xcafe, '=', ...v]))).toMatchInlineSnapshot(
-      `"N:0xXcafe=1684234849_0xHcafe=101"`,
+      `"N:0xXcafe=1684234849_0xHcb02=101"`,
     )
     expect($.str('abcdef', (s, v) => $(['', 'Mem', s, 0xcafe, '=', ...v]))).toMatchInlineSnapshot(
-      `"N:0xXcafe=1684234849_0x cafe=26213"`,
+      `"N:0xXcafe=1684234849_0x cb02=26213"`,
     )
   })
 
@@ -256,10 +256,10 @@ describe('ASCII to Conditions', () => {
     expect($.str('abc', builder)).toMatchInlineSnapshot(`"I:0xXcafe_I:0xXfeed_0xWabcd=6513249"`)
     expect($.str('abcd', builder)).toMatchInlineSnapshot(`"I:0xXcafe_I:0xXfeed_0xXabcd=1684234849"`)
     expect($.str('abcde', builder)).toMatchInlineSnapshot(
-      `"I:0xXcafe_I:0xXfeed_N:0xXabcd=1684234849_I:0xXcafe_I:0xXfeed_0xHabcd=101"`,
+      `"I:0xXcafe_I:0xXfeed_N:0xXabcd=1684234849_I:0xXcafe_I:0xXfeed_0xHabd1=101"`,
     )
     expect($.str('abcdef', builder)).toMatchInlineSnapshot(
-      `"I:0xXcafe_I:0xXfeed_N:0xXabcd=1684234849_I:0xXcafe_I:0xXfeed_0x abcd=26213"`,
+      `"I:0xXcafe_I:0xXfeed_N:0xXabcd=1684234849_I:0xXcafe_I:0xXfeed_0x abd1=26213"`,
     )
   })
 })
