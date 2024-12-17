@@ -16,7 +16,55 @@ interface Issue {
   goodAsset?: Asset
 }
 
+function truncateLongString(str: string, maxLength: number) {
+  if (str.length > maxLength) {
+    return str.slice(0, maxLength) + '...'
+  }
+
+  return str
+}
+
 const checks: Record<string, (set: AchievementSet) => Issue[]> = {
+  noLongTitles(set: AchievementSet) {
+    const issues = [] as Issue[]
+    const maxLength = 255
+
+    for (const asset of set) {
+      const type = asset instanceof Achievement ? 'Achievement' : 'Leaderboard'
+      if (asset.title.length > 255) {
+        issues.push({
+          type: 'no-long-titles',
+          badAsset: asset,
+          message:
+            `${type} "${truncateLongString(asset.title, 40)}" has title length above ` +
+            `${maxLength}: ${asset.title.length}`,
+        })
+      }
+    }
+
+    return issues
+  },
+
+  noLongDescriptions(set: AchievementSet) {
+    const issues = [] as Issue[]
+    const maxLength = 255
+
+    for (const asset of set) {
+      const type = asset instanceof Achievement ? 'Achievement' : 'Leaderboard'
+      if (asset.description.length > 255) {
+        issues.push({
+          type: 'no-long-descriptions',
+          badAsset: asset,
+          message:
+            `${type} "${truncateLongString(asset.title, 40)}" has description length above ` +
+            `${maxLength}: ${asset.description.length}`,
+        })
+      }
+    }
+
+    return issues
+  },
+
   noOddPoints(set: AchievementSet) {
     const issues = [] as Issue[]
 

@@ -112,4 +112,36 @@ describe('save and linting', () => {
       WARN: There are several achievements without ID titled "Lb1"
     `)
   })
+
+  test('warn about long asset titles and descriptions', async ctx => {
+    prepareFakeAssets({
+      gameId: 1234,
+      baseConditions: () => ({
+        achievements: {
+          1: genericAchievement,
+        },
+        leaderboards: {
+          1: genericLeaderboard,
+        },
+      }),
+      remote: () => {},
+      local: () => {},
+      input: ({ base }) => {
+        base.achievements[1].title = 'extremely_long_title_'.repeat(13)
+        base.achievements[1].description = 'extremely_long_description_'.repeat(10)
+        base.leaderboards[1].title = 'extremely_long_title_'.repeat(13)
+        base.leaderboards[1].description = 'extremely_long_description_'.repeat(10)
+      },
+    })
+
+    await runTestCLI(['save', './mySet.js'])
+    ctx.expect(log).toMatchInlineSnapshot(`
+      dumped local data for gameId: 1234: ./RACache/Data/1234-User.txt
+      updated: 1 achievement, 1 leaderboard
+      WARN: Achievement "extremely_long_title_extremely_long_titl..." has title length above 255: 273
+      WARN: Leaderboard "extremely_long_title_extremely_long_titl..." has title length above 255: 273
+      WARN: Achievement "extremely_long_title_extremely_long_titl..." has description length above 255: 270
+      WARN: Leaderboard "extremely_long_title_extremely_long_titl..." has description length above 255: 270
+    `)
+  })
 })
