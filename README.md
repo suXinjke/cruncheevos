@@ -49,6 +49,7 @@ export default set
 * [suXinjke/RAScripts](https://github.com/suXinjke/RAScripts)
 * [wolfman2000/cruncheevos](https://github.com/wolfman2000/cruncheevos)
 * [Maximdraco/RA-Scripts](https://github.com/Maximdraco/RA-Scripts)
+* [ryoxdx/RetroAchievementsSets](https://github.com/ryoxdx/RetroAchievementsSets)
 * .. your repository here? ..
 
 ## Contributing
