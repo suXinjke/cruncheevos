@@ -39,9 +39,8 @@ describe('fetch', () => {
         './RAPrefs_Emu.cfg': '{1234',
       })
 
-      // TODO: the JSON error message is node-version dependant when it shouldn't be
-      return expect(runTestCLI(['fetch', 1234])).rejects.toThrowErrorMatchingInlineSnapshot(
-        `[Error: RAPrefs_Emu.cfg: Expected property name or '}' in JSON at position 1]`,
+      return expect(runTestCLI(['fetch', 1234])).rejects.toThrowError(
+        `RAPrefs_Emu.cfg: Expected property name or '}' in JSON at position 1`,
       )
     })
 
