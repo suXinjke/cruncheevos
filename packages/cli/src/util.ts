@@ -684,7 +684,7 @@ export function calculateSetChanges(
         if (local.type === 'achievement') {
           maxAchLocalId = Math.max(maxAchLocalId, local.asset.id)
         } else if (local.type === 'leaderboard') {
-          maxLbLocalId = Math.max(maxAchLocalId, local.asset.id)
+          maxLbLocalId = Math.max(maxLbLocalId, local.asset.id)
         }
       }
 
