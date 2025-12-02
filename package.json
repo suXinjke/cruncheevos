@@ -15,18 +15,18 @@
   "devDependencies": {
     "@typescript-eslint/parser": "^8.0.0",
     "@typescript-eslint/eslint-plugin": "^8.0.0",
-    "@vitest/coverage-istanbul": "^3.2.4",
-    "concurrently": "^9.0.1",
+    "@vitest/coverage-istanbul": "^4.0.14",
+    "concurrently": "^9.2.1",
     "eslint": "^8.57.0",
     "eslint-plugin-es": "^4.1.0",
     "github-slugger": "^2.0.0",
     "prettier": "latest",
     "turbo": "latest",
-    "typedoc": "^0.26.10",
-    "typedoc-plugin-missing-exports": "^3.0.0",
-    "typescript": "^5.6.3",
-    "vite": "^7.1.5",
+    "typedoc": "^0.28.15",
+    "typedoc-plugin-missing-exports": "^4.1.2",
+    "typescript": "^5.9.3",
+    "vite": "^7.2.6",
     "vite-tsconfig-paths": "^5.1.4",
-    "vitest": "^3.2.4"
+    "vitest": "^4.0.14"
   }
 }

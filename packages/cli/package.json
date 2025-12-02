@@ -28,24 +28,24 @@
     "typecheck": "tsc --project tsconfig.json"
   },
   "dependencies": {
-    "@commander-js/extra-typings": "^12.1.0",
+    "@commander-js/extra-typings": "^14.0.0",
     "@cruncheevos/core": "~0.0.0",
-    "chalk": "^5.3.0",
-    "commander": "^12.1.0",
-    "dotenv": "^16.4.5",
+    "chalk": "^5.6.2",
+    "commander": "^14.0.2",
+    "dotenv": "^17.2.3",
     "json-diff": "^1.0.6",
     "node-fetch": "^3.3.2",
-    "prettier": "^3.3.3",
+    "prettier": "^3.7.3",
     "prompts": "^2.4.2",
-    "table": "^6.8.2"
+    "table": "^6.9.0"
   },
   "devDependencies": {
     "@cruncheevos/tsconfig": "*",
     "@types/json-diff": "^1.0.3",
     "@types/prompts": "^2.4.9",
-    "immer": "^10.1.1",
-    "memfs": "^4.14.0",
-    "msw": "^2.7.0"
+    "immer": "^11.0.1",
+    "memfs": "^4.51.1",
+    "msw": "^2.12.3"
   },
   "engines": {
     "node": ">=20"
