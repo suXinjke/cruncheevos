@@ -1,4 +1,11 @@
 # Changelog
+## 0.0.9 (2025-12-02)
+
+
+### Features
+
+* support for new remote asset format ([d37da5e](https://github.com/suXinjke/cruncheevos/commit/d37da5e5319d393d3c8ac54bac2e23feebe7ca2e))
+
 ## 0.0.8 (2024-12-17)
 
 
