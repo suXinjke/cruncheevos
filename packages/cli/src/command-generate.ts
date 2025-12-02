@@ -3,7 +3,7 @@ import { wrappedError } from '@cruncheevos/core/util'
 import prettier from 'prettier'
 import chalk from 'chalk'
 
-import { RemoteData, getRemoteData } from './command-fetch.js'
+import { RemoteData, getRemoteData, getSetFromRemoteData } from './command-fetch.js'
 import { confirm, getFs, log } from './mockable.js'
 import { AssetFilter, filtersMatch } from './util.js'
 const fs = getFs()
@@ -145,17 +145,20 @@ function makeFixmeComments(title: string, description: string) {
   return { titleFixme, descriptionFixme, lackingPieces }
 }
 
+// TODO: add setId support
 function remoteDataToJSCode(
   remoteData: RemoteData,
   { filter, includeUnofficial }: { filter: AssetFilter[]; includeUnofficial: boolean },
 ) {
+  const { GameId, Achievements, Leaderboards } = getSetFromRemoteData(remoteData)
+
   let src = ''
   src += `import { AchievementSet, define as $ } from '@cruncheevos/core'\n`
-  src += `const set = new AchievementSet({ gameId: ${remoteData.ID}, title: ${quoted(
+  src += `const set = new AchievementSet({ gameId: ${GameId}, title: ${quoted(
     remoteData.Title,
   )} })\n\n`
 
-  for (const ach of remoteData.Achievements) {
+  for (const ach of Achievements) {
     if (ach.Flags !== 3 && !(ach.Flags === 5 && includeUnofficial)) {
       continue
     }
@@ -197,7 +200,7 @@ function remoteDataToJSCode(
     }
   }
 
-  for (const lb of remoteData.Leaderboards) {
+  for (const lb of Leaderboards) {
     if (lb.Hidden && !includeUnofficial) {
       continue
     }
@@ -246,6 +249,7 @@ function remoteDataToJSCode(
   })
 }
 
+// TODO: add setId support
 export default async function generate(
   gameId: number,
   outputFilePath: string,

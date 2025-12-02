@@ -153,10 +153,10 @@ describe('generate', () => {
 
   test('warns about assets with missing name or description, yet still generates them', async ctx => {
     const corruptedData = JSON.parse(realFs.readFileSync(resolveRACache('./3050.json')).toString())
-    corruptedData.Achievements[1].Title = ''
-    corruptedData.Achievements[3].Description = ''
-    corruptedData.Leaderboards[0].Title = ''
-    corruptedData.Leaderboards[0].Description = ''
+    corruptedData.Sets[0].Achievements[1].Title = ''
+    corruptedData.Sets[0].Achievements[3].Description = ''
+    corruptedData.Sets[0].Leaderboards[0].Title = ''
+    corruptedData.Sets[0].Leaderboards[0].Description = ''
 
     vol.fromJSON({
       ...defaultFiles,

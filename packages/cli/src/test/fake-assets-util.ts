@@ -5,9 +5,10 @@ import {
   Leaderboard,
   RichPresence,
 } from '@cruncheevos/core'
+import * as fs from 'fs'
 import { produce } from 'immer'
 
-import { defaultFiles, vol, achievementSetImportMock } from './test-util.js'
+import { defaultFiles, vol, achievementSetImportMock, resolveRACache } from './test-util.js'
 
 function repeat(conditionString: string, amount: number) {
   return Array.from({ length: amount }, () => conditionString)
@@ -53,70 +54,74 @@ function conditionsToString(conditions: Condition.GroupNormalized, separator = '
 
 function makeRemoteMock(id: number, title: string, remote: RenameLater) {
   const payload = {
-    ID: id,
     Title: title,
-    Flags: 0,
-    Achievements: Object.entries(remote.achievements || {}).map(([id, input]) => {
-      const title = input.title || `Ach_${id}`
-      const description = input.description || `Ach_${id} description`
-      const author = 'AchAuthor'
-      const points = input.points ?? 1
+    Sets: [
+      {
+        ID: id,
+        Type: 'core',
+        Achievements: Object.entries(remote.achievements || {}).map(([id, input]) => {
+          const title = input.title || `Ach_${id}`
+          const description = input.description || `Ach_${id} description`
+          const author = 'AchAuthor'
+          const points = input.points ?? 1
 
-      const ach = new Achievement({
-        id,
-        title,
-        description,
-        points,
-        conditions: input.conditions,
-      })
+          const ach = new Achievement({
+            id,
+            title,
+            description,
+            points,
+            conditions: input.conditions,
+          })
 
-      return {
-        ID: Number(id),
-        Title: title,
-        Description: description,
-        Points: points,
-        Author: author,
-        Flags: input.flags ?? 3,
-        BadgeName: input.badge || '00000',
-        MemAddr: conditionsToString(ach.conditions),
-        Type: input.type ?? null,
-      }
-    }),
+          return {
+            ID: Number(id),
+            Title: title,
+            Description: description,
+            Points: points,
+            Author: author,
+            Flags: input.flags ?? 3,
+            BadgeName: input.badge || '00000',
+            MemAddr: conditionsToString(ach.conditions),
+            Type: input.type ?? null,
+          }
+        }),
 
-    Leaderboards: Object.entries(remote.leaderboards || {}).map(([id, input]) => {
-      const title = input.title || `Lb_${id}`
-      const description = input.description || `Lb_${id} description`
-      const lowerIsBetter = input.lowerIsBetter ?? false
-      const type = input.type ?? 'SCORE'
+        Leaderboards: Object.entries(remote.leaderboards || {}).map(([id, input]) => {
+          const title = input.title || `Lb_${id}`
+          const description = input.description || `Lb_${id} description`
+          const lowerIsBetter = input.lowerIsBetter ?? false
+          const type = input.type ?? 'SCORE'
 
-      const lb = new Leaderboard({
-        id: Number(id),
-        title,
-        description,
-        lowerIsBetter,
-        type,
-        conditions: input.conditions,
-      })
+          const lb = new Leaderboard({
+            id: Number(id),
+            title,
+            description,
+            lowerIsBetter,
+            type,
+            conditions: input.conditions,
+          })
 
-      return {
-        ID: Number(id),
-        Title: title,
-        Description: description,
-        Format: type,
-        LowerIsBetter: lowerIsBetter,
-        Hidden: input.hidden ?? false,
-        Mem: [
-          'STA:',
-          conditionsToString(lb.conditions.start),
-          '::CAN:',
-          conditionsToString(lb.conditions.cancel),
-          '::SUB:',
-          conditionsToString(lb.conditions.submit),
-          '::VAL:',
-          conditionsToString(lb.conditions.value, '$'),
-        ].join(''),
-      }
-    }),
+          return {
+            ID: Number(id),
+            Title: title,
+            Description: description,
+            Format: type,
+            LowerIsBetter: lowerIsBetter,
+            Hidden: input.hidden ?? false,
+            Mem: [
+              'STA:',
+              conditionsToString(lb.conditions.start),
+              '::CAN:',
+              conditionsToString(lb.conditions.cancel),
+              '::SUB:',
+              conditionsToString(lb.conditions.submit),
+              '::VAL:',
+              conditionsToString(lb.conditions.value, '$'),
+            ].join(''),
+          }
+        }),
+      },
+    ],
   }
 
   return JSON.stringify(payload, null, 2)
@@ -181,7 +186,7 @@ export function prepareFakeAssets(
     gameId?: number
 
     baseConditions?: (opts: Omit<FakeAssetContext, 'base'>) => RenameLater
-    remote?: (opts: FakeAssetContext) => void
+    remote?: string | ((opts: FakeAssetContext) => void)
     local?: (opts: FakeAssetContext) => void
     rich?: string | ReturnType<typeof RichPresence>
   } & (
@@ -195,7 +200,7 @@ export function prepareFakeAssets(
       }
   ),
 ) {
-  const { gameId = 1234 } = opts
+  const { gameId = 1234, remote, local } = opts
   const title = 'SampleAchievementSet'
 
   const mockedFiles = {
@@ -207,30 +212,35 @@ export function prepareFakeAssets(
     repeatGroups,
   }) ?? { achievements: {}, leaderboards: {} }
 
-  const remote =
-    opts.remote &&
-    produce(base, base =>
-      opts.remote({
-        base,
-        repeat,
-        repeatGroups,
-      }),
+  if (typeof remote === 'function') {
+    mockedFiles[`./RACache/Data/${gameId}.json`] = makeRemoteMock(
+      gameId,
+      title,
+      produce(base, base =>
+        remote({
+          base,
+          repeat,
+          repeatGroups,
+        }),
+      ),
     )
-  if (remote) {
-    mockedFiles[`./RACache/Data/${gameId}.json`] = makeRemoteMock(gameId, title, remote)
+  } else if (typeof remote === 'string') {
+    const filePath = resolveRACache(remote)
+    mockedFiles[`./RACache/Data/${gameId}.json`] = fs.readFileSync(filePath).toString()
   }
 
-  const local =
-    opts.local &&
-    produce(base, base =>
-      opts.local({
-        base,
-        repeat,
-        repeatGroups,
-      }),
+  if (typeof local === 'function') {
+    mockedFiles[`./RACache/Data/${gameId}-User.txt`] = makeLocalMock(
+      gameId,
+      title,
+      produce(base, base =>
+        local({
+          base,
+          repeat,
+          repeatGroups,
+        }),
+      ),
     )
-  if (local) {
-    mockedFiles[`./RACache/Data/${gameId}-User.txt`] = makeLocalMock(gameId, title, local)
   }
 
   vol.mkdirSync('./RACache/Data', { recursive: true })

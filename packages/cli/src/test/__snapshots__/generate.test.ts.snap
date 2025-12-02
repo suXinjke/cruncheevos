@@ -94,13 +94,13 @@ set.addAchievement({
   conditions: {
     core: $(
       ['', 'Mem', '32bit', 0x9388b4, '=', 'Value', '', 1, 1],
-      ['AddAddress', 'Mem', '32bit', 0x5acb70],
+      ['AddAddress', 'Mem', '32bit', 0x9c1a9c],
       ['AddAddress', 'Mem', '32bit', 0x404],
       ['', 'Mem', '32bit', 0x268, '=', 'Value', '', 1],
-      ['AddAddress', 'Mem', '32bit', 0x5acb70],
+      ['AddAddress', 'Mem', '32bit', 0x9c1a9c],
       ['AddAddress', 'Mem', '32bit', 0x3804],
       ['', 'Delta', '32bit', 0x0, '=', 'Value', '', 0],
-      ['AddAddress', 'Mem', '32bit', 0x5acb70],
+      ['AddAddress', 'Mem', '32bit', 0x9c1a9c],
       ['AddAddress', 'Mem', '32bit', 0x3804],
       ['', 'Mem', '32bit', 0x0, '=', 'Value', '', 1],
       ['', 'Mem', '32bit', 0x917984, '!=', 'Value', '', 0x3070306c],
@@ -287,13 +287,13 @@ set.addAchievement({
   conditions: {
     core: $(
       ['', 'Mem', '32bit', 0x9388b4, '=', 'Value', '', 1, 1],
-      ['AddAddress', 'Mem', '32bit', 0x5acb70],
+      ['AddAddress', 'Mem', '32bit', 0x9c1a9c],
       ['AddAddress', 'Mem', '32bit', 0x404],
       ['', 'Mem', '32bit', 0x268, '=', 'Value', '', 1],
-      ['AddAddress', 'Mem', '32bit', 0x5acb70],
+      ['AddAddress', 'Mem', '32bit', 0x9c1a9c],
       ['AddAddress', 'Mem', '32bit', 0x3804],
       ['', 'Delta', '32bit', 0x0, '=', 'Value', '', 0],
-      ['AddAddress', 'Mem', '32bit', 0x5acb70],
+      ['AddAddress', 'Mem', '32bit', 0x9c1a9c],
       ['AddAddress', 'Mem', '32bit', 0x3804],
       ['', 'Mem', '32bit', 0x0, '=', 'Value', '', 1],
       ['', 'Mem', '32bit', 0x917984, '!=', 'Value', '', 0x3070306c],
@@ -350,7 +350,7 @@ const set = new AchievementSet({ gameId: 3050, title: 'GranTurismoSample' })
 
 set.addAchievement({
   title: 'Passed - Learning the Basics of Steering 1',
-  description: \`Your first experience of circuit racing on a Beginner\\\`s course. Beat the time of 1'49.000\`,
+  description: \`Your first experience of circuit racing on a Beginner's course. Beat the time of 1'49.000\`,
   points: 1,
   type: 'progression',
   conditions: $(
@@ -381,13 +381,13 @@ set.addAchievement({
   conditions: {
     core: $(
       ['', 'Mem', '32bit', 0x9388b4, '=', 'Value', '', 1, 1],
-      ['AddAddress', 'Mem', '32bit', 0x5acb70],
+      ['AddAddress', 'Mem', '32bit', 0x9c1a9c],
       ['AddAddress', 'Mem', '32bit', 0x404],
       ['', 'Mem', '32bit', 0x268, '=', 'Value', '', 1],
-      ['AddAddress', 'Mem', '32bit', 0x5acb70],
+      ['AddAddress', 'Mem', '32bit', 0x9c1a9c],
       ['AddAddress', 'Mem', '32bit', 0x3804],
       ['', 'Delta', '32bit', 0x0, '=', 'Value', '', 0],
-      ['AddAddress', 'Mem', '32bit', 0x5acb70],
+      ['AddAddress', 'Mem', '32bit', 0x9c1a9c],
       ['AddAddress', 'Mem', '32bit', 0x3804],
       ['', 'Mem', '32bit', 0x0, '=', 'Value', '', 1],
       ['', 'Mem', '32bit', 0x917984, '!=', 'Value', '', 0x3070306c],
@@ -517,7 +517,7 @@ const set = new AchievementSet({ gameId: 3050, title: 'GranTurismoSample' })
 
 set.addAchievement({
   title: 'Passed - Learning the Basics of Steering 1',
-  description: \`Your first experience of circuit racing on a Beginner\\\`s course. Beat the time of 1'49.000\`,
+  description: \`Your first experience of circuit racing on a Beginner's course. Beat the time of 1'49.000\`,
   points: 1,
   type: 'progression',
   conditions: $(
@@ -555,13 +555,13 @@ set.addAchievement({
   conditions: {
     core: $(
       ['', 'Mem', '32bit', 0x9388b4, '=', 'Value', '', 1, 1],
-      ['AddAddress', 'Mem', '32bit', 0x5acb70],
+      ['AddAddress', 'Mem', '32bit', 0x9c1a9c],
       ['AddAddress', 'Mem', '32bit', 0x404],
       ['', 'Mem', '32bit', 0x268, '=', 'Value', '', 1],
-      ['AddAddress', 'Mem', '32bit', 0x5acb70],
+      ['AddAddress', 'Mem', '32bit', 0x9c1a9c],
       ['AddAddress', 'Mem', '32bit', 0x3804],
       ['', 'Delta', '32bit', 0x0, '=', 'Value', '', 0],
-      ['AddAddress', 'Mem', '32bit', 0x5acb70],
+      ['AddAddress', 'Mem', '32bit', 0x9c1a9c],
       ['AddAddress', 'Mem', '32bit', 0x3804],
       ['', 'Mem', '32bit', 0x0, '=', 'Value', '', 1],
       ['', 'Mem', '32bit', 0x917984, '!=', 'Value', '', 0x3070306c],
@@ -759,15 +759,14 @@ set.addLeaderboard({
   type: 'VALUE',
   conditions: {
     start: $(
-      ['AddAddress', 'Mem', '32bit', 0x5acb70],
+      ['AddAddress', 'Mem', '32bit', 0x9c1a9c],
       ['', 'Mem', '32bit', 0x3804, '!=', 'Value', '', 0],
-      ['AddAddress', 'Mem', '32bit', 0x5acb70],
+      ['AddAddress', 'Mem', '32bit', 0x9c1a9c],
       ['AddAddress', 'Mem', '32bit', 0x404],
       ['', 'Delta', '32bit', 0x364, '=', 'Value', '', 0],
-      ['AddAddress', 'Mem', '32bit', 0x5acb70],
+      ['AddAddress', 'Mem', '32bit', 0x9c1a9c],
       ['AddAddress', 'Mem', '32bit', 0x404],
       ['', 'Mem', '32bit', 0x364, '>', 'Value', '', 0],
-      ['', 'Mem', '32bit', 0x9388b4, '=', 'Value', '', 0],
       ['', 'Mem', '32bit', 0x917944, '=', 'Value', '', 0x69737361],
       ['', 'Mem', '32bit', 0x9c23b0, '=', 'Value', '', 207],
       ['', 'Mem', '32bit', 0x9388b0, '=', 'Value', '', 0],
@@ -790,30 +789,31 @@ set.addLeaderboard({
         ['', 'Mem', '16bit', 0x5ae, '>', 'Value', '', 0],
       ),
       alt3: $(
-        ['AddAddress', 'Mem', '32bit', 0x5acb70],
+        ['AddAddress', 'Mem', '32bit', 0x9c1a9c],
         ['AddAddress', 'Mem', '32bit', 0x404],
         ['', 'Mem', '32bit', 0x364, '=', 'Value', '', 0],
       ),
       alt4: $(
-        ['AddAddress', 'Mem', '32bit', 0x5acb70],
+        ['AddAddress', 'Mem', '32bit', 0x9c1a9c],
         ['AddAddress', 'Mem', '32bit', 0x404],
         ['', 'Mem', '32bit', 0x364, '=', 'Value', '', -1],
       ),
       alt5: $(
-        ['AddAddress', 'Mem', '32bit', 0x5acb70],
+        ['AddAddress', 'Mem', '32bit', 0x9c1a9c],
         ['', 'Mem', '32bit', 0x3804, '=', 'Value', '', 0],
       ),
     },
     submit: $(
-      ['AddAddress', 'Mem', '32bit', 0x5acb70],
+      ['AddAddress', 'Mem', '32bit', 0x9c1a9c],
       ['AddAddress', 'Mem', '32bit', 0x3804],
       ['', 'Delta', '32bit', 0x0, '=', 'Value', '', 0],
-      ['AddAddress', 'Mem', '32bit', 0x5acb70],
+      ['AddAddress', 'Mem', '32bit', 0x9c1a9c],
       ['AddAddress', 'Mem', '32bit', 0x3804],
       ['', 'Mem', '32bit', 0x0, '=', 'Value', '', 1],
+      ['', 'Mem', '32bit', 0x917984, '!=', 'Value', '', 0x3070306c],
     ),
     value: $(
-      ['AddAddress', 'Mem', '32bit', 0x5acb70],
+      ['AddAddress', 'Mem', '32bit', 0x9c1a9c],
       ['AddAddress', 'Mem', '32bit', 0x404],
       ['Measured', 'Mem', '32bit', 0x364],
     ),
@@ -831,7 +831,7 @@ const set = new AchievementSet({ gameId: 3050, title: 'GranTurismoSample' })
 
 set.addAchievement({
   title: '', // FIXME
-  description: \`Your first experience of circuit racing on a Beginner\\\`s course. Beat the time of 1'49.000\`,
+  description: \`Your first experience of circuit racing on a Beginner's course. Beat the time of 1'49.000\`,
   points: 1,
   type: 'progression',
   conditions: $(
@@ -853,13 +853,13 @@ set.addAchievement({
   conditions: {
     core: $(
       ['', 'Mem', '32bit', 0x9388b4, '=', 'Value', '', 1, 1],
-      ['AddAddress', 'Mem', '32bit', 0x5acb70],
+      ['AddAddress', 'Mem', '32bit', 0x9c1a9c],
       ['AddAddress', 'Mem', '32bit', 0x404],
       ['', 'Mem', '32bit', 0x268, '=', 'Value', '', 1],
-      ['AddAddress', 'Mem', '32bit', 0x5acb70],
+      ['AddAddress', 'Mem', '32bit', 0x9c1a9c],
       ['AddAddress', 'Mem', '32bit', 0x3804],
       ['', 'Delta', '32bit', 0x0, '=', 'Value', '', 0],
-      ['AddAddress', 'Mem', '32bit', 0x5acb70],
+      ['AddAddress', 'Mem', '32bit', 0x9c1a9c],
       ['AddAddress', 'Mem', '32bit', 0x3804],
       ['', 'Mem', '32bit', 0x0, '=', 'Value', '', 1],
       ['', 'Mem', '32bit', 0x917984, '!=', 'Value', '', 0x3070306c],
@@ -1060,7 +1060,7 @@ const set = new AchievementSet({ gameId: 3050, title: 'GranTurismoSample' })
 
 set.addAchievement({
   title: 'Passed - Learning the Basics of Steering 1',
-  description: \`Your first experience of circuit racing on a Beginner\\\`s course. Beat the time of 1'49.000\`,
+  description: \`Your first experience of circuit racing on a Beginner's course. Beat the time of 1'49.000\`,
   points: 1,
   type: 'progression',
   conditions: $(
@@ -1083,13 +1083,13 @@ set.addAchievement({
   conditions: {
     core: $(
       ['', 'Mem', '32bit', 0x9388b4, '=', 'Value', '', 1, 1],
-      ['AddAddress', 'Mem', '32bit', 0x5acb70],
+      ['AddAddress', 'Mem', '32bit', 0x9c1a9c],
       ['AddAddress', 'Mem', '32bit', 0x404],
       ['', 'Mem', '32bit', 0x268, '=', 'Value', '', 1],
-      ['AddAddress', 'Mem', '32bit', 0x5acb70],
+      ['AddAddress', 'Mem', '32bit', 0x9c1a9c],
       ['AddAddress', 'Mem', '32bit', 0x3804],
       ['', 'Delta', '32bit', 0x0, '=', 'Value', '', 0],
-      ['AddAddress', 'Mem', '32bit', 0x5acb70],
+      ['AddAddress', 'Mem', '32bit', 0x9c1a9c],
       ['AddAddress', 'Mem', '32bit', 0x3804],
       ['', 'Mem', '32bit', 0x0, '=', 'Value', '', 1],
       ['', 'Mem', '32bit', 0x917984, '!=', 'Value', '', 0x3070306c],

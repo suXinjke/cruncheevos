@@ -45,17 +45,14 @@ export function makeDoRequestHandler(
   func: (opts: {
     filePath: string
     request: StrictRequest<DefaultBodyType>
-  }) => HttpResponse | Promise<HttpResponse> = ({ filePath }) =>
-    HttpResponse.json({
-      Success: true,
-      PatchData: JSON.parse(realFs.readFileSync(resolveRACache(filePath)).toString()),
-    }),
+  }) => HttpResponse<DefaultBodyType> | Promise<HttpResponse<DefaultBodyType>> = ({ filePath }) =>
+    HttpResponse.arrayBuffer(realFs.readFileSync(resolveRACache(filePath)).buffer),
 ) {
   return http.get('https://retroachievements.org/dorequest.php', ({ request }) => {
     const { searchParams } = new URL(request.url)
 
     if (
-      searchParams.get('r') !== 'patch' ||
+      searchParams.get('r') !== 'achievementsets' ||
       searchParams.get('u') !== expectedCredentials.Username ||
       searchParams.get('t') !== expectedCredentials.Token
     ) {

@@ -8,31 +8,48 @@ const fs = getFs()
 
 type UnixTime = number
 
-export interface RemoteData {
+interface RemoteAchievement {
+  ID: number
+  MemAddr: string
+  Title: string
+  Description: string
+  Points: number
+  Author: string
+  Modified: UnixTime
+  Created: UnixTime
+  BadgeName: string
+  Flags: number
+  Type: Achievement.Type
+}
+
+interface RemoteLeaderboard {
+  ID: number
+  Mem: string
+  Format: Leaderboard.Type
+  LowerIsBetter: boolean | number
+  Title: string
+  Description: string
+  Hidden: boolean
+}
+
+interface RemoteDataLegacy {
   ID: number
   Title: string
   RichPresencePatch: string
-  Achievements: Array<{
-    ID: number
-    MemAddr: string
+  Achievements: RemoteAchievement[]
+  Leaderboards: RemoteLeaderboard[]
+}
+
+export interface RemoteData {
+  Success: boolean
+  Title: string
+  Sets: Array<{
     Title: string
-    Description: string
-    Points: number
-    Author: string
-    Modified: UnixTime
-    Created: UnixTime
-    BadgeName: string
-    Flags: number
-    Type: Achievement.Type
-  }>
-  Leaderboards: Array<{
-    ID: number
-    Mem: string
-    Format: Leaderboard.Type
-    LowerIsBetter: boolean | number
-    Title: string
-    Description: string
-    Hidden: boolean
+    GameId: number
+    AchievementSetId: number
+    Type: 'core'
+    Achievements: RemoteAchievement[]
+    Leaderboards: RemoteLeaderboard[]
   }>
 }
 
@@ -90,7 +107,7 @@ async function fetchRemoteData(opts: {
 
   const timeoutHandle = setTimeout(() => abortController.abort(), timeout)
   const payload = await nodeFetch(
-    `https://retroachievements.org/dorequest.php?r=patch&t=${token}&u=${username}&g=${gameId}`,
+    `https://retroachievements.org/dorequest.php?r=achievementsets&t=${token}&u=${username}&g=${gameId}`,
     {
       headers: {
         'User-Agent': 'cruncheevos-cli',
@@ -100,7 +117,7 @@ async function fetchRemoteData(opts: {
   )
     .then(x => {
       if (x.ok) {
-        return x.json() as Promise<{ Success: boolean; PatchData: RemoteData }>
+        return x.json() as Promise<RemoteData>
       } else {
         throw new Error(`failed to fetch remote data: HTTP ${x.status}`)
       }
@@ -119,8 +136,7 @@ async function fetchRemoteData(opts: {
       `failed to fetch remote data: expected payload.Success to be true, but got ${payload.Success}`,
     )
   }
-
-  return payload.PatchData
+  return payload
 }
 
 export default async function fetch(opts: { gameId: number; timeout: number }) {
@@ -146,16 +162,43 @@ export async function getRemoteData({
   timeout: number
 }) {
   const filePath = resolveRACache(`./RACache/Data/${gameId}.json`)
-  if (!refetch && fs.existsSync(filePath)) {
-    return JSON.parse(fs.readFileSync(filePath).toString()) as RemoteData
+  if (refetch || fs.existsSync(filePath) === false) {
+    return fetch({
+      gameId,
+      timeout,
+    })
   }
 
-  return fetch({
-    gameId,
-    timeout,
-  })
+  const parsed = JSON.parse(fs.readFileSync(filePath).toString()) as RemoteData | RemoteDataLegacy
+  if ('Sets' in parsed === false) {
+    return {
+      ...parsed,
+      Success: true,
+      Sets: [
+        {
+          Title: parsed.Title,
+          GameId: parsed.ID,
+          AchievementSetId: parsed.ID,
+          Type: 'core',
+          Achievements: parsed.Achievements,
+          Leaderboards: parsed.Leaderboards,
+        },
+      ],
+    } as RemoteData
+  }
+
+  return parsed as RemoteData
 }
 
+export function getSetFromRemoteData(remoteData: RemoteData, setId?: number) {
+  if (setId) {
+    return remoteData.Sets.find(set => set.AchievementSetId === setId)
+  }
+
+  return remoteData.Sets.find(set => set.Type === 'core')
+}
+
+// TODO: add support for setId
 async function _getSetFromRemote(opts: {
   gameId: number
   excludeUnofficial: boolean
@@ -164,14 +207,15 @@ async function _getSetFromRemote(opts: {
 }) {
   const { gameId } = opts
 
-  const gameData = await getRemoteData(opts)
+  const remoteData = await getRemoteData(opts)
+  const { Achievements, Leaderboards } = getSetFromRemoteData(remoteData)
 
   const set = new AchievementSet({
     gameId,
-    title: gameData.Title,
+    title: remoteData.Title,
   })
 
-  gameData.Achievements.forEach((ach, i) => {
+  Achievements.forEach((ach, i) => {
     if (ach.Flags === 5 && opts.excludeUnofficial) {
       return
     }
@@ -196,17 +240,16 @@ async function _getSetFromRemote(opts: {
     }
   })
 
-  gameData.Leaderboards.forEach((lb, i) => {
+  Leaderboards.forEach((lb, i) => {
     if (lb.Hidden && opts.excludeUnofficial) {
       return
     }
 
-    const { ID } = lb
     const leaderboardType: Leaderboard.Type = lb.Format === 'TIME' ? 'FRAMES' : lb.Format
 
     try {
       set.addLeaderboard({
-        id: ID,
+        id: lb.ID,
         title: lb.Title,
         description: lb.Description,
         lowerIsBetter: Boolean(lb.LowerIsBetter),
@@ -221,6 +264,7 @@ async function _getSetFromRemote(opts: {
   return set
 }
 
+// TODO: add support for setId
 export async function getSetFromRemote(opts: {
   gameId: number
   refetch: boolean

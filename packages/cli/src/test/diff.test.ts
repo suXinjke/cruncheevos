@@ -1287,4 +1287,67 @@ describe('diff', () => {
     // TODO: should this be empty?
     ctx.expect(log).toMatchInlineSnapshot('')
   })
+
+  test('works with legacy payloads', async ctx => {
+    prepareFakeAssets({
+      gameId: 3050,
+      remote: '3050-legacy.json',
+      inputModule: () => {
+        return new AchievementSet({ gameId: 3050, title: 'Gran Turismo' })
+          .addAchievement({
+            title: 'Passed - Learning the Basics of Steering 1',
+            description:
+              "Your first experience of circuit racing on a Beginner's course. Beat the time of 1'49.000",
+            conditions: '0xcafe=0xfeed',
+            points: 1,
+            type: 'progression',
+          })
+          .addLeaderboard({
+            title: 'Strategies for Tackling S-Bends',
+            description: 'Fastest time to complete in msec',
+            type: 'VALUE',
+            lowerIsBetter: true,
+            conditions: {
+              start: '0xcafe=0xfeed',
+              cancel: '0xH917984=0',
+              submit: '1=1',
+              value: '0xX9c2518',
+            },
+          })
+      },
+    })
+
+    await runTestCLI(['diff', './mySet.js'])
+    ctx.expect(log).toMatchInlineSnapshot(`
+      local file ./RACache/Data/3050-User.txt doesn't exist, will not diff against local file
+      Assets changed:
+
+        A.ID│ 251873 (compared to remote)
+       Title│ Passed - Learning the Basics of Steering 1
+      ──────┼──────────────────────────────────────────────────────────
+        Code│ Core
+            │ Flag Type  Size     Value Cmp Type  Size       Value Hits
+      ──────┼──────────────────────────────────────────────────────────
+        1  -│      Mem   24bit 0x917984  =  Value         0x70306c
+        2  -│      Mem   32bit 0x917987  =  Value       0x31303030
+        3  -│      Delta 32bit 0x9c1aa0  =  Value               -2
+        4  -│      Mem   32bit 0x9c1aa0 <=  Value                4
+        5  -│      Mem   32bit 0x9c2518 <=  Value          0x1a9c8
+        +  1│      Mem   16bit   0xcafe  =  Mem   16bit     0xfeed
+
+        L.ID│ 44618 (compared to remote)
+       Title│ Strategies for Tackling S-Bends
+      ──────┼──────────────────────────────────────────────────────────
+        Code│ Start - Core
+            │ Flag Type  Size     Value Cmp Type  Size       Value Hits
+      ──────┼──────────────────────────────────────────────────────────
+        1  -│      Mem   24bit 0x917984  =  Value         0x70306c
+        2  -│      Mem   32bit 0x917987  =  Value       0x31323030
+        3  -│      Delta 32bit 0x9c1aa0  =  Value               -2
+        4  -│      Mem   32bit 0x9c1aa0 <=  Value                4
+        5  -│      Mem   32bit 0x9c2518 !=  Value       0x157529ff
+        6  -│      Mem   32bit 0x9c2518 !=  Value                0
+        +  1│      Mem   16bit   0xcafe  =  Mem   16bit     0xfeed
+    `)
+  })
 })

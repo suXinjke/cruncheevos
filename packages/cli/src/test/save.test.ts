@@ -776,8 +776,8 @@ describe('save', () => {
         })
 
         const payload = JSON.parse(fs.readFileSync('./RACache/Data/1234.json').toString())
-        payload.Achievements[0].MemAddr = '1=h0'
-        payload.Leaderboards[0].Mem = 'STA:1=0::CAN:1=0::SUB:1=h1::VAL:M:0x0000cafe'
+        payload.Sets[0].Achievements[0].MemAddr = '1=h0'
+        payload.Sets[0].Leaderboards[0].Mem = 'STA:1=0::CAN:1=0::SUB:1=h1::VAL:M:0x0000cafe'
         fs.writeFileSync('./RACache/Data/1234.json', JSON.stringify(payload))
 
         await runTestCLI(['save', './mySet.js'])
