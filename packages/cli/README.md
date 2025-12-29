@@ -10,6 +10,7 @@ CLI expects Node 20 LTS and only respects working in ESM environment.
   - [I want to create new achievement set from scratch](#i-want-to-create-new-achievement-set-from-scratch)
   - [I want to work on existing achievement set](#i-want-to-work-on-existing-achievement-set)
   - [General workflow](#general-workflow)
+- [TypeScript support](#typescript-support)
 - [Recipes](#recipes)
   - [Handling different regions or versions of a game](#handling-different-regions-or-versions-of-a-game)
   - [AddAddress handling](#addaddress-handling)
@@ -186,6 +187,32 @@ Sonic the Hedgehog
 ```
 
 Same could have been done using [diff-save](#diff-save) command. After saving the changes, open RAIntegration in your emulator to test your work in-game and upload the changes.
+
+## TypeScript support
+Since Node v22.18.0, it's possible to run TypeScript code without any transpilation and feature flags as long as it's only erasabable syntax and types.
+
+Bun also works fine. So just use `npx` and `bunx` as you normally would, but directly on `*.ts` files.
+
+The only caveats are with imports:
+```ts
+/*
+  Must have this in tsconfig.json / jsconfig.json
+  { "compilerOptions": { "allowImportingTsExtensions": true } }
+  Otherwise will have an error in your editor, but you still need .ts extension
+  on files to force node/bun to strip syntax and types
+*/
+import { someObject } from './submodule.ts'
+
+// Bad
+import { SomeType, SomeInterface } from './submodule.ts'
+// Correct
+import type { SomeType, SomeInterface } from './submodule.ts'
+/*
+  This is because types and interfaces are erasable syntax,
+  and will not actually exist in modules, so type imports
+  need to be explicit to make them erasable too
+*/
+```
 
 ## Recipes
 
