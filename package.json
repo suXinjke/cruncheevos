@@ -4,13 +4,14 @@
   "private": true,
   "type": "module",
   "workspaces": [
-    "packages/*"
+    "packages/core",
+    "packages/cli"
   ],
   "scripts": {
-    "build": "turbo run --no-daemon build",
+    "build": "npm run build --workspaces",
     "test": "vitest run --coverage",
     "test:watch": "vitest",
-    "typecheck": "turbo run --no-daemon typecheck"
+    "typecheck": "npm run typecheck --workspaces"
   },
   "devDependencies": {
     "@typescript-eslint/parser": "^8.0.0",
@@ -21,7 +22,6 @@
     "eslint-plugin-es": "^4.1.0",
     "github-slugger": "^2.0.0",
     "prettier": "latest",
-    "turbo": "latest",
     "typedoc": "^0.28.15",
     "typedoc-plugin-missing-exports": "^4.1.2",
     "typescript": "^5.9.3",
