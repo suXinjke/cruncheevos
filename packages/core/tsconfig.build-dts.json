@@ -1,9 +1,9 @@
 {
   "extends": "./tsconfig.json",
   "compilerOptions": {
+    "noCheck": true,
     "declaration": true,
-    "emitDeclarationOnly": true,
-    "skipLibCheck": true
+    "emitDeclarationOnly": true
   },
-  "exclude": ["./src/test/**/*.ts"]
+  "exclude": ["src/test/**/*.ts"]
 }

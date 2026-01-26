@@ -25,7 +25,7 @@
   ],
   "scripts": {
     "build": "tsc --project tsconfig.build.json",
-    "typecheck": "tsc --project tsconfig.json"
+    "typecheck": "tsc --noEmit"
   },
   "dependencies": {
     "@commander-js/extra-typings": "^14.0.0",
@@ -40,7 +40,6 @@
     "table": "^6.9.0"
   },
   "devDependencies": {
-    "@cruncheevos/tsconfig": "*",
     "@types/json-diff": "^1.0.3",
     "@types/prompts": "^2.4.9",
     "immer": "^11.0.1",

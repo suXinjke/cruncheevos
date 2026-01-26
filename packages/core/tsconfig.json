@@ -1,7 +1,10 @@
 {
-  "extends": "@cruncheevos/tsconfig/base.json",
   "compilerOptions": {
-    "outDir": "./dist/"
+    "outDir": "./dist/",
+    "moduleResolution": "node16",
+    "module": "Node16",
+    "target": "ES2018",
+    "noImplicitThis": true
   },
   "include": ["src/**/*.ts"]
 }

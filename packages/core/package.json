@@ -39,9 +39,6 @@
     "build:dts": "tsc --project tsconfig.build-dts.json",
     "bundle:dev": "vite build --mode=dev",
     "bundle:min": "vite build --mode=production",
-    "typecheck": "tsc --project tsconfig.json"
-  },
-  "devDependencies": {
-    "@cruncheevos/tsconfig": "*"
+    "typecheck": "tsc --noEmit"
   }
 }
