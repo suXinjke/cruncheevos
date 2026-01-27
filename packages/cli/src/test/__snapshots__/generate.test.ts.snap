@@ -5,6 +5,8 @@ exports[`generate > filter > by description 1`] = `
 const set = new AchievementSet({ gameId: 3050, title: 'GranTurismoSample' })
 
 set.addAchievement({
+  id: 251967,
+  badge: '279619',
   title: 'Legacy Race',
   description: 'Win any race in Arcade mode while driving any of Subaru Legacy cars',
   points: 2,
@@ -73,8 +75,6 @@ set.addAchievement({
       ['', 'Mem', '32bit', 0x9c23b0, '=', 'Value', '', 126],
     ),
   },
-  badge: '279619',
-  id: 251967,
 })
 
 export default set
@@ -86,6 +86,8 @@ exports[`generate > filter > by either name 1`] = `
 const set = new AchievementSet({ gameId: 3050, title: 'GranTurismoSample' })
 
 set.addAchievement({
+  id: 251968,
+  badge: '279620',
   title: 'Skyline Race',
   description: 'Win any race in Arcade mode while driving any of Nissan Skyline road cars with NORMAL tyres',
   points: 2,
@@ -142,11 +144,11 @@ set.addAchievement({
       ['', 'Mem', '32bit', 0x9c23b0, '=', 'Value', '', 74],
     ),
   },
-  badge: '279620',
-  id: 251968,
 })
 
 set.addAchievement({
+  id: 251967,
+  badge: '279619',
   title: 'Legacy Race',
   description: 'Win any race in Arcade mode while driving any of Subaru Legacy cars',
   points: 2,
@@ -215,11 +217,11 @@ set.addAchievement({
       ['', 'Mem', '32bit', 0x9c23b0, '=', 'Value', '', 126],
     ),
   },
-  badge: '279619',
-  id: 251967,
 })
 
 set.addAchievement({
+  id: 251971,
+  badge: '279623',
   title: 'Cappucino / Beat Race',
   description: 'Win Tsukuba Circuit race in Arcade mode on PRO difficulty while driving Honda BEAT(J) \`91 or Suzuki Cappuccino \`92 with NORMAL tyres',
   points: 5,
@@ -243,11 +245,10 @@ set.addAchievement({
     alt1: $(['', 'Mem', '32bit', 0x9c23b0, '=', 'Value', '', 137]),
     alt2: $(['', 'Mem', '32bit', 0x9c23b0, '=', 'Value', '', 33]),
   },
-  badge: '279623',
-  id: 251971,
 })
 
 set.addLeaderboard({
+  id: 44723,
   title: 'Italian Street Course Time Trial',
   description: 'Fastest time to complete in msec',
   lowerIsBetter: true,
@@ -265,7 +266,6 @@ set.addLeaderboard({
     submit: '1=1',
     value: $(['Measured', 'Mem', '32bit', 0x9c2518]),
   },
-  id: 44723,
 })
 
 export default set
@@ -277,6 +277,8 @@ exports[`generate > filter > by id 1`] = `
 const set = new AchievementSet({ gameId: 3050, title: 'GranTurismoSample' })
 
 set.addAchievement({
+  id: 251968,
+  badge: '279620',
   title: 'Skyline Race',
   description: 'Win any race in Arcade mode while driving any of Nissan Skyline road cars with NORMAL tyres',
   points: 2,
@@ -333,8 +335,6 @@ set.addAchievement({
       ['', 'Mem', '32bit', 0x9c23b0, '=', 'Value', '', 74],
     ),
   },
-  badge: '279620',
-  id: 251968,
 })
 
 export default set
@@ -346,6 +346,8 @@ exports[`generate > filter > by single name 1`] = `
 const set = new AchievementSet({ gameId: 3050, title: 'GranTurismoSample' })
 
 set.addAchievement({
+  id: 251873,
+  badge: '279583',
   title: 'Passed - Learning the Basics of Steering 1',
   description: \`Your first experience of circuit racing on a Beginner's course. Beat the time of 1'49.000\`,
   points: 1,
@@ -357,8 +359,6 @@ set.addAchievement({
     ['', 'Mem', '32bit', 0x9c1aa0, '<=', 'Value', '', 4],
     ['', 'Mem', '32bit', 0x9c2518, '<=', 'Value', '', 0x1a9c8],
   ),
-  badge: '279583',
-  id: 251873,
 })
 
 export default set
@@ -370,6 +370,8 @@ exports[`generate > filter > by two ids 1`] = `
 const set = new AchievementSet({ gameId: 3050, title: 'GranTurismoSample' })
 
 set.addAchievement({
+  id: 251968,
+  badge: '279620',
   title: 'Skyline Race',
   description: 'Win any race in Arcade mode while driving any of Nissan Skyline road cars with NORMAL tyres',
   points: 2,
@@ -426,11 +428,11 @@ set.addAchievement({
       ['', 'Mem', '32bit', 0x9c23b0, '=', 'Value', '', 74],
     ),
   },
-  badge: '279620',
-  id: 251968,
 })
 
 set.addAchievement({
+  id: 251967,
+  badge: '279619',
   title: 'Legacy Race',
   description: 'Win any race in Arcade mode while driving any of Subaru Legacy cars',
   points: 2,
@@ -499,8 +501,6 @@ set.addAchievement({
       ['', 'Mem', '32bit', 0x9c23b0, '=', 'Value', '', 126],
     ),
   },
-  badge: '279619',
-  id: 251967,
 })
 
 export default set
@@ -512,6 +512,8 @@ exports[`generate > option to include unofficial assets works 1`] = `
 const set = new AchievementSet({ gameId: 3050, title: 'GranTurismoSample' })
 
 set.addAchievement({
+  id: 251873,
+  badge: '279583',
   title: 'Passed - Learning the Basics of Steering 1',
   description: \`Your first experience of circuit racing on a Beginner's course. Beat the time of 1'49.000\`,
   points: 1,
@@ -523,11 +525,11 @@ set.addAchievement({
     ['', 'Mem', '32bit', 0x9c1aa0, '<=', 'Value', '', 4],
     ['', 'Mem', '32bit', 0x9c2518, '<=', 'Value', '', 0x1a9c8],
   ),
-  badge: '279583',
-  id: 251873,
 })
 
 set.addAchievement({
+  id: 251875,
+  badge: '279583',
   title: 'Passed - Learning the Basics of Steering 3',
   description: \`Learn the 'out-in-out' cornering technique\`,
   points: 2,
@@ -538,11 +540,11 @@ set.addAchievement({
     ['', 'Mem', '32bit', 0x9c1aa0, '>=', 'Value', '', 2],
     ['', 'Mem', '32bit', 0x9c1aa0, '<=', 'Value', '', 4],
   ),
-  badge: '279583',
-  id: 251875,
 })
 
 set.addAchievement({
+  id: 251968,
+  badge: '279620',
   title: 'Skyline Race',
   description: 'Win any race in Arcade mode while driving any of Nissan Skyline road cars with NORMAL tyres',
   points: 2,
@@ -599,11 +601,11 @@ set.addAchievement({
       ['', 'Mem', '32bit', 0x9c23b0, '=', 'Value', '', 74],
     ),
   },
-  badge: '279620',
-  id: 251968,
 })
 
 set.addAchievement({
+  id: 251967,
+  badge: '279619',
   title: 'Legacy Race',
   description: 'Win any race in Arcade mode while driving any of Subaru Legacy cars',
   points: 2,
@@ -672,11 +674,11 @@ set.addAchievement({
       ['', 'Mem', '32bit', 0x9c23b0, '=', 'Value', '', 126],
     ),
   },
-  badge: '279619',
-  id: 251967,
 })
 
 set.addAchievement({
+  id: 251971,
+  badge: '279623',
   title: 'Cappucino / Beat Race',
   description: 'Win Tsukuba Circuit race in Arcade mode on PRO difficulty while driving Honda BEAT(J) \`91 or Suzuki Cappuccino \`92 with NORMAL tyres',
   points: 5,
@@ -700,11 +702,10 @@ set.addAchievement({
     alt1: $(['', 'Mem', '32bit', 0x9c23b0, '=', 'Value', '', 137]),
     alt2: $(['', 'Mem', '32bit', 0x9c23b0, '=', 'Value', '', 33]),
   },
-  badge: '279623',
-  id: 251971,
 })
 
 set.addLeaderboard({
+  id: 44618,
   title: 'Strategies for Tackling S-Bends',
   description: 'Fastest time to complete in msec',
   lowerIsBetter: true,
@@ -722,10 +723,10 @@ set.addLeaderboard({
     submit: '1=1',
     value: $(['Measured', 'Mem', '32bit', 0x9c2518]),
   },
-  id: 44618,
 })
 
 set.addLeaderboard({
+  id: 44723,
   title: 'Italian Street Course Time Trial',
   description: 'Fastest time to complete in msec',
   lowerIsBetter: true,
@@ -743,10 +744,10 @@ set.addLeaderboard({
     submit: '1=1',
     value: $(['Measured', 'Mem', '32bit', 0x9c2518]),
   },
-  id: 44723,
 })
 
 set.addLeaderboard({
+  id: 44731,
   title: 'MR-2 Time Trial',
   description: 'Fastest time to complete in msec',
   lowerIsBetter: true,
@@ -812,7 +813,6 @@ set.addLeaderboard({
       ['Measured', 'Mem', '32bit', 0x364],
     ),
   },
-  id: 44731,
 })
 
 export default set
@@ -824,6 +824,8 @@ exports[`generate > warns about assets with missing name or description, yet sti
 const set = new AchievementSet({ gameId: 3050, title: 'GranTurismoSample' })
 
 set.addAchievement({
+  id: 251873,
+  badge: '279583',
   title: '', // FIXME
   description: \`Your first experience of circuit racing on a Beginner's course. Beat the time of 1'49.000\`,
   points: 1,
@@ -835,11 +837,11 @@ set.addAchievement({
     ['', 'Mem', '32bit', 0x9c1aa0, '<=', 'Value', '', 4],
     ['', 'Mem', '32bit', 0x9c2518, '<=', 'Value', '', 0x1a9c8],
   ),
-  badge: '279583',
-  id: 251873,
 })
 
 set.addAchievement({
+  id: 251968,
+  badge: '279620',
   title: 'Skyline Race',
   description: '', // FIXME
   points: 2,
@@ -896,11 +898,11 @@ set.addAchievement({
       ['', 'Mem', '32bit', 0x9c23b0, '=', 'Value', '', 74],
     ),
   },
-  badge: '279620',
-  id: 251968,
 })
 
 set.addAchievement({
+  id: 251967,
+  badge: '279619',
   title: 'Legacy Race',
   description: 'Win any race in Arcade mode while driving any of Subaru Legacy cars',
   points: 2,
@@ -969,11 +971,11 @@ set.addAchievement({
       ['', 'Mem', '32bit', 0x9c23b0, '=', 'Value', '', 126],
     ),
   },
-  badge: '279619',
-  id: 251967,
 })
 
 set.addAchievement({
+  id: 251971,
+  badge: '279623',
   title: 'Cappucino / Beat Race',
   description: 'Win Tsukuba Circuit race in Arcade mode on PRO difficulty while driving Honda BEAT(J) \`91 or Suzuki Cappuccino \`92 with NORMAL tyres',
   points: 5,
@@ -997,11 +999,10 @@ set.addAchievement({
     alt1: $(['', 'Mem', '32bit', 0x9c23b0, '=', 'Value', '', 137]),
     alt2: $(['', 'Mem', '32bit', 0x9c23b0, '=', 'Value', '', 33]),
   },
-  badge: '279623',
-  id: 251971,
 })
 
 set.addLeaderboard({
+  id: 44618,
   title: '', // FIXME
   description: '', // FIXME
   lowerIsBetter: true,
@@ -1019,10 +1020,10 @@ set.addLeaderboard({
     submit: '1=1',
     value: $(['Measured', 'Mem', '32bit', 0x9c2518]),
   },
-  id: 44618,
 })
 
 set.addLeaderboard({
+  id: 44723,
   title: 'Italian Street Course Time Trial',
   description: 'Fastest time to complete in msec',
   lowerIsBetter: true,
@@ -1040,7 +1041,6 @@ set.addLeaderboard({
     submit: '1=1',
     value: $(['Measured', 'Mem', '32bit', 0x9c2518]),
   },
-  id: 44723,
 })
 
 export default set
@@ -1052,6 +1052,8 @@ exports[`generate > works when ran without prefetched achievements, generating a
 const set = new AchievementSet({ gameId: 3050, title: 'GranTurismoSample' })
 
 set.addAchievement({
+  id: 251873,
+  badge: '279583',
   title: 'Passed - Learning the Basics of Steering 1',
   description: \`Your first experience of circuit racing on a Beginner's course. Beat the time of 1'49.000\`,
   points: 1,
@@ -1063,11 +1065,11 @@ set.addAchievement({
     ['', 'Mem', '32bit', 0x9c1aa0, '<=', 'Value', '', 4],
     ['', 'Mem', '32bit', 0x9c2518, '<=', 'Value', '', 0x1a9c8],
   ),
-  badge: '279583',
-  id: 251873,
 })
 
 set.addAchievement({
+  id: 251968,
+  badge: '279620',
   title: 'Skyline Race',
   description: 'Win any race in Arcade mode while driving any of Nissan Skyline road cars with NORMAL tyres',
   points: 2,
@@ -1124,11 +1126,11 @@ set.addAchievement({
       ['', 'Mem', '32bit', 0x9c23b0, '=', 'Value', '', 74],
     ),
   },
-  badge: '279620',
-  id: 251968,
 })
 
 set.addAchievement({
+  id: 251967,
+  badge: '279619',
   title: 'Legacy Race',
   description: 'Win any race in Arcade mode while driving any of Subaru Legacy cars',
   points: 2,
@@ -1197,11 +1199,11 @@ set.addAchievement({
       ['', 'Mem', '32bit', 0x9c23b0, '=', 'Value', '', 126],
     ),
   },
-  badge: '279619',
-  id: 251967,
 })
 
 set.addAchievement({
+  id: 251971,
+  badge: '279623',
   title: 'Cappucino / Beat Race',
   description: 'Win Tsukuba Circuit race in Arcade mode on PRO difficulty while driving Honda BEAT(J) \`91 or Suzuki Cappuccino \`92 with NORMAL tyres',
   points: 5,
@@ -1225,11 +1227,10 @@ set.addAchievement({
     alt1: $(['', 'Mem', '32bit', 0x9c23b0, '=', 'Value', '', 137]),
     alt2: $(['', 'Mem', '32bit', 0x9c23b0, '=', 'Value', '', 33]),
   },
-  badge: '279623',
-  id: 251971,
 })
 
 set.addLeaderboard({
+  id: 44618,
   title: 'Strategies for Tackling S-Bends',
   description: 'Fastest time to complete in msec',
   lowerIsBetter: true,
@@ -1247,10 +1248,10 @@ set.addLeaderboard({
     submit: '1=1',
     value: $(['Measured', 'Mem', '32bit', 0x9c2518]),
   },
-  id: 44618,
 })
 
 set.addLeaderboard({
+  id: 44723,
   title: 'Italian Street Course Time Trial',
   description: 'Fastest time to complete in msec',
   lowerIsBetter: true,
@@ -1268,7 +1269,6 @@ set.addLeaderboard({
     submit: '1=1',
     value: $(['Measured', 'Mem', '32bit', 0x9c2518]),
   },
-  id: 44723,
 })
 
 export default set

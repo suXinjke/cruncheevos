@@ -165,13 +165,13 @@ function remoteDataToJSCode(
 
       src += [
         `set.addAchievement({`,
+        `  id: ${ach.ID},`,
+        `  badge: ${quoted(ach.BadgeName)},`,
         `  title: ${quoted(ach.Title)},${titleFixme}`,
         `  description: ${quoted(ach.Description)},${descriptionFixme}`,
         `  points: ${ach.Points},`,
         achType ? `  type: ${quoted(achType)},` : ``,
         `  conditions: ${groupSetToJsCode(conditions, 2)},`,
-        `  badge: ${quoted(ach.BadgeName)},`,
-        `  id: ${ach.ID},`,
         `})\n\n`,
       ]
         .filter(Boolean)
@@ -218,6 +218,7 @@ function remoteDataToJSCode(
 
       src += [
         `set.addLeaderboard({`,
+        `  id: ${lb.ID},`,
         `  title: ${quoted(lb.Title)},${titleFixme}`,
         `  description: ${quoted(lb.Description)},${descriptionFixme}`,
         `  lowerIsBetter: ${Boolean(lb.LowerIsBetter)},`,
@@ -228,7 +229,6 @@ function remoteDataToJSCode(
         `    submit: ${groupSetToJsCode(conditions.submit, 4)},`,
         `    value: ${groupSetToJsCode(conditions.value, 4)},`,
         `  },`,
-        `  id: ${lb.ID},`,
         `})\n\n`,
       ].join('\n')
     } catch (err) {
