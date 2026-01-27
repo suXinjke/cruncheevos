@@ -1,5 +1,5 @@
-import chalk from 'chalk'
 import * as path from 'path'
+import * as util from 'util'
 
 import { log, confirm, getFs, achievementSetImport, resolveRACache } from './mockable.js'
 import { extractAchievementSetFromModule } from './util.js'
@@ -28,13 +28,16 @@ export default async function richSave(
   const module = await achievementSetImport(absoluteModulePath)
   const inputSet = await extractAchievementSetFromModule(module, absoluteModulePath)
   if (!Object.getOwnPropertyDescriptor(module, 'rich')) {
-    log(chalk.yellowBright(`set doesn't export a string named 'rich', rich-save aborted`))
+    log(
+      util.styleText('yellowBright', `set doesn't export a string named 'rich', rich-save aborted`),
+    )
     return
   }
 
   if (invalidRichPresenceExport(module.rich)) {
     log(
-      chalk.yellowBright(
+      util.styleText(
+        'yellowBright',
         `expected set to export a string named 'rich' or object returned by RichPresence, but it exported a ${typeof module.rich} instead, rich-save aborted`,
       ),
     )

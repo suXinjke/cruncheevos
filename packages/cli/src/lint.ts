@@ -1,6 +1,6 @@
 import { Achievement, AchievementSet, Leaderboard } from '@cruncheevos/core'
 import { Asset } from '@cruncheevos/core/util'
-import chalk from 'chalk'
+import * as util from 'util'
 
 import { log } from './mockable.js'
 
@@ -140,6 +140,6 @@ export function logWarnings(set: AchievementSet) {
   const issues = collectIssues(set)
 
   for (const issue of issues) {
-    log(chalk.yellowBright(`WARN: ${issue.message}`))
+    log(util.styleText('yellowBright', `WARN: ${issue.message}`))
   }
 }

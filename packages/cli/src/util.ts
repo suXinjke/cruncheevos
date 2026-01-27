@@ -1,5 +1,5 @@
 import { Achievement, AchievementSet, Leaderboard, Condition } from '@cruncheevos/core'
-import chalk from 'chalk'
+import * as util from 'util'
 
 const fs = getFs()
 import { getFs, log, resolveRACache } from './mockable.js'
@@ -676,7 +676,12 @@ export function calculateSetChanges(
   for (const local of localEntries) {
     if (local.type === 'error') {
       newLocalFileLines.push(local.line)
-      log(chalk.yellowBright(`local file, ignoring line ${local.idx}: ${local.err.message}`))
+      log(
+        util.styleText(
+          'yellowBright',
+          `local file, ignoring line ${local.idx}: ${local.err.message}`,
+        ),
+      )
     }
 
     if (local.type === 'achievement' || local.type === 'leaderboard') {

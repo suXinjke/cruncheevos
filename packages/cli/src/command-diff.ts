@@ -1,8 +1,8 @@
 import jsonDiff from 'json-diff'
 import { SpanningCellConfig, table } from 'table'
-import chalk from 'chalk'
 
 import * as path from 'path'
+import * as util from 'util'
 import { achievementSetImport, log, resolveRACache } from './mockable.js'
 
 import { Condition, Leaderboard, Achievement } from '@cruncheevos/core'
@@ -159,9 +159,9 @@ function makeConditionGroupReports(opts: {
   }
 }
 
-function colorTheLine(line: string, color: string) {
+function colorTheLine(line: string, color: Parameters<typeof util.styleText>[0]) {
   return line.replace(/^(.+)(│)(.+)$/, (_, left, border, right) => {
-    return chalk[color](left) + border + chalk[color](right)
+    return util.styleText(color, left) + border + util.styleText(color, right)
   })
 }
 
@@ -204,8 +204,8 @@ function makeAssetDiffReport(opts: {
 
   if (titleChanged) {
     pushHeaderLines(
-      ['Title', chalk.redBright('- ' + original.title)],
-      ['', chalk.greenBright('+ ' + modified.title)],
+      ['Title', util.styleText('redBright', '- ' + original.title)],
+      ['', util.styleText('greenBright', '+ ' + modified.title)],
     )
   } else {
     pushHeaderLines(['Title', original.title])
@@ -216,8 +216,8 @@ function makeAssetDiffReport(opts: {
     pushHeaderLines(['Desc.', original.description])
   } else if (descriptionChanged) {
     pushHeaderLines(
-      ['Desc.', chalk.redBright('- ' + original.description)],
-      ['', chalk.greenBright('+ ' + modified.description)],
+      ['Desc.', util.styleText('redBright', '- ' + original.description)],
+      ['', util.styleText('greenBright', '+ ' + modified.description)],
     )
   }
 
@@ -227,37 +227,45 @@ function makeAssetDiffReport(opts: {
 
     pushHeaderLines([
       'Type',
-      chalk.redBright(originalType) + ' -> ' + chalk.greenBright(modifiedType),
+      util.styleText('redBright', originalType) +
+        ' -> ' +
+        util.styleText('greenBright', modifiedType),
     ])
   }
 
   if (achievementPointsChanged) {
     pushHeaderLines([
       'Pts.',
-      chalk.redBright(original.points) + ' -> ' + chalk.greenBright(modified.points),
+      util.styleText('redBright', original.points.toString()) +
+        ' -> ' +
+        util.styleText('greenBright', modified.points.toString()),
     ])
   }
 
   if (achievementBadgeChanged) {
     pushHeaderLines([
       'Badge',
-      chalk.redBright(original.badge) + ' -> ' + chalk.greenBright(modified.badge),
+      util.styleText('redBright', original.badge) +
+        ' -> ' +
+        util.styleText('greenBright', modified.badge),
     ])
   }
 
   if (leaderboardTypeChanged) {
     pushHeaderLines([
       'Type',
-      chalk.redBright(original.type) + ' -> ' + chalk.greenBright(modified.type),
+      util.styleText('redBright', original.type) +
+        ' -> ' +
+        util.styleText('greenBright', modified.type),
     ])
   }
 
   if (leaderboardLowerIsBetterChanged) {
     pushHeaderLines([
       'Low?',
-      chalk.redBright(original.lowerIsBetter.toString()) +
+      util.styleText('redBright', original.lowerIsBetter.toString()) +
         ' -> ' +
-        chalk.greenBright(modified.lowerIsBetter.toString()),
+        util.styleText('greenBright', modified.lowerIsBetter.toString()),
     ])
   }
 
@@ -430,14 +438,19 @@ export default async function diff(
   const leaderboardCount = Object.keys(inputSet.leaderboards).length
   const inputSetIsEmpty = achievementCount === 0 && leaderboardCount === 0
   if (inputSetIsEmpty) {
-    log(chalk.yellowBright(`set doesn't define any achievements or leaderboards, diff aborted`))
+    log(
+      util.styleText(
+        'yellowBright',
+        `set doesn't define any achievements or leaderboards, diff aborted`,
+      ),
+    )
     return { hasChanges: false }
   }
 
   try {
     var remoteSet = await getSetFromRemote({ gameId, excludeUnofficial, refetch, timeout })
   } catch (err) {
-    log(chalk.redBright(`remote data got issues, cannot proceed with the diff`))
+    log(util.styleText('redBright', `remote data got issues, cannot proceed with the diff`))
     throw err
   }
 
@@ -447,14 +460,17 @@ export default async function diff(
       throwOnFirstError: false,
     })
   } catch (err) {
-    log(chalk.yellowBright(`local file got issues, will not diff against local file`))
+    log(util.styleText('yellowBright', `local file got issues, will not diff against local file`))
     throw err
   }
 
   if (!localData) {
     const filePath = resolveRACache(`./RACache/Data/${gameId}-User.txt`)
     log(
-      chalk.yellowBright(`local file ${filePath} doesn't exist, will not diff against local file`),
+      util.styleText(
+        'yellowBright',
+        `local file ${filePath} doesn't exist, will not diff against local file`,
+      ),
     )
   }
 

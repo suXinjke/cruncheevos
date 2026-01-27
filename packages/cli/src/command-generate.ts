@@ -1,6 +1,7 @@
 import { Achievement, Condition, Leaderboard } from '@cruncheevos/core'
 import { wrappedError } from '@cruncheevos/core/util'
-import chalk from 'chalk'
+
+import * as util from 'util'
 
 import { RemoteData, getRemoteData, getSetFromRemoteData } from './command-fetch.js'
 import { confirm, getFs, log } from './mockable.js'
@@ -179,7 +180,8 @@ function remoteDataToJSCode(
 
       if (lackingPieces) {
         log(
-          chalk.yellowBright(
+          util.styleText(
+            'yellowBright',
             `Achievement with ID ${ach.ID} lacks ${lackingPieces}, marked with FIXME`,
           ),
         )
@@ -237,7 +239,8 @@ function remoteDataToJSCode(
 
     if (lackingPieces) {
       log(
-        chalk.yellowBright(
+        util.styleText(
+          'yellowBright',
           `Leaderboard with ID ${lb.ID} lacks ${lackingPieces}, marked with FIXME`,
         ),
       )

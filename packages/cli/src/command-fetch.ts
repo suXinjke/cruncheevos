@@ -1,6 +1,7 @@
 import { Achievement, AchievementSet, Leaderboard } from '@cruncheevos/core'
 import { wrappedError } from '@cruncheevos/core/util'
-import chalk from 'chalk'
+
+import * as util from 'util'
 
 import { getFs, log, resolveRACache } from './mockable.js'
 const fs = getFs()
@@ -278,8 +279,8 @@ export async function getSetFromRemote(opts: {
       throw err
     }
 
-    log(chalk.yellowBright(err.message))
-    log(chalk.yellowBright(`remote data got issues, will attempt to refetch it`))
+    log(util.styleText('yellowBright', err.message))
+    log(util.styleText('yellowBright', `remote data got issues, will attempt to refetch it`))
     return await _getSetFromRemote({ gameId, excludeUnofficial, refetch: true, timeout })
   }
 }

@@ -1,6 +1,5 @@
-import chalk from 'chalk'
-
 import * as path from 'path'
+import * as util from 'util'
 import { log, confirm, resolveRACache, achievementSetImport } from './mockable.js'
 
 import {
@@ -44,7 +43,10 @@ export default async function diffSave(
   const inputSetIsEmpty = achievementCount === 0 && leaderboardCount === 0
   if (inputSetIsEmpty) {
     log(
-      chalk.yellowBright(`set doesn't define any achievements or leaderboards, diff-save aborted`),
+      util.styleText(
+        'yellowBright',
+        `set doesn't define any achievements or leaderboards, diff-save aborted`,
+      ),
     )
     return
   }
@@ -53,10 +55,11 @@ export default async function diffSave(
     var localData = getLocalData({ gameId, throwOnFirstError: true })
   } catch (err) {
     if (!forceRewrite) {
-      log(chalk.yellowBright(`local file got issues`))
-      log(chalk.yellowBright(`will not update local file to prevent loss of data`))
+      log(util.styleText('yellowBright', `local file got issues`))
+      log(util.styleText('yellowBright', `will not update local file to prevent loss of data`))
       log(
-        chalk.yellowBright(
+        util.styleText(
+          'yellowBright',
           `you can force overwrite local file by specifying --force-rewrite parameter`,
         ),
       )
@@ -67,7 +70,7 @@ export default async function diffSave(
   try {
     var remoteSet = await getSetFromRemote({ gameId, excludeUnofficial, refetch, timeout })
   } catch (err) {
-    log(chalk.redBright(`remote data got issues, cannot proceed with the diff-save`))
+    log(util.styleText('redBright', `remote data got issues, cannot proceed with the diff-save`))
     throw err
   }
 
