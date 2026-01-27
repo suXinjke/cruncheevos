@@ -1,14 +1,11 @@
 import { Achievement, Condition, Leaderboard } from '@cruncheevos/core'
 import { wrappedError } from '@cruncheevos/core/util'
-import prettier from 'prettier'
 import chalk from 'chalk'
 
 import { RemoteData, getRemoteData, getSetFromRemoteData } from './command-fetch.js'
 import { confirm, getFs, log } from './mockable.js'
 import { AssetFilter, filtersMatch } from './util.js'
 const fs = getFs()
-
-const quotedHexStringRegex = /"(0x[\dabcdef]+)"/g
 
 function conditionIsSimple(condition: Condition) {
   const { lvalue, rvalue } = condition
@@ -18,114 +15,95 @@ function conditionIsSimple(condition: Condition) {
   )
 }
 
-function conditionsToJsCode(conditions: Condition[]) {
-  const formattedConditions = conditions.map(condition => {
-    const array = condition.toArrayPretty()
+// TODO: would be nice to skip calling toArrayPretty
+// solely for extracting the formatted number
+function conditionsToJsCodeLines(conditions: Condition[]) {
+  return conditions.map((c, i, self) => {
+    const a = c.toArrayPretty()
+    const lValueFormatted = a[3].startsWith('0x') ? a[3] : Number(a[3])
 
-    const result = [
-      array[0],
-      array[1],
-      array[2],
-      array[3].startsWith('0x') ? array[3] : Number(array[3]),
-    ]
+    let line = `['${a[0]}', '${a[1]}', '${a[2]}', ${lValueFormatted}`
 
-    const hasCmp = array[4]
+    const hasCmp = a[4]
     if (hasCmp) {
-      result.push(
-        array[4],
-        array[5],
-        array[6],
-        array[7].startsWith('0x') ? array[7] : Number(array[7]),
-      )
-
-      if (condition.hits > 0) {
-        result.push(condition.hits)
+      const rValueFormatted = a[7].startsWith('0x') ? a[7] : Number(a[7])
+      line += `, '${a[4]}', '${a[5]}', '${a[6]}', ${rValueFormatted}`
+      if (c.hits > 0) {
+        line += `, ${c.hits}`
       }
     }
 
-    return result
-  })
-
-  // Replace outer [ ] with function call of $
-  return (
-    '$(' +
-    JSON.stringify(formattedConditions).slice(1, -1).replace(quotedHexStringRegex, '$1') +
-    ')'
-  )
-}
-
-function achievementConditionStringToJsCode(str: string) {
-  const ach = new Achievement({
-    id: 1,
-    title: 'dummy',
-    points: 0,
-    conditions: str,
-  })
-
-  return templatedConditionGroupSet(ach.conditions)
-}
-
-function templatedConditionGroupSet(conditions: Condition.GroupNormalized) {
-  // don't touch conditions like '1=1'
-  if (
-    conditions.length === 1 &&
-    conditions[0].length === 1 &&
-    conditionIsSimple(conditions[0][0])
-  ) {
-    return '"' + conditions[0].toString() + '"'
-  }
-
-  // conditions: [ ... ]
-  if (conditions.length === 1) {
-    return conditionsToJsCode(conditions[0])
-  }
-
-  /*
-    conditions: {
-      core: [ ... ],
-      alt1: [ ... ]
+    line += ']'
+    if (i < self.length - 1) {
+      line += ','
     }
-  */
-  const prefix = '%'
-  let res = ''
 
-  const placeholders = {} as Record<string, string>
-  const template = conditions.reduce((prev, group, i) => {
-    const groupName = i === 0 ? 'core' : `alt${i}`
-    const placeholder = prefix + groupName
-    prev[groupName] = placeholder
-    placeholders[placeholder] = conditionsToJsCode(group)
-    return prev
-  }, {})
-
-  res = JSON.stringify(template)
-
-  Object.keys(placeholders).forEach(group => {
-    res = res.replace('"' + group + '"', placeholders[group])
+    return line
   })
-
-  return res
 }
 
-function leaderboardConditionStringToJsCode(str: string) {
-  const lb = new Leaderboard({
-    id: 1,
-    title: 'dummy',
-    type: 'VALUE',
-    lowerIsBetter: true,
-    conditions: str,
+function groupSetToJsCode(groupSet: Condition.GroupNormalized, spaces: number) {
+  // don't touch conditions like '1=1'
+  if (groupSet.length === 1 && groupSet[0].length === 1 && conditionIsSimple(groupSet[0][0])) {
+    return `'${groupSet[0].toString()}'`
+  }
+
+  const groups = groupSet.map(x => {
+    const lines = conditionsToJsCodeLines(x)
+
+    // $([...])
+    if (lines.length <= 1) {
+      return [`$(${lines[0]})`]
+    }
+
+    // $(
+    //   [...],
+    //   [...],
+    // )
+    return [
+      `$(`,
+      ...lines.map((line, i, self) => '  ' + line + (i === self.length - 1 ? ',' : '')),
+      `)`,
+    ]
   })
 
-  return JSON.stringify({
-    start: 'lb_start',
-    cancel: 'lb_cancel',
-    submit: 'lb_submit',
-    value: 'lb_value',
-  })
-    .replace('"lb_start"', templatedConditionGroupSet(lb.conditions.start))
-    .replace('"lb_cancel"', templatedConditionGroupSet(lb.conditions.cancel))
-    .replace('"lb_submit"', templatedConditionGroupSet(lb.conditions.submit))
-    .replace('"lb_value"', templatedConditionGroupSet(lb.conditions.value))
+  const w = ' '.repeat(spaces)
+
+  if (groups.length === 1) {
+    return groups[0].map((x, i) => (i === 0 ? x : w + x)).join('\n')
+  }
+
+  // {
+  //   core: $(
+  //     [...],
+  //     [...],
+  //   ),
+  //   alt1: $(
+  //     [...],
+  //     [...],
+  //   ),
+  // }
+  return [
+    '{',
+    groups
+      .map((x, i) => {
+        const groupName = i === 0 ? 'core: ' : `alt${i}: `
+
+        const total = x
+          .map((y, i) => {
+            if (i === 0) {
+              y = groupName + y
+            }
+
+            return w + '  ' + y
+          })
+          .join('\n')
+        return total
+      })
+      .join(',\n')
+      .concat(','),
+    w + '}',
+  ].join('\n')
 }
 
 // Prefer ` if string has quotes, otherwise wrap into single quote
@@ -171,22 +149,33 @@ function remoteDataToJSCode(
     }
 
     try {
+      const { conditions } = new Achievement({
+        id: 1,
+        title: 'dummy',
+        points: 0,
+        conditions: ach.MemAddr,
+      })
+
       const { titleFixme, descriptionFixme, lackingPieces } = makeFixmeComments(
         ach.Title,
         ach.Description,
       )
 
-      let achType = ach.Type || ''
-      achType = achType ? `\n      type: ${quoted(achType)},` : ''
+      const achType = ach.Type || ''
 
-      src += `set.addAchievement({
-      title: ${quoted(ach.Title)},${titleFixme}
-      description: ${quoted(ach.Description)},${descriptionFixme}
-      points: ${ach.Points},${achType}
-      conditions: ${achievementConditionStringToJsCode(ach.MemAddr)},
-      badge: ${quoted(ach.BadgeName)},
-      id: ${ach.ID},
-    })\n\n`
+      src += [
+        `set.addAchievement({`,
+        `  title: ${quoted(ach.Title)},${titleFixme}`,
+        `  description: ${quoted(ach.Description)},${descriptionFixme}`,
+        `  points: ${ach.Points},`,
+        achType ? `  type: ${quoted(achType)},` : ``,
+        `  conditions: ${groupSetToJsCode(conditions, 2)},`,
+        `  badge: ${quoted(ach.BadgeName)},`,
+        `  id: ${ach.ID},`,
+        `})\n\n`,
+      ]
+        .filter(Boolean)
+        .join('\n')
 
       if (lackingPieces) {
         log(
@@ -219,14 +208,29 @@ function remoteDataToJSCode(
     )
 
     try {
-      src += `set.addLeaderboard({
-        title: ${quoted(lb.Title)},${titleFixme}
-        description: ${quoted(lb.Description)},${descriptionFixme}
-        lowerIsBetter: ${Boolean(lb.LowerIsBetter)},
-        type: ${quoted(leaderboardType)},
-        conditions: ${leaderboardConditionStringToJsCode(lb.Mem)},
-        id: ${lb.ID},
-      })\n\n`
+      const { conditions } = new Leaderboard({
+        id: 1,
+        title: 'dummy',
+        type: 'VALUE',
+        lowerIsBetter: true,
+        conditions: lb.Mem,
+      })
+
+      src += [
+        `set.addLeaderboard({`,
+        `  title: ${quoted(lb.Title)},${titleFixme}`,
+        `  description: ${quoted(lb.Description)},${descriptionFixme}`,
+        `  lowerIsBetter: ${Boolean(lb.LowerIsBetter)},`,
+        `  type: ${quoted(leaderboardType)},`,
+        `  conditions: {`,
+        `    start: ${groupSetToJsCode(conditions.start, 4)},`,
+        `    cancel: ${groupSetToJsCode(conditions.cancel, 4)},`,
+        `    submit: ${groupSetToJsCode(conditions.submit, 4)},`,
+        `    value: ${groupSetToJsCode(conditions.value, 4)},`,
+        `  },`,
+        `  id: ${lb.ID},`,
+        `})\n\n`,
+      ].join('\n')
     } catch (err) {
       throw wrappedError(err, `Leaderboard ID ${lb.ID} (${lb.Title}): ${err.message}`)
     }
@@ -240,13 +244,7 @@ function remoteDataToJSCode(
     }
   }
 
-  src += `export default set`
-
-  return prettier.format(src, {
-    semi: false,
-    singleQuote: true,
-    parser: 'typescript',
-  })
+  return src + `export default set\n`
 }
 
 // TODO: add setId support
@@ -271,7 +269,7 @@ export default async function generate(
   const { refetch, includeUnofficial, filter = [], timeout = 1000 } = opts
   const remoteData = await getRemoteData({ gameId, refetch, timeout })
 
-  const code = await remoteDataToJSCode(remoteData, { filter, includeUnofficial })
+  const code = remoteDataToJSCode(remoteData, { filter, includeUnofficial })
   fs.writeFileSync(outputFilePath, code)
 
   log(`generated code for achievement set for gameId ${gameId}: ${outputFilePath}`)

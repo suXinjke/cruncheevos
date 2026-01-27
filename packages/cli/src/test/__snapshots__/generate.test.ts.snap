@@ -6,8 +6,7 @@ const set = new AchievementSet({ gameId: 3050, title: 'GranTurismoSample' })
 
 set.addAchievement({
   title: 'Legacy Race',
-  description:
-    'Win any race in Arcade mode while driving any of Subaru Legacy cars',
+  description: 'Win any race in Arcade mode while driving any of Subaru Legacy cars',
   points: 2,
   type: 'win_condition',
   conditions: {
@@ -29,6 +28,7 @@ set.addAchievement({
       ['', 'Mem', '32bit', 0x9c23b0, '=', 'Value', '', 118],
     ),
     alt2: $(
+      ['PauseIf', 'Mem', '32bit', 0x917944, '!=', 'Delta', '32bit', 0xcafecafe, 1],
       ['', 'Mem', '32bit', 0x917944, '=', 'Value', '', 0x6b757374],
       ['', 'Mem', '32bit', 0x9c23b0, '=', 'Value', '', 119],
     ),
@@ -87,8 +87,7 @@ const set = new AchievementSet({ gameId: 3050, title: 'GranTurismoSample' })
 
 set.addAchievement({
   title: 'Skyline Race',
-  description:
-    'Win any race in Arcade mode while driving any of Nissan Skyline road cars with NORMAL tyres',
+  description: 'Win any race in Arcade mode while driving any of Nissan Skyline road cars with NORMAL tyres',
   points: 2,
   type: 'missable',
   conditions: {
@@ -149,8 +148,7 @@ set.addAchievement({
 
 set.addAchievement({
   title: 'Legacy Race',
-  description:
-    'Win any race in Arcade mode while driving any of Subaru Legacy cars',
+  description: 'Win any race in Arcade mode while driving any of Subaru Legacy cars',
   points: 2,
   type: 'win_condition',
   conditions: {
@@ -172,6 +170,7 @@ set.addAchievement({
       ['', 'Mem', '32bit', 0x9c23b0, '=', 'Value', '', 118],
     ),
     alt2: $(
+      ['PauseIf', 'Mem', '32bit', 0x917944, '!=', 'Delta', '32bit', 0xcafecafe, 1],
       ['', 'Mem', '32bit', 0x917944, '=', 'Value', '', 0x6b757374],
       ['', 'Mem', '32bit', 0x9c23b0, '=', 'Value', '', 119],
     ),
@@ -222,8 +221,7 @@ set.addAchievement({
 
 set.addAchievement({
   title: 'Cappucino / Beat Race',
-  description:
-    'Win Tsukuba Circuit race in Arcade mode on PRO difficulty while driving Honda BEAT(J) \`91 or Suzuki Cappuccino \`92 with NORMAL tyres',
+  description: 'Win Tsukuba Circuit race in Arcade mode on PRO difficulty while driving Honda BEAT(J) \`91 or Suzuki Cappuccino \`92 with NORMAL tyres',
   points: 5,
   conditions: {
     core: $(
@@ -280,8 +278,7 @@ const set = new AchievementSet({ gameId: 3050, title: 'GranTurismoSample' })
 
 set.addAchievement({
   title: 'Skyline Race',
-  description:
-    'Win any race in Arcade mode while driving any of Nissan Skyline road cars with NORMAL tyres',
+  description: 'Win any race in Arcade mode while driving any of Nissan Skyline road cars with NORMAL tyres',
   points: 2,
   type: 'missable',
   conditions: {
@@ -374,8 +371,7 @@ const set = new AchievementSet({ gameId: 3050, title: 'GranTurismoSample' })
 
 set.addAchievement({
   title: 'Skyline Race',
-  description:
-    'Win any race in Arcade mode while driving any of Nissan Skyline road cars with NORMAL tyres',
+  description: 'Win any race in Arcade mode while driving any of Nissan Skyline road cars with NORMAL tyres',
   points: 2,
   type: 'missable',
   conditions: {
@@ -436,8 +432,7 @@ set.addAchievement({
 
 set.addAchievement({
   title: 'Legacy Race',
-  description:
-    'Win any race in Arcade mode while driving any of Subaru Legacy cars',
+  description: 'Win any race in Arcade mode while driving any of Subaru Legacy cars',
   points: 2,
   type: 'win_condition',
   conditions: {
@@ -459,6 +454,7 @@ set.addAchievement({
       ['', 'Mem', '32bit', 0x9c23b0, '=', 'Value', '', 118],
     ),
     alt2: $(
+      ['PauseIf', 'Mem', '32bit', 0x917944, '!=', 'Delta', '32bit', 0xcafecafe, 1],
       ['', 'Mem', '32bit', 0x917944, '=', 'Value', '', 0x6b757374],
       ['', 'Mem', '32bit', 0x9c23b0, '=', 'Value', '', 119],
     ),
@@ -548,8 +544,7 @@ set.addAchievement({
 
 set.addAchievement({
   title: 'Skyline Race',
-  description:
-    'Win any race in Arcade mode while driving any of Nissan Skyline road cars with NORMAL tyres',
+  description: 'Win any race in Arcade mode while driving any of Nissan Skyline road cars with NORMAL tyres',
   points: 2,
   type: 'missable',
   conditions: {
@@ -610,8 +605,7 @@ set.addAchievement({
 
 set.addAchievement({
   title: 'Legacy Race',
-  description:
-    'Win any race in Arcade mode while driving any of Subaru Legacy cars',
+  description: 'Win any race in Arcade mode while driving any of Subaru Legacy cars',
   points: 2,
   type: 'win_condition',
   conditions: {
@@ -633,6 +627,7 @@ set.addAchievement({
       ['', 'Mem', '32bit', 0x9c23b0, '=', 'Value', '', 118],
     ),
     alt2: $(
+      ['PauseIf', 'Mem', '32bit', 0x917944, '!=', 'Delta', '32bit', 0xcafecafe, 1],
       ['', 'Mem', '32bit', 0x917944, '=', 'Value', '', 0x6b757374],
       ['', 'Mem', '32bit', 0x9c23b0, '=', 'Value', '', 119],
     ),
@@ -683,8 +678,7 @@ set.addAchievement({
 
 set.addAchievement({
   title: 'Cappucino / Beat Race',
-  description:
-    'Win Tsukuba Circuit race in Arcade mode on PRO difficulty while driving Honda BEAT(J) \`91 or Suzuki Cappuccino \`92 with NORMAL tyres',
+  description: 'Win Tsukuba Circuit race in Arcade mode on PRO difficulty while driving Honda BEAT(J) \`91 or Suzuki Cappuccino \`92 with NORMAL tyres',
   points: 5,
   conditions: {
     core: $(
@@ -908,8 +902,7 @@ set.addAchievement({
 
 set.addAchievement({
   title: 'Legacy Race',
-  description:
-    'Win any race in Arcade mode while driving any of Subaru Legacy cars',
+  description: 'Win any race in Arcade mode while driving any of Subaru Legacy cars',
   points: 2,
   type: 'win_condition',
   conditions: {
@@ -931,6 +924,7 @@ set.addAchievement({
       ['', 'Mem', '32bit', 0x9c23b0, '=', 'Value', '', 118],
     ),
     alt2: $(
+      ['PauseIf', 'Mem', '32bit', 0x917944, '!=', 'Delta', '32bit', 0xcafecafe, 1],
       ['', 'Mem', '32bit', 0x917944, '=', 'Value', '', 0x6b757374],
       ['', 'Mem', '32bit', 0x9c23b0, '=', 'Value', '', 119],
     ),
@@ -981,8 +975,7 @@ set.addAchievement({
 
 set.addAchievement({
   title: 'Cappucino / Beat Race',
-  description:
-    'Win Tsukuba Circuit race in Arcade mode on PRO difficulty while driving Honda BEAT(J) \`91 or Suzuki Cappuccino \`92 with NORMAL tyres',
+  description: 'Win Tsukuba Circuit race in Arcade mode on PRO difficulty while driving Honda BEAT(J) \`91 or Suzuki Cappuccino \`92 with NORMAL tyres',
   points: 5,
   conditions: {
     core: $(
@@ -1076,8 +1069,7 @@ set.addAchievement({
 
 set.addAchievement({
   title: 'Skyline Race',
-  description:
-    'Win any race in Arcade mode while driving any of Nissan Skyline road cars with NORMAL tyres',
+  description: 'Win any race in Arcade mode while driving any of Nissan Skyline road cars with NORMAL tyres',
   points: 2,
   type: 'missable',
   conditions: {
@@ -1138,8 +1130,7 @@ set.addAchievement({
 
 set.addAchievement({
   title: 'Legacy Race',
-  description:
-    'Win any race in Arcade mode while driving any of Subaru Legacy cars',
+  description: 'Win any race in Arcade mode while driving any of Subaru Legacy cars',
   points: 2,
   type: 'win_condition',
   conditions: {
@@ -1161,6 +1152,7 @@ set.addAchievement({
       ['', 'Mem', '32bit', 0x9c23b0, '=', 'Value', '', 118],
     ),
     alt2: $(
+      ['PauseIf', 'Mem', '32bit', 0x917944, '!=', 'Delta', '32bit', 0xcafecafe, 1],
       ['', 'Mem', '32bit', 0x917944, '=', 'Value', '', 0x6b757374],
       ['', 'Mem', '32bit', 0x9c23b0, '=', 'Value', '', 119],
     ),
@@ -1211,8 +1203,7 @@ set.addAchievement({
 
 set.addAchievement({
   title: 'Cappucino / Beat Race',
-  description:
-    'Win Tsukuba Circuit race in Arcade mode on PRO difficulty while driving Honda BEAT(J) \`91 or Suzuki Cappuccino \`92 with NORMAL tyres',
+  description: 'Win Tsukuba Circuit race in Arcade mode on PRO difficulty while driving Honda BEAT(J) \`91 or Suzuki Cappuccino \`92 with NORMAL tyres',
   points: 5,
   conditions: {
     core: $(
