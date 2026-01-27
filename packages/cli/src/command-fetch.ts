@@ -1,6 +1,5 @@
 import { Achievement, AchievementSet, Leaderboard } from '@cruncheevos/core'
 import { wrappedError } from '@cruncheevos/core/util'
-import nodeFetch, { AbortError } from 'node-fetch'
 import chalk from 'chalk'
 
 import { getFs, log, resolveRACache } from './mockable.js'
@@ -106,7 +105,7 @@ async function fetchRemoteData(opts: {
   const abortController = new AbortController()
 
   const timeoutHandle = setTimeout(() => abortController.abort(), timeout)
-  const payload = await nodeFetch(
+  const payload = await fetch(
     `https://retroachievements.org/dorequest.php?r=achievementsets&t=${token}&u=${username}&g=${gameId}`,
     {
       headers: {
@@ -123,7 +122,7 @@ async function fetchRemoteData(opts: {
       }
     })
     .catch(err => {
-      if (err instanceof AbortError) {
+      if (err instanceof DOMException && err.name === 'AbortError') {
         throw wrappedError(err, `failed to fetch remote data: timed out`)
       } else {
         throw err
@@ -139,7 +138,7 @@ async function fetchRemoteData(opts: {
   return payload
 }
 
-export default async function fetch(opts: { gameId: number; timeout: number }) {
+export default async function fetchAssets(opts: { gameId: number; timeout: number }) {
   const { gameId } = opts
   log(`fetching remote data for gameId ${gameId}`)
   const gameData = await fetchRemoteData(opts)
@@ -163,7 +162,7 @@ export async function getRemoteData({
 }) {
   const filePath = resolveRACache(`./RACache/Data/${gameId}.json`)
   if (refetch || fs.existsSync(filePath) === false) {
-    return fetch({
+    return fetchAssets({
       gameId,
       timeout,
     })

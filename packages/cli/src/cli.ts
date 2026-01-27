@@ -155,7 +155,7 @@ export function makeCLI() {
     .addArgument(argument.gameId)
     .addOption(options.timeout)
     .action(async (gameId, { timeout }) => {
-      await commands.fetch({
+      await commands.fetchAssets({
         gameId,
         timeout,
       })

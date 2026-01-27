@@ -1,5 +1,4 @@
 import { describe, beforeAll, beforeEach, expect, test } from 'vitest'
-import nodeFetch from 'node-fetch'
 import { prepareFakeAssets } from './fake-assets-util.js'
 import { vol, fs, log, server, makeDoRequestHandler, stringDiff } from './test-util.js'
 import { runTestCLI } from '../cli.js'
@@ -158,7 +157,7 @@ describe('save', () => {
         gameId: 1234,
         remote: () => {},
         inputModule: async function () {
-          const achievementInput = await nodeFetch('https://mysecretstash.com/achievements')
+          const achievementInput = await fetch('https://mysecretstash.com/achievements')
             .then(x => x.json())
             .then(x => x[0])
 
