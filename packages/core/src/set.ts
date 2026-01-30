@@ -38,13 +38,13 @@ export class AchievementSet {
    * Game ID matching the one on RetroAchievement servers,
    * must be set correctly if using this class with @cruncheevos/cli
    */
-  gameId: number
+  declare gameId: number
 
   /**
    * Game title or name, it doesn't have to be exact match and
    * is merely put on the second line of produced local file.
    */
-  title: string
+  declare title: string
 
   /**
    * Object containing all added achievements, with achievement id as a key.
@@ -54,9 +54,7 @@ export class AchievementSet {
    *
    * @alias \{ [id: string]: Achievement \}
    */
-  achievements: Record<string, Achievement> & Iterable<Achievement> = {
-    [Symbol.iterator]: iterateObject,
-  }
+  declare achievements: Record<string, Achievement> & Iterable<Achievement>
 
   /**
    * Object containing all added leaderboards, with leaderboard id as a key.
@@ -66,9 +64,7 @@ export class AchievementSet {
    *
    * @alias \{ [id: string]: Leaderboard \}
    */
-  leaderboards: Record<string, Leaderboard> & Iterable<Leaderboard> = {
-    [Symbol.iterator]: iterateObject,
-  }
+  declare leaderboards: Record<string, Leaderboard> & Iterable<Leaderboard>
 
   /**
    * Creates AchievementSet.
@@ -77,6 +73,13 @@ export class AchievementSet {
    * new AchievementSet({ gameId: 1234, title: 'Funny Game' })
    */
   constructor(opts: AchievementSet.Input) {
+    this.achievements = {
+      [Symbol.iterator]: iterateObject,
+    }
+    this.leaderboards = {
+      [Symbol.iterator]: iterateObject,
+    }
+
     const { gameId, title } = opts
     this.gameId = validate.andNormalizeId(gameId, 'gameId')
     validate.title(title, 'achievement set title')

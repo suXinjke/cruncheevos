@@ -250,7 +250,7 @@ export class ConditionBuilder {
    * by calling the {@link define} function and class methods
    * @readonly
    */
-  conditions: Condition[]
+  declare conditions: Condition[]
 
   constructor() {
     this.conditions = []

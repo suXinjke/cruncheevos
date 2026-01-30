@@ -246,12 +246,12 @@ const moveConditions = Symbol()
  * Leaderboard are immutable, if you need to a make a new Leaderboard instance based of existing one - use `with()` method.
  */
 export class Leaderboard implements LeaderboardData {
-  id: number
-  title: string
-  description: string
-  type: Leaderboard.Type
-  lowerIsBetter: boolean
-  conditions: LeaderboardConditions<Condition.GroupNormalized>
+  declare id: number
+  declare title: string
+  declare description: string
+  declare type: Leaderboard.Type
+  declare lowerIsBetter: boolean
+  declare conditions: LeaderboardConditions<Condition.GroupNormalized>
 
   /**
    * Creates Leaderboard using object representing it.

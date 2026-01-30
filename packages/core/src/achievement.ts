@@ -217,14 +217,14 @@ const moveConditions = Symbol()
  * Achievements are immutable, if you need to a make a new Achievement instance based of existing one - use `with()` method.
  */
 export class Achievement implements AchievementData {
-  id: number
-  title: string
-  description: string
-  author: string
-  points: number
-  type: Achievement.Type
-  badge: string
-  conditions: Condition.GroupNormalized
+  declare id: number
+  declare title: string
+  declare description: string
+  declare author: string
+  declare points: number
+  declare type: Achievement.Type
+  declare badge: string
+  declare conditions: Condition.GroupNormalized
 
   /**
    * Creates Achievement using object representing it.

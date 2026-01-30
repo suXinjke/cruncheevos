@@ -767,11 +767,11 @@ function normalizeMergedValue(value: Partial<Condition.Value> | Partial<Conditio
  * Conditions are immutable, if you need to a make a new Condition instance based of existing one - use `with()` method.
  */
 export class Condition implements Condition.Data {
-  flag: Condition.Flag
-  lvalue: Condition.Value
-  cmp: Condition.Operator
-  rvalue: Condition.Value
-  hits: number
+  declare flag: Condition.Flag
+  declare lvalue: Condition.Value
+  declare cmp: Condition.Operator
+  declare rvalue: Condition.Value
+  declare hits: number
 
   /**
    * Creates Condition using array representing it.
