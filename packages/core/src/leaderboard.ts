@@ -221,8 +221,11 @@ function leaderboardFromString(str: string) {
     )
   }
 
+  const [id, setId] = col[0].split('|')
+
   const def: LeaderboardData = {
-    id: validate.andNormalizeLeaderboardId(col[0]),
+    id: validate.andNormalizeLeaderboardId(id),
+    setId: setId === undefined ? setId : commonValidate.andNormalizeId(setId, 'setId'),
     conditions: validate.andNormalizeConditions({
       start: col[1],
       cancel: col[2],
@@ -247,6 +250,7 @@ const moveConditions = Symbol()
  */
 export class Leaderboard implements LeaderboardData {
   declare id: number
+  declare setId: number
   declare title: string
   declare description: string
   declare type: Leaderboard.Type
@@ -261,6 +265,7 @@ export class Leaderboard implements LeaderboardData {
    *
    * new Leaderboard({
    *   id: 58, // or numeric string
+   *   setId: 1024, // or numeric string, optional
    *   title: 'My Leaderboard',
    *   description: 'Best score while doing something funny',
    *   type: 'SCORE',
@@ -295,6 +300,11 @@ export class Leaderboard implements LeaderboardData {
    *  'L58:"0xHfff0=1S":"0=1":"1=1":"M:0xX34440*2"' +
    *  ':SCORE:My Leaderboard:Best score while doing something funny:0'
    * )
+   *
+   * new Leaderboard(
+   *  'L58|1024:"0xHfff0=1S":"0=1":"1=1":"M:0xX34440*2"' +
+   *  ':SCORE:My Leaderboard:Best score while doing something funny:0'
+   * )
    */
   constructor(def: string)
   /**
@@ -318,6 +328,8 @@ export class Leaderboard implements LeaderboardData {
       Object.assign(this, {
         ...def,
         id: validate.andNormalizeLeaderboardId(def.id),
+        setId:
+          def.setId === undefined ? def.setId : commonValidate.andNormalizeId(def.setId, 'setId'),
         title: def.title,
         description: def.description,
         type: def.type,
@@ -360,7 +372,9 @@ export class Leaderboard implements LeaderboardData {
    * Returns string representation of Leaderboard suitable
    * for `RACache/Data/GameId-User.txt` file.
    *
-   * @param desiredData optional parameter, set this to `'leaderboard'` or `'conditions'` to have corresponding string returned. Default option is `'leaderboard'`.
+   * @param desiredData optional parameter, set this to `'leaderboard'`,
+   * `'leaderboard-legacy'` or `'conditions'` to have corresponding string returned.
+   * `'leaderboard-legacy'` will omit `setId` from the output. Default option is `'leaderboard'`.
    *
    * @example
    *
@@ -369,8 +383,16 @@ export class Leaderboard implements LeaderboardData {
    * // 'L58:"0xHfff0=1S":"0=1":"1=1":"M:0xX34440*2":SCORE:My Leaderboard:Best score while doing something funny:0'
    *
    * someLeaderboard.toString('conditions') // '"0xHfff0=1S":"0=1":"1=1":"M:0xX34440*2"'
+   *
+   * // if setId is set
+   * someLeaderboard.toString()
+   * someLeaderboard.toString('leaderboard')
+   * // 'L58|1024:"0xHfff0=1S":"0=1":"1=1":"M:0xX34440*2":SCORE:My Leaderboard:Best score while doing something funny:0'
+   *
+   * someLeaderboard.toString('leaderboard-legacy')
+   * // 'L58:"0xHfff0=1S":"0=1":"1=1":"M:0xX34440*2":SCORE:My Leaderboard:Best score while doing something funny:0'
    */
-  toString(desiredData: 'leaderboard' | 'conditions' = 'leaderboard') {
+  toString(desiredData: 'leaderboard' | 'leaderboard-legacy' | 'conditions' = 'leaderboard') {
     const conditions = [
       conditionsToString(this.conditions.start),
       conditionsToString(this.conditions.cancel),
@@ -380,9 +402,13 @@ export class Leaderboard implements LeaderboardData {
 
     if (desiredData === 'conditions') {
       return conditions.join(':')
-    } else if (desiredData === 'leaderboard') {
+    } else if (desiredData === 'leaderboard' || desiredData === 'leaderboard-legacy') {
       let res = ''
-      res += 'L' + this.id + ':'
+      res += 'L' + this.id
+      if (desiredData === 'leaderboard' && this.setId !== undefined) {
+        res += '|' + this.setId
+      }
+      res += ':'
       res += conditions.join(':') + ':'
       res += this.type + ':'
       res += quoteIfHaveTo(this.title) + ':'

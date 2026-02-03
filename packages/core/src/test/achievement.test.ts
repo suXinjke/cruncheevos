@@ -216,6 +216,37 @@ describe('Achievements', () => {
     expect(newAch.conditions).toEqual(ach.conditions)
   })
 
+  describe('subset id', () => {
+    const expectedRaw = `111000001|9517:"0=1":Name:Description::::cruncheevos:25:::::00000`
+
+    test('can be passed in object', () => {
+      const ach = new Achievement({
+        id: 111000001,
+        setId: 9517,
+        title: 'Name',
+        description: 'Description',
+        points: 25,
+        conditions: '0=1',
+      })
+
+      expect(ach.toString()).toMatch(expectedRaw)
+    })
+
+    test('can be passed in string', () => {
+      const ach = new Achievement(expectedRaw)
+
+      expect(ach.toString()).toMatch(expectedRaw)
+    })
+
+    test('string legacy output does not include subset id', () => {
+      const ach = new Achievement(expectedRaw)
+
+      expect(ach.toString('achievement-legacy')).toMatch(
+        `111000001:"0=1":Name:Description::::cruncheevos:25:::::00000`,
+      )
+    })
+  })
+
   test('badge id is padded by zeroes', () => {
     const ach = new Achievement({ ...def, conditions: [], badge: 47 })
     expect(ach.badge).toBe('00047')

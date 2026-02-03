@@ -194,8 +194,11 @@ function achievementDataFromString(str: string) {
     type = ''
   }
 
+  const [id, setId] = col[0].split('|')
+
   const def: AchievementData = {
-    id: commonValidate.andNormalizeId(col[0]),
+    id: commonValidate.andNormalizeId(id),
+    setId: setId === undefined ? setId : commonValidate.andNormalizeId(setId, 'setId'),
     title: col[2],
     description: col[3],
     type,
@@ -218,6 +221,7 @@ const moveConditions = Symbol()
  */
 export class Achievement implements AchievementData {
   declare id: number
+  declare setId: number
   declare title: string
   declare description: string
   declare author: string
@@ -234,6 +238,7 @@ export class Achievement implements AchievementData {
    *
    * new Achievement({
    *   id: 58, // or numeric string
+   *   setId: 1024, // or numeric string, optional
    *   title: 'My Achievement',
    *   description: 'Do something funny',
    *   points: 5,
@@ -275,6 +280,11 @@ export class Achievement implements AchievementData {
    *  '58:"0xHfff0=0_0xHfffb=0S0xHfe10>d0xHfe10_0xHfe11=0S0=1"' +
    *  ':My Achievement:Do something funny::::peepy:5:::::"local\\\\my_achievement.png"'
    * )
+   *
+   * new Achievement(
+   *  '58|1024:"0xHfff0=0_0xHfffb=0S0xHfe10>d0xHfe10_0xHfe11=0S0=1"' +
+   *  ':My Achievement:Do something funny::::peepy:5:::::"local\\\\my_achievement.png"'
+   * )
    */
   constructor(def: string)
   /**
@@ -294,6 +304,8 @@ export class Achievement implements AchievementData {
 
       Object.assign(this, {
         id: commonValidate.andNormalizeId(def.id),
+        setId:
+          def.setId === undefined ? def.setId : commonValidate.andNormalizeId(def.setId, 'setId'),
         title: def.title,
         description: def.description,
         author: def.author,
@@ -341,7 +353,9 @@ export class Achievement implements AchievementData {
    * Returns string representation of Achievement suitable
    * for `RACache/Data/GameId-User.txt` file.
    *
-   * @param desiredData optional parameter, set this to `'achievement'` or `'conditions'` to have corresponding string returned. Default option is `'achievement'`.
+   * @param desiredData optional parameter, set this to `'achievement'`,
+   * `'achievement-legacy'` or `'conditions'` to have corresponding string returned.
+   * `'achievement-legacy'` will omit `setId` from the output. Default option is `'achievement'`.
    *
    * @example
    *
@@ -350,15 +364,29 @@ export class Achievement implements AchievementData {
    * // '58:"0=1":My Achievement:Do something funny::::cruncheevos:5:::::00000'
    *
    * someAchievement.toString('conditions') // '0=1'
+   *
+   * // if setId is set
+   * someAchievement.toString()
+   * someAchievement.toString('achievement')
+   * // '58|1024:"0=1":My Achievement:Do something funny::::cruncheevos:5:::::00000'
+   *
+   * someAchievement.toString('achievement-legacy')
+   * // '58:"0=1":My Achievement:Do something funny::::cruncheevos:5:::::00000'
    */
-  toString(desiredData: 'achievement' | 'conditions' = 'achievement'): string {
+  toString(
+    desiredData: 'achievement' | 'achievement-legacy' | 'conditions' = 'achievement',
+  ): string {
     const conditions = this.conditions.map(x => x.map(x => x.toString()).join('_')).join('S')
 
     if (desiredData === 'conditions') {
       return conditions
-    } else if (desiredData === 'achievement') {
+    } else if (desiredData === 'achievement' || desiredData === 'achievement-legacy') {
       let res = ''
-      res += this.id + ':'
+      res += this.id
+      if (desiredData === 'achievement' && this.setId !== undefined) {
+        res += '|' + this.setId
+      }
+      res += ':'
       res += `"${conditions}"` + ':'
       res += quoteIfHaveTo(this.title) + ':'
       res += quoteIfHaveTo(this.description)

@@ -32,6 +32,18 @@ describe('Achievement validations', () => {
       })
     })
 
+    describe('setId', () => {
+      giveValuesNotMatching(['number', 'undefined'], t => {
+        test(t.assertion, () => {
+          expect(() => new Achievement({ ...def, setId: t.value })).toThrowError(
+            t.type === 'type-check'
+              ? eatSymbols`expected setId as unsigned integer, but got ${t.value}`
+              : /^expected setId to be within the range/,
+          )
+        })
+      })
+    })
+
     describe('title', () => {
       giveValuesNotMatching(['string'], t => {
         test(t.assertion, () => {

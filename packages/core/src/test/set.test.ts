@@ -72,6 +72,7 @@ describe('Achievement Set', () => {
     const set = new AchievementSet({ gameId: 1, title: 'GameName' })
       .addAchievement({
         id: 111000002,
+        setId: 1024, // expected to be overidden by undefined
         title: 'Kiwi',
         description: 'AchievementDescription',
         author: 'cheeseburger',
@@ -82,6 +83,7 @@ describe('Achievement Set', () => {
       .addAchievement(achievements[111000001])
       .addLeaderboard({
         id: 111000002,
+        setId: 1024, // expected to be overidden by undefined
         lowerIsBetter: true,
         title: 'Name2',
         description: 'Description2',
@@ -97,6 +99,9 @@ describe('Achievement Set', () => {
         },
       })
       .addLeaderboard(leaderboards[111000001])
+
+    expect(set.achievements[111000001].setId).toBeUndefined()
+    expect(set.leaderboards[111000001].setId).toBeUndefined()
 
     // Notice that ids are sorted ascending, compared to
     // order they were defined originally
@@ -175,6 +180,61 @@ describe('Achievement Set', () => {
     )
   })
 
+  describe('set id', () => {
+    const ach = '111000001|9517:"1=0":Title:Description::::cruncheevos:25:::::00000'
+    const lb =
+      'L111000001|9517:"0xHcafe=47_d0xHcafe=0":"0=1":"0xHcafe=48":"M:0xXfeed":SCORE:Title:Description:0'
+
+    const achLegacy = '111000001:"1=0":Title:Description::::cruncheevos:25:::::00000'
+    const lbLegacy =
+      'L111000001:"0xHcafe=47_d0xHcafe=0":"0=1":"0xHcafe=48":"M:0xXfeed":SCORE:Title:Description:0'
+
+    test('add achievements and leaderboards', () => {
+      const set = new AchievementSet({ gameId: 1, id: 9517, title: 'GameName' })
+        .addAchievement({
+          setId: 100, // this is expected to be overridden by 9517
+          title: 'Title',
+          description: 'Description',
+          points: 25,
+          conditions: '1=0',
+        })
+        .addLeaderboard({
+          setId: 100, // this is expected to be overridden by 9517
+          lowerIsBetter: false,
+          title: 'Title',
+          description: 'Description',
+          type: 'SCORE',
+          conditions: {
+            start: '0xHcafe=47_d0xHcafe=0',
+            cancel: '0=1',
+            submit: '0xHcafe=48',
+            value: 'M:0xXfeed',
+          },
+        })
+
+      expect(set.achievements[111000001].setId).toBe(9517)
+      expect(set.leaderboards[111000001].setId).toBe(9517)
+
+      // prettier-ignore
+      expect(set.toString()).toBe([
+        '1.0',
+        'GameName',
+        ach,
+        lb,
+        ''
+      ].join('\n'))
+
+      // prettier-ignore
+      expect(set.toString('set-legacy')).toBe([
+        '1.0',
+        'GameName',
+        achLegacy,
+        lbLegacy,
+        ''
+      ].join('\n'))
+    })
+  })
+
   describe('validations', () => {
     describe('id', () => {
       giveValuesNotMatching('number', t => {
@@ -183,6 +243,20 @@ describe('Achievement Set', () => {
             t.type === 'type-check'
               ? eatSymbols`expected gameId as unsigned integer, but got ${t.value}`
               : /^expected gameId to be within the range/,
+          )
+        })
+      })
+    })
+
+    describe('set id', () => {
+      giveValuesNotMatching(['number', 'undefined'], t => {
+        test(t.assertion, () => {
+          expect(
+            () => new AchievementSet({ gameId: 1, id: t.value, title: 'Sample' }),
+          ).toThrowError(
+            t.type === 'type-check'
+              ? eatSymbols`expected id as unsigned integer, but got ${t.value}`
+              : /^expected id to be within the range/,
           )
         })
       })

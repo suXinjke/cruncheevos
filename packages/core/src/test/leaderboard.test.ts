@@ -276,6 +276,43 @@ describe('Leaderboards', () => {
     expect(newLb.conditions).toEqual(lb.conditions)
   })
 
+  describe('subset id', () => {
+    const expectedRaw = `L111000001|9517:"0=1":"0=1":"0=1":"M:0x cafe":SCORE:Name:Description:0`
+
+    test('can be passed in object', () => {
+      const lb = new Leaderboard({
+        id: 111000001,
+        setId: 9517,
+        title: 'Name',
+        description: 'Description',
+        type: 'SCORE',
+        lowerIsBetter: false,
+        conditions: {
+          start: '0=1',
+          cancel: '0=1',
+          submit: '0=1',
+          value: '0xcafe',
+        },
+      })
+
+      expect(lb.toString()).toMatch(expectedRaw)
+    })
+
+    test('can be passed in string', () => {
+      const ach = new Leaderboard(expectedRaw)
+
+      expect(ach.toString()).toMatch(expectedRaw)
+    })
+
+    test('string legacy output does not include subset id', () => {
+      const ach = new Leaderboard(expectedRaw)
+
+      expect(ach.toString('leaderboard-legacy')).toMatch(
+        `L111000001:"0=1":"0=1":"0=1":"M:0x cafe":SCORE:Name:Description:0`,
+      )
+    })
+  })
+
   test('cannot mutate data within leaderboard', () => {
     const lb = new Leaderboard(def)
     for (const assignment of [

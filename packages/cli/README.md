@@ -399,6 +399,22 @@ $(
 )
 ```
 
+### Subsets
+
+After RetroAchievements introduced Multiset support, it came along with every achievement set getting its own ID. All you have to do is to specify additional ID correctly:
+
+```js
+import { AchievementSet, define as $ } from '@cruncheevos/core'
+
+const set = new AchievementSet({
+  gameId: 20580, // same ID as in https://retroachievements.org/game/20580
+  id: 9517, // same ID as in https://retroachievements.org/game/20580?set=9517
+  title: 'Gran Turismo 4 - Bonus'
+})
+```
+
+Previously this would have `gameId: 29854` and no set ID, because all subsets relied on having their own game page and game ID. It's still possible to operate within this legacy workflow if you have matching files within RACache.
+
 ### Badges
 
 It's tiresome to manually select badges in RAIntegration. To deal with this problem, you can follow consistent naming scheme for your badge file names and put badge files into `RACache\Badge\local` directory. Afterwards, define a function that produces correct file path for those badges:

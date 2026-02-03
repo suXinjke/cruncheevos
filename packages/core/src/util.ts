@@ -11,6 +11,11 @@ export interface AssetData<IdType = number> {
   id: IdType
 
   /**
+   * Optional Subset ID that an Asset belongs to, matching the one on server.
+   */
+  setId?: IdType
+
+  /**
    * Title of an Asset, must be set.
    */
   title: string

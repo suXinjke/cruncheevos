@@ -8,6 +8,7 @@ export namespace AchievementSet {
 
   export interface Input {
     gameId: number | string
+    id?: number | string
     title: string
   }
 }
@@ -39,6 +40,19 @@ export class AchievementSet {
    * must be set correctly if using this class with @cruncheevos/cli
    */
   declare gameId: number
+
+  /**
+   * Optional Set ID matching the one on RetroAchievement servers.
+   * @cruncheevos/cli respects this when performing asset diff and updates.
+   * This will automatically inject setId to added Achievements and Leaderboards.
+   * If Achievement or Leaderboard already specifies setId - it will be overridden.
+   *
+   * Technically all achievement sets on RetroAchievement servers have an ID,
+   * but they used not to and you would rely solely on Game ID instead.
+   * In practice you'd specify Set ID only when you need to refer to a subset,
+   * but remember that Core sets also have Set ID.
+   */
+  declare id?: number
 
   /**
    * Game title or name, it doesn't have to be exact match and
@@ -80,8 +94,11 @@ export class AchievementSet {
       [Symbol.iterator]: iterateObject,
     }
 
-    const { gameId, title } = opts
+    const { gameId, id, title } = opts
     this.gameId = validate.andNormalizeId(gameId, 'gameId')
+    if (id !== undefined) {
+      this.id = validate.andNormalizeId(id, 'id')
+    }
     validate.title(title, 'achievement set title')
     this.title = title
 
@@ -126,12 +143,16 @@ export class AchievementSet {
     const privateData = privateMap.get(this)
 
     // prettier-ignore
-    const ach = def instanceof Achievement ? def : new Achievement(
+    let ach = def instanceof Achievement ? def : new Achievement(
       typeof def === 'string' ? def : {
         ...def,
         id: def.id || privateData.achievementIdCounter,
       }
     )
+
+    if (this.id !== ach.setId) {
+      ach = ach.with({ setId: this.id })
+    }
 
     const { id } = ach
     if (this.achievements[id]) {
@@ -188,12 +209,16 @@ export class AchievementSet {
     const privateData = privateMap.get(this)
 
     // prettier-ignore
-    const lb = def instanceof Leaderboard ? def : new Leaderboard(
+    let lb = def instanceof Leaderboard ? def : new Leaderboard(
       typeof def === 'string' ? def : {
         ...def,
         id: def.id || privateData.leaderboardIdCounter,
       }
     )
+
+    if (this.id !== lb.setId) {
+      lb = lb.with({ setId: this.id })
+    }
 
     const { id } = lb
     if (this.leaderboards[id]) {
@@ -240,6 +265,9 @@ export class AchievementSet {
    * Then come string representations of achievements and leaderboards,
    * each sorted by id.
    *
+   * @param desiredData optional parameter, set this to `'set'` or `'set-legacy'`.
+   * `'set-legacy'` will omit `id` from the output. Default option is `'set'`
+   *
    * @example
    * new AchievementSet({ gameId: 1234, title: 'Funny Game' })
    *  .addAchievement(...)
@@ -256,8 +284,32 @@ export class AchievementSet {
    * L58:"0x cafe=102":"0=1":"1=1":"M:0x feed":FRAMES:Lb2:Desc2:1
    * L111000001:"0x cafe=101":"0=1":"1=1":"M:0x feed":SCORE:Lb1:Desc1:0
    * `
+   *
+   * new AchievementSet({ gameId: 1234, id: 5800, title: 'Funny Game' })
+   *  .addAchievement(...)
+   *  .addLeaderboard(...)
+   *  .toString()
+   * // may result in:
+   * `
+   * 1.0
+   * Funny Game
+   * 57|5800:"0x cafe=102":Ach2:Desc2::::cruncheevos:2:::::00000
+   * L58|5800:"0x cafe=102":"0=1":"1=1":"M:0x feed":FRAMES:Lb2:Desc2:1
+   * `
+   *
+   * new AchievementSet({ gameId: 1234, id: 5800, title: 'Funny Game' })
+   *  .addAchievement(...)
+   *  .addLeaderboard(...)
+   *  .toString('set-legacy')
+   * // may result in:
+   * `
+   * 1.0
+   * Funny Game
+   * 57:"0x cafe=102":Ach2:Desc2::::cruncheevos:2:::::00000
+   * L58:"0x cafe=102":"0=1":"1=1":"M:0x feed":FRAMES:Lb2:Desc2:1
+   * `
    */
-  toString() {
+  toString(desiredData: 'set' | 'set-legacy' = 'set') {
     let res = ''
 
     res += '1.0\n'
@@ -266,13 +318,19 @@ export class AchievementSet {
     Object.keys(this.achievements)
       .sort((a, b) => Number(a) - Number(b))
       .forEach(key => {
-        res += this.achievements[key].toString() + '\n'
+        res +=
+          this.achievements[key].toString(
+            desiredData === 'set-legacy' ? 'achievement-legacy' : 'achievement',
+          ) + '\n'
       })
 
     Object.keys(this.leaderboards)
       .sort((a, b) => Number(a) - Number(b))
       .forEach(key => {
-        res += this.leaderboards[key].toString() + '\n'
+        res +=
+          this.leaderboards[key].toString(
+            desiredData === 'set-legacy' ? 'leaderboard-legacy' : 'leaderboard',
+          ) + '\n'
       })
 
     return res
