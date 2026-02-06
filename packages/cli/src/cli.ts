@@ -96,6 +96,7 @@ export function makeCLI() {
 
   program
     .command('diff')
+    .allowExcessArguments(true)
     .description(
       'shows the difference between achievement set exported by JavaScript module and set defined in remote and/or local files' +
         RACacheDescriptionHelp,
@@ -112,6 +113,7 @@ export function makeCLI() {
 
   program
     .command('save')
+    .allowExcessArguments(true)
     .description(
       `saves the achievement set exported by JavaScript module into local file in RACache directory` +
         savingDescriptionHelp +
@@ -129,6 +131,7 @@ export function makeCLI() {
 
   program
     .command('diff-save')
+    .allowExcessArguments(true)
     .description(
       `shows output of 'diff' command first, if there are any changes - prompts to issue 'save' command` +
         savingDescriptionHelp +
@@ -179,6 +182,7 @@ export function makeCLI() {
 
   program
     .command('rich-save')
+    .allowExcessArguments(true)
     .description(
       `saves the Rich Presence exported by JavaScript module as string named 'rich' or object returned by RichPresence function, into local file in RACache directory` +
         RACacheDescriptionHelp,
