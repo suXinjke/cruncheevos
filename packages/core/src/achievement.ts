@@ -321,8 +321,8 @@ export class Achievement implements AchievementData {
       )
     }
 
-    commonValidate.title(this.title)
-    this.description = commonValidate.andNormalizeDescription(this.description)
+    commonValidate.string(this.title, 'title')
+    commonValidate.string(this.description, 'description')
     this.author = validate.andNormalizeAuthor(this.author)
     validate.points(this.points)
     this.type = validate.andNormalizeAchievementType(this.type)

@@ -48,20 +48,14 @@ describe('Achievement validations', () => {
       giveValuesNotMatching(['string'], t => {
         test(t.assertion, () => {
           expect(() => new Achievement({ ...def, title: t.value })).toThrowError(
-            `expected title as non-empty string, but got ` + eatSymbols`${t.value}`,
+            `expected title as string, but got ` + eatSymbols`${t.value}`,
           )
         })
-      })
-
-      test('cannot be empty string', () => {
-        expect(() => new Achievement({ ...def, title: '' })).toThrowError(
-          `expected title as non-empty string, but got ""`,
-        )
       })
     })
 
     describe('description', () => {
-      giveValuesNotMatching(['string', 'null', 'undefined'], t => {
+      giveValuesNotMatching(['string'], t => {
         test(t.assertion, () => {
           expect(() => new Achievement({ ...def, description: t.value })).toThrowError(
             `expected description as string, but got ` + eatSymbols`${t.value}`,

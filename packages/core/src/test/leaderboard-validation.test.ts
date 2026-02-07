@@ -88,13 +88,13 @@ describe('Leaderboard validations', () => {
                 ...def,
                 title: t.value,
               }),
-          ).toThrowError(`expected title as non-empty string, but got ` + eatSymbols`${t.value}`)
+          ).toThrowError(`expected title as string, but got ` + eatSymbols`${t.value}`)
         })
       })
     })
 
     describe('description', () => {
-      giveValuesNotMatching(['string', 'undefined', 'null'], t => {
+      giveValuesNotMatching(['string'], t => {
         test(t.assertion, () => {
           expect(
             () =>
@@ -104,13 +104,6 @@ describe('Leaderboard validations', () => {
               }),
           ).toThrowError(`expected description as string, but got ` + eatSymbols`${t.value}`)
         })
-      })
-
-      test('null, undefined, empty strings are allowed', () => {
-        for (const value of ['', null, undefined]) {
-          const lb = new Leaderboard({ ...def, description: value })
-          expect(lb.description).toBe('')
-        }
       })
     })
 

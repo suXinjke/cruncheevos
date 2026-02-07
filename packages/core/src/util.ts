@@ -203,24 +203,18 @@ export const validate = {
     return id
   },
 
-  title(title: string, propertyName = 'title') {
-    if (typeof title !== 'string' || title.trim().length === 0) {
-      throw new Error(
-        `expected ${propertyName} as non-empty string, but got ` + eatSymbols`${title}`,
-      )
+  string(input: string, propertyName = 'title') {
+    if (typeof input !== 'string') {
+      throw new Error(`expected ${propertyName} as string, but got ` + eatSymbols`${input}`)
     }
   },
 
-  andNormalizeDescription(description: string) {
-    if (description === undefined || description === null) {
-      return ''
+  nonEmptyString(input: string, propertyName = 'title') {
+    if (typeof input !== 'string' || input.trim().length === 0) {
+      throw new Error(
+        `expected ${propertyName} as non-empty string, but got ` + eatSymbols`${input}`,
+      )
     }
-
-    if (typeof description !== 'string') {
-      throw new Error(eatSymbols`expected description as string, but got ${description}`)
-    }
-
-    return description
   },
 }
 

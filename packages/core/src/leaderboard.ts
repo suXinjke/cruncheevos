@@ -343,8 +343,8 @@ export class Leaderboard implements LeaderboardData {
       )
     }
 
-    commonValidate.title(this.title)
-    this.description = commonValidate.andNormalizeDescription(this.description)
+    commonValidate.string(this.title, 'title')
+    commonValidate.string(this.description, 'description')
     validate.leaderboardType(this.type)
     validate.measuredConditions(this.conditions)
 

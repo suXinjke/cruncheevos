@@ -236,6 +236,7 @@ describe('Leaderboards', () => {
       const lb = new Leaderboard({
         id: 1,
         title: 'title',
+        description: 'description',
         type: 'VALUE',
         lowerIsBetter: false,
         conditions: {

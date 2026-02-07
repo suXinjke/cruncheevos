@@ -99,7 +99,7 @@ export class AchievementSet {
     if (id !== undefined) {
       this.id = validate.andNormalizeId(id, 'id')
     }
-    validate.title(title, 'achievement set title')
+    validate.nonEmptyString(title, 'achievement set title')
     this.title = title
 
     privateMap.set(this, {

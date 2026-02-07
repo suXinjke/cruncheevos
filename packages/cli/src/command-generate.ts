@@ -152,7 +152,8 @@ function remoteDataToJSCode(
     try {
       const { conditions } = new Achievement({
         id: 1,
-        title: 'dummy',
+        title: 'title',
+        description: '',
         points: 0,
         conditions: ach.MemAddr,
       })
@@ -212,7 +213,8 @@ function remoteDataToJSCode(
     try {
       const { conditions } = new Leaderboard({
         id: 1,
-        title: 'dummy',
+        title: 'title',
+        description: '',
         type: 'VALUE',
         lowerIsBetter: true,
         conditions: lb.Mem,
