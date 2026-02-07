@@ -255,7 +255,6 @@ export default async function generate(
   gameId: number,
   outputFilePath: string,
   opts: {
-    refetch?: boolean
     includeUnofficial?: boolean
     timeout?: number
     filter?: AssetFilter[]
@@ -269,8 +268,8 @@ export default async function generate(
     }
   }
 
-  const { refetch, includeUnofficial, filter = [], timeout = 1000 } = opts
-  const remoteData = await getRemoteData({ gameId, refetch, timeout })
+  const { includeUnofficial, filter = [], timeout = 1000 } = opts
+  const remoteData = await getRemoteData({ gameId, timeout })
 
   const code = remoteDataToJSCode(remoteData, { filter, includeUnofficial })
   fs.writeFileSync(outputFilePath, code)

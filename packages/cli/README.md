@@ -617,7 +617,6 @@ Options:
   --include-unofficial            do not ignore unofficial achievements on the server when executing
                                   this operation
   -c --context-lines <amount>     how much conditions to show around the changed conditions, 10 max
-  -r --refetch                    force refetching of remote data
   -t --timeout <number>           amount of milliseconds after which the remote data fetching is
                                   considered failed (default: 3000)
 ```
@@ -647,7 +646,6 @@ Options:
                                   regular expression
   --include-unofficial            do not ignore unofficial achievements on the server when executing
                                   this operation
-  -r --refetch                    force refetching of remote data
   -t --timeout <number>           amount of milliseconds after which the remote data fetching is
                                   considered failed (default: 3000)
   --force-rewrite                 completely overwrite the local data instead of updating only matching
@@ -680,7 +678,6 @@ Options:
   --include-unofficial            do not ignore unofficial achievements on the server when executing
                                   this operation
   -c --context-lines <amount>     how much conditions to show around the changed conditions, 10 max
-  -r --refetch                    force refetching of remote data
   -t --timeout <number>           amount of milliseconds after which the remote data fetching is
                                   considered failed (default: 3000)
   --force-rewrite                 completely overwrite the local data instead of updating only matching
@@ -728,7 +725,6 @@ Options:
                                   regular expression
   --include-unofficial            do not ignore unofficial achievements on the server when executing
                                   this operation
-  -r --refetch                    force refetching of remote data
   -t --timeout <number>           amount of milliseconds after which the remote data fetching is
                                   considered failed (default: 3000)
 ```

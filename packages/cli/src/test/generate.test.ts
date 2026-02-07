@@ -57,26 +57,6 @@ describe('generate', () => {
       .toMatchInlineSnapshot('generated code for achievement set for gameId 3050: ./3050.js')
   })
 
-  test(`refetch option properly overwrites existing remote code`, async ctx => {
-    vol.fromJSON({
-      ...defaultFiles,
-      './RACache/Data/3050.json': realFs.readFileSync(resolveRACache('./3050.json')).toString(),
-    })
-
-    const remoteCodeModificationDate = fs.statSync('./RACache/Data/3050.json').mtime.valueOf()
-
-    await runTestCLI(['generate', 3050, '-r', './3050.js'])
-
-    expect(fs.statSync('./RACache/Data/3050.json').mtime.valueOf()).toBeGreaterThan(
-      remoteCodeModificationDate,
-    )
-    ctx.expect(log).toMatchInlineSnapshot(`
-      fetching remote data for gameId 3050
-      dumped remote data for gameId 3050: ./RACache/Data/3050.json
-      generated code for achievement set for gameId 3050: ./3050.js
-    `)
-  })
-
   describe('filter', () => {
     beforeEach(() => {
       vol.fromJSON({

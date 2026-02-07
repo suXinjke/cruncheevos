@@ -93,10 +93,8 @@ describe('save', () => {
       ctx.expect(log).toMatchInlineSnapshot(`
         fetching remote data for gameId 3050
         failed to fetch remote data: HTTP 500
-        remote data got issues, will attempt to refetch it
-        fetching remote data for gameId 3050
-        failed to fetch remote data: HTTP 500
         remote data got issues, cannot proceed with the save
+        you can try to delete remote data and run the command again, or refetch remote data by running 'fetch' command
       `)
     })
   })
@@ -212,7 +210,7 @@ describe('save', () => {
       ctx.expect(log).toMatchInlineSnapshot('')
     })
 
-    test(`remote file is corrupted - refetch it and give a message about it`, async ctx => {
+    test(`remote file is corrupted - give a message about it`, async ctx => {
       prepareFakeAssets({
         gameId: 3050,
         baseConditions: () => ({
@@ -229,15 +227,17 @@ describe('save', () => {
       fs.writeFileSync('./RACache/Data/3050.json', ':DDD')
 
       // TODO: the JSON error message is node-version dependant when it shouldn't be
-      await runTestCLI(['save', './mySet.js'])
-      expect(fs.existsSync('./RACache/Data/3050-User.txt')).toBe(true)
+      await ctx
+        .expect(runTestCLI(['save', './mySet.js']))
+        .rejects.toThrowErrorMatchingInlineSnapshot(
+          `[SyntaxError: Unexpected token ':', ":DDD" is not valid JSON]`,
+        )
+
+      expect(fs.existsSync('./RACache/Data/3050-User.txt')).toBe(false)
       ctx.expect(log).toMatchInlineSnapshot(`
         Unexpected token ':', ":DDD" is not valid JSON
-        remote data got issues, will attempt to refetch it
-        fetching remote data for gameId 3050
-        dumped remote data for gameId 3050: ./RACache/Data/3050.json
-        dumped local data for gameId: 3050: ./RACache/Data/3050-User.txt
-        added: 1 achievement
+        remote data got issues, cannot proceed with the save
+        you can try to delete remote data and run the command again, or refetch remote data by running 'fetch' command
       `)
     })
   })

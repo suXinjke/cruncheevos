@@ -5,6 +5,10 @@ const fs = getFs()
 import { getFs, log, resolveRACache } from './mockable.js'
 import { wrappedError, Asset, AssetData } from '@cruncheevos/core/util'
 
+export const remoteRefetchRecommendation =
+  `you can try to delete remote data and run the command again, ` +
+  `or refetch remote data by running 'fetch' command`
+
 function conditionGroupSetsAreSame(
   groupSetOriginal: Condition.GroupNormalized,
   groupSetModified: Condition.GroupNormalized,

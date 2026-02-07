@@ -420,14 +420,13 @@ export function diffExecute({
 export default async function diff(
   inputFilePath: string,
   opts: {
-    refetch?: boolean
     excludeUnofficial?: boolean
     contextLines?: number
     timeout?: number
     filter?: AssetFilter[]
   },
 ) {
-  const { refetch, excludeUnofficial, contextLines, filter = [], timeout = 1000 } = opts
+  const { excludeUnofficial, contextLines, filter = [], timeout = 1000 } = opts
 
   const absoluteModulePath = path.resolve(inputFilePath)
   const module = await achievementSetImport(absoluteModulePath)
@@ -448,7 +447,7 @@ export default async function diff(
   }
 
   try {
-    var remoteSet = await getSetFromRemote({ gameId, excludeUnofficial, refetch, timeout })
+    var remoteSet = await getSetFromRemote({ gameId, excludeUnofficial, timeout })
   } catch (err) {
     log(util.styleText('redBright', `remote data got issues, cannot proceed with the diff`))
     throw err

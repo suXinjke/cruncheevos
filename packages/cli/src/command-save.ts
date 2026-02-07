@@ -10,6 +10,7 @@ import {
   calculateSetChanges,
   extractAchievementSetFromModule,
   getLocalData,
+  remoteRefetchRecommendation,
 } from './util.js'
 import { getSetFromRemote } from './command-fetch.js'
 import { logWarnings } from './lint.js'
@@ -127,14 +128,13 @@ export function saveExecute({
 export default async function save(
   inputFilePath: string,
   opts: {
-    refetch?: boolean
     excludeUnofficial?: boolean
     timeout?: number
     forceRewrite?: boolean
     filter?: AssetFilter[]
   },
 ) {
-  const { refetch, excludeUnofficial, forceRewrite, filter = [], timeout = 1000 } = opts
+  const { excludeUnofficial, forceRewrite, filter = [], timeout = 1000 } = opts
 
   const absoluteModulePath = path.resolve(inputFilePath)
   const module = await achievementSetImport(absoluteModulePath)
@@ -171,10 +171,11 @@ export default async function save(
   }
 
   try {
-    var remoteSet = await getSetFromRemote({ gameId, excludeUnofficial, refetch, timeout })
+    var remoteSet = await getSetFromRemote({ gameId, excludeUnofficial, timeout })
   } catch (err) {
     log(util.styleText('redBright', err.message))
     log(util.styleText('redBright', `remote data got issues, cannot proceed with the save`))
+    log(util.styleText('yellowBright', remoteRefetchRecommendation))
     throw err
   }
 

@@ -1,8 +1,6 @@
 import { Achievement, AchievementSet, Leaderboard } from '@cruncheevos/core'
 import { wrappedError } from '@cruncheevos/core/util'
 
-import * as util from 'util'
-
 import { getFs, log, resolveRACache } from './mockable.js'
 const fs = getFs()
 
@@ -152,17 +150,9 @@ export default async function fetchAssets(opts: { gameId: number; timeout: numbe
   return gameData
 }
 
-export async function getRemoteData({
-  gameId,
-  refetch,
-  timeout,
-}: {
-  gameId: number
-  refetch: boolean
-  timeout: number
-}) {
+export async function getRemoteData({ gameId, timeout }: { gameId: number; timeout: number }) {
   const filePath = resolveRACache(`./RACache/Data/${gameId}.json`)
-  if (refetch || fs.existsSync(filePath) === false) {
+  if (fs.existsSync(filePath) === false) {
     return fetchAssets({
       gameId,
       timeout,
@@ -199,10 +189,9 @@ export function getSetFromRemoteData(remoteData: RemoteData, setId?: number) {
 }
 
 // TODO: add support for setId
-async function _getSetFromRemote(opts: {
+export async function getSetFromRemote(opts: {
   gameId: number
   excludeUnofficial: boolean
-  refetch: boolean
   timeout: number
 }) {
   const { gameId } = opts
@@ -262,25 +251,4 @@ async function _getSetFromRemote(opts: {
   })
 
   return set
-}
-
-// TODO: add support for setId
-export async function getSetFromRemote(opts: {
-  gameId: number
-  refetch: boolean
-  excludeUnofficial: boolean
-  timeout: number
-}) {
-  const { gameId, excludeUnofficial, refetch, timeout } = opts
-  try {
-    return await _getSetFromRemote({ gameId, excludeUnofficial, refetch, timeout })
-  } catch (err) {
-    if (refetch) {
-      throw err
-    }
-
-    log(util.styleText('yellowBright', err.message))
-    log(util.styleText('yellowBright', `remote data got issues, will attempt to refetch it`))
-    return await _getSetFromRemote({ gameId, excludeUnofficial, refetch: true, timeout })
-  }
 }

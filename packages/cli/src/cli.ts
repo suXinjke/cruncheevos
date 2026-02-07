@@ -52,8 +52,6 @@ const options = {
     return value
   }),
 
-  refetch: new Option('-r --refetch', 'force refetching of remote data'),
-
   assetForceRewrite: new Option(
     '--force-rewrite',
     'completely overwrite the local data instead of updating only matching assets, THIS MAY RESULT IN LOSS OF LOCAL DATA!',
@@ -105,7 +103,6 @@ export function makeCLI() {
     .addOption(options.filter)
     .addOption(options.excludeUnofficial)
     .addOption(options.contextLines)
-    .addOption(options.refetch)
     .addOption(options.timeout)
     .action(async (inputFilePath, opts) => {
       await commands.diff(inputFilePath, opts)
@@ -122,7 +119,6 @@ export function makeCLI() {
     .addArgument(argument.inputFilePath)
     .addOption(options.filter)
     .addOption(options.excludeUnofficial)
-    .addOption(options.refetch)
     .addOption(options.timeout)
     .addOption(options.assetForceRewrite)
     .action(async (inputFilePath, opts) => {
@@ -141,7 +137,6 @@ export function makeCLI() {
     .addOption(options.filter)
     .addOption(options.excludeUnofficial)
     .addOption(options.contextLines)
-    .addOption(options.refetch)
     .addOption(options.timeout)
     .addOption(options.assetForceRewrite)
     .action(async (inputFilePath, opts) => {
@@ -152,7 +147,8 @@ export function makeCLI() {
     .command('fetch')
     .description(
       'fetches the remote data about achievement set into RACache directory' +
-        +`\n\nthis command may be implicitly ran by other commands if RACache directory lacks remote data for the game` +
+        `\n\nthis command will overwrite existing remote data for the game` +
+        `\nthis command may be implicitly ran by other commands if RACache directory lacks remote data for the game` +
         RACacheDescriptionHelp,
     )
     .addArgument(argument.gameId)
@@ -174,7 +170,6 @@ export function makeCLI() {
     .argument('<output_file_path>')
     .addOption(options.filter)
     .addOption(options.includeUnofficial)
-    .addOption(options.refetch)
     .addOption(options.timeout)
     .action(async (gameId, outputFilePath, opts) => {
       await commands.generate(gameId, outputFilePath, opts)
