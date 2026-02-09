@@ -11,5 +11,10 @@ const cli = makeCLI()
 for (const command of cli.commands) {
   console.log('### ' + command.name() + '\n')
   console.log('```')
-  console.log(command.helpInformation().replace(/\s*.*--help.*\b/, '') + '```\n')
+  console.log(
+    command
+      .configureHelp({ helpWidth: 120 })
+      .helpInformation()
+      .replace(/\s*.*--help.*\b/, '') + '```\n',
+  )
 }

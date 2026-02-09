@@ -598,27 +598,24 @@ While you can extend other `@cruncheevos/core` classes: `ConditionBuilder`, `Ach
 ```
 Usage: cruncheevos diff [options] <input_file_path>
 
-shows the difference between achievement set exported by JavaScript module and set defined in remote
-and/or local files
+shows the difference between achievement set exported by JavaScript module and set defined in remote and/or local files
 
-assumes that RACACHE environment variable is set - it must contain absolute path to emulator directory
-containing the RACache directory. If there's .env file locally available - RACACHE value will be read
-from that.
+assumes that RACACHE environment variable is set - it must contain absolute path to emulator directory containing the
+RACache directory. If there's .env file locally available - RACACHE value will be read from that.
 
 Arguments:
-  input_file_path                 path to the JavaScript module which default exports AchievementSet or
-                                  (async) function returning AchievementSet
+  input_file_path                 path to the JavaScript module which default exports AchievementSet or (async) function
+                                  returning AchievementSet
 
 Options:
-  -f, --filter <filter:value...>  only output assets that matches the filter. available filters are: id,
-                                  title, description
-                                  id accepts comma separated list of ids, everything else accepts a
-                                  regular expression
-  --include-unofficial            do not ignore unofficial achievements on the server when executing
+  -f, --filter <filter:value...>  only output assets that matches the filter. available filters are: id, title,
+                                  description
+                                  id accepts comma separated list of ids, everything else accepts a regular expression
+  --exclude-unofficial            ignore unofficial achievements and hidden leaderboards on the server when executing
                                   this operation
   -c --context-lines <amount>     how much conditions to show around the changed conditions, 10 max
-  -t --timeout <number>           amount of milliseconds after which the remote data fetching is
-                                  considered failed (default: 3000)
+  -t --timeout <number>           amount of milliseconds after which the remote data fetching is considered failed
+                                  (default: 3000)
 ```
 
 ### save
@@ -628,28 +625,25 @@ Usage: cruncheevos save [options] <input_file_path>
 
 saves the achievement set exported by JavaScript module into local file in RACache directory
 
-save command will try it's best to preserve the existing local assets that are not part of your
-JavaScript module
+save command will try it's best to preserve the existing local assets that are not part of your JavaScript module
 
-assumes that RACACHE environment variable is set - it must contain absolute path to emulator directory
-containing the RACache directory. If there's .env file locally available - RACACHE value will be read
-from that.
+assumes that RACACHE environment variable is set - it must contain absolute path to emulator directory containing the
+RACache directory. If there's .env file locally available - RACACHE value will be read from that.
 
 Arguments:
-  input_file_path                 path to the JavaScript module which default exports AchievementSet or
-                                  (async) function returning AchievementSet
+  input_file_path                 path to the JavaScript module which default exports AchievementSet or (async) function
+                                  returning AchievementSet
 
 Options:
-  -f, --filter <filter:value...>  only output assets that matches the filter. available filters are: id,
-                                  title, description
-                                  id accepts comma separated list of ids, everything else accepts a
-                                  regular expression
-  --include-unofficial            do not ignore unofficial achievements on the server when executing
+  -f, --filter <filter:value...>  only output assets that matches the filter. available filters are: id, title,
+                                  description
+                                  id accepts comma separated list of ids, everything else accepts a regular expression
+  --exclude-unofficial            ignore unofficial achievements and hidden leaderboards on the server when executing
                                   this operation
-  -t --timeout <number>           amount of milliseconds after which the remote data fetching is
-                                  considered failed (default: 3000)
-  --force-rewrite                 completely overwrite the local data instead of updating only matching
-                                  assets, THIS MAY RESULT IN LOSS OF LOCAL DATA!
+  -t --timeout <number>           amount of milliseconds after which the remote data fetching is considered failed
+                                  (default: 3000)
+  --force-rewrite                 completely overwrite the local data instead of updating only matching assets, THIS MAY
+                                  RESULT IN LOSS OF LOCAL DATA!
 ```
 
 ### diff-save
@@ -659,29 +653,26 @@ Usage: cruncheevos diff-save [options] <input_file_path>
 
 shows output of 'diff' command first, if there are any changes - prompts to issue 'save' command
 
-save command will try it's best to preserve the existing local assets that are not part of your
-JavaScript module
+save command will try it's best to preserve the existing local assets that are not part of your JavaScript module
 
-assumes that RACACHE environment variable is set - it must contain absolute path to emulator directory
-containing the RACache directory. If there's .env file locally available - RACACHE value will be read
-from that.
+assumes that RACACHE environment variable is set - it must contain absolute path to emulator directory containing the
+RACache directory. If there's .env file locally available - RACACHE value will be read from that.
 
 Arguments:
-  input_file_path                 path to the JavaScript module which default exports AchievementSet or
-                                  (async) function returning AchievementSet
+  input_file_path                 path to the JavaScript module which default exports AchievementSet or (async) function
+                                  returning AchievementSet
 
 Options:
-  -f, --filter <filter:value...>  only output assets that matches the filter. available filters are: id,
-                                  title, description
-                                  id accepts comma separated list of ids, everything else accepts a
-                                  regular expression
-  --include-unofficial            do not ignore unofficial achievements on the server when executing
+  -f, --filter <filter:value...>  only output assets that matches the filter. available filters are: id, title,
+                                  description
+                                  id accepts comma separated list of ids, everything else accepts a regular expression
+  --exclude-unofficial            ignore unofficial achievements and hidden leaderboards on the server when executing
                                   this operation
   -c --context-lines <amount>     how much conditions to show around the changed conditions, 10 max
-  -t --timeout <number>           amount of milliseconds after which the remote data fetching is
-                                  considered failed (default: 3000)
-  --force-rewrite                 completely overwrite the local data instead of updating only matching
-                                  assets, THIS MAY RESULT IN LOSS OF LOCAL DATA!
+  -t --timeout <number>           amount of milliseconds after which the remote data fetching is considered failed
+                                  (default: 3000)
+  --force-rewrite                 completely overwrite the local data instead of updating only matching assets, THIS MAY
+                                  RESULT IN LOSS OF LOCAL DATA!
 ```
 
 ### fetch
@@ -689,18 +680,20 @@ Options:
 ```
 Usage: cruncheevos fetch [options] <game_id>
 
-fetches the remote data about achievement set into RACache directoryNaN
+fetches the remote data about achievement set into RACache directory
 
-assumes that RACACHE environment variable is set - it must contain absolute path to emulator directory
-containing the RACache directory. If there's .env file locally available - RACACHE value will be read
-from that.
+this command will overwrite existing remote data for the game
+this command may be implicitly ran by other commands if RACache directory lacks remote data for the game
+
+assumes that RACACHE environment variable is set - it must contain absolute path to emulator directory containing the
+RACache directory. If there's .env file locally available - RACACHE value will be read from that.
 
 Arguments:
   game_id                numeric game ID as specified on retroachievements.org
 
 Options:
-  -t --timeout <number>  amount of milliseconds after which the remote data fetching is considered
-                         failed (default: 3000)
+  -t --timeout <number>  amount of milliseconds after which the remote data fetching is considered failed (default:
+                         3000)
 ```
 
 ### generate
@@ -710,23 +703,21 @@ Usage: cruncheevos generate [options] <game_id> <output_file_path>
 
 generates JavaScript module based on the remote data about achievement set
 
-assumes that RACACHE environment variable is set - it must contain absolute path to emulator directory
-containing the RACache directory. If there's .env file locally available - RACACHE value will be read
-from that.
+assumes that RACACHE environment variable is set - it must contain absolute path to emulator directory containing the
+RACache directory. If there's .env file locally available - RACACHE value will be read from that.
 
 Arguments:
   game_id                         numeric game ID as specified on retroachievements.org
   output_file_path
 
 Options:
-  -f, --filter <filter:value...>  only output assets that matches the filter. available filters are: id,
-                                  title, description
-                                  id accepts comma separated list of ids, everything else accepts a
-                                  regular expression
-  --include-unofficial            do not ignore unofficial achievements on the server when executing
-                                  this operation
-  -t --timeout <number>           amount of milliseconds after which the remote data fetching is
-                                  considered failed (default: 3000)
+  -f, --filter <filter:value...>  only output assets that matches the filter. available filters are: id, title,
+                                  description
+                                  id accepts comma separated list of ids, everything else accepts a regular expression
+  --include-unofficial            do not ignore unofficial achievements and hidden leaderboards on the server when
+                                  executing this operation
+  -t --timeout <number>           amount of milliseconds after which the remote data fetching is considered failed
+                                  (default: 3000)
 ```
 
 ### rich-save
@@ -734,19 +725,16 @@ Options:
 ```
 Usage: cruncheevos rich-save [options] <input_file_path>
 
-saves the Rich Presence exported by JavaScript module as string named 'rich' or
-object returned by RichPresence function, into local file in RACache directory
+saves the Rich Presence exported by JavaScript module as string named 'rich' or object returned by RichPresence
+function, into local file in RACache directory
 
-assumes that RACACHE environment variable is set - it must contain absolute
-path to emulator directory containing the RACache directory. If there's .env
-file locally available - RACACHE value will be read from that.
+assumes that RACACHE environment variable is set - it must contain absolute path to emulator directory containing the
+RACache directory. If there's .env file locally available - RACACHE value will be read from that.
 
 Arguments:
-  input_file_path     path to the JavaScript module which default exports
-                      AchievementSet or (async) function returning
+  input_file_path     path to the JavaScript module which default exports AchievementSet or (async) function returning
                       AchievementSet
 
 Options:
-  -f --force-rewrite  skip prompting to overwrite local Rich Presence file if
-                      it exists
+  -f --force-rewrite  skip prompting to overwrite local Rich Presence file if it exists
 ```
