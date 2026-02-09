@@ -1,4 +1,4 @@
-import typedoc from 'typedoc'
+import * as typedoc from 'typedoc'
 
 const interactive = process.argv.includes('-i')
 

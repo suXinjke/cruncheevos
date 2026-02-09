@@ -1,4 +1,5 @@
-import typedoc, { ContainerReflection, ReflectionKind } from 'typedoc'
+import * as typedoc from 'typedoc'
+import { ContainerReflection, ReflectionKind } from 'typedoc'
 import * as fs from 'fs'
 import GithubSlugger from 'github-slugger'
 
@@ -241,12 +242,15 @@ export default async function (app, ref) {
         if (m.signature.startsWith('[') === false) {
           signaturePrefix += '.'
         }
+      } else {
+        signaturePrefix += 'new '
       }
 
+      const newKeywordMaybe = m.isMethod ? '' : 'new '
       const fullTitle = `${signaturePrefix}${m.signature}`
       const slug = slugger.slug(fullTitle)
 
-      tableOfContents += `  - ${wrapSlug('`' + m.signature + '`', slug)}\n`
+      tableOfContents += `  - ${wrapSlug('`' + newKeywordMaybe + m.signature + '`', slug)}\n`
 
       content += `#### \`${fullTitle}\`\n\n`
       content += `${m.summary}\n\n`
