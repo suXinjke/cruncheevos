@@ -146,6 +146,69 @@
           "Hidden": true
         }
       ]
+    },
+    {
+      "Title": "Bonus",
+      "Type": "bonus",
+      "AchievementSetId": 9517,
+      "GameId": 29854,
+      "ImageIconUrl": "https://media.retroachievements.org/Images/098066.png",
+      "Achievements": [
+        {
+          "ID": 441900,
+          "MemAddr": "0=1",
+          "Title": "Subset_ach_441900",
+          "Description": "Description_subset_ach_441900",
+          "Points": 25,
+          "Author": "suXin",
+          "Modified": 1719307339,
+          "Created": 1719299568,
+          "BadgeName": "498871",
+          "Flags": 3,
+          "Type": null,
+          "Rarity": 0.26,
+          "RarityHardcore": 0.23,
+          "BadgeURL": "https:\/\/media.retroachievements.org\/Badge\/498871.png",
+          "BadgeLockedURL": "https:\/\/media.retroachievements.org\/Badge\/498871_lock.png"
+        },
+        {
+          "ID": 441899,
+          "MemAddr": "2=3",
+          "Title": "Subset_ach_441899",
+          "Description": "Description_subset_ach_441899",
+          "Points": 100,
+          "Author": "suXin",
+          "Modified": 1719299556,
+          "Created": 1719299556,
+          "BadgeName": "498870",
+          "Flags": 3,
+          "Type": null,
+          "Rarity": 0.23,
+          "RarityHardcore": 0.2,
+          "BadgeURL": "https:\/\/media.retroachievements.org\/Badge\/498870.png",
+          "BadgeLockedURL": "https:\/\/media.retroachievements.org\/Badge\/498870_lock.png"
+        }
+      ],
+      "Leaderboards": [
+        {
+          "ID": 106006,
+          "Mem": "STA:0=1::CAN:0=1::SUB:1=1::VAL:I:0xX621cb4_I:0xX60_I:0xX8_I:0xX0_M:0xX11dc",
+          "Format": "FIXED3",
+          "LowerIsBetter": true,
+          "Title": "subset_leaderboard_106006",
+          "Description": "description_subset_leaderboard_106006",
+          "Hidden": false
+        },
+        {
+          "ID": 106007,
+          "Mem": "STA:2=3::CAN:1=2::SUB:1=1::VAL:I:0xX621cb4_I:0xX60_I:0xX8_I:0xX0_M:0xX11dc",
+          "Format": "FIXED3",
+          "LowerIsBetter": true,
+          "Title": "subset_leaderboard_106007",
+          "Description": "description_subset_leaderboard_106007",
+          "Hidden": false
+        }
+      ]
     }
   ]
 }

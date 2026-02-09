@@ -431,7 +431,6 @@ export default async function diff(
   const absoluteModulePath = path.resolve(inputFilePath)
   const module = await achievementSetImport(absoluteModulePath)
   const inputSet = await extractAchievementSetFromModule(module, absoluteModulePath)
-  const { gameId } = inputSet
 
   const achievementCount = Object.keys(inputSet.achievements).length
   const leaderboardCount = Object.keys(inputSet.leaderboards).length
@@ -447,7 +446,12 @@ export default async function diff(
   }
 
   try {
-    var remoteSet = await getSetFromRemote({ gameId, excludeUnofficial, timeout })
+    var remoteSet = await getSetFromRemote({
+      gameId: inputSet.gameId,
+      setId: inputSet.id,
+      excludeUnofficial,
+      timeout,
+    })
   } catch (err) {
     log(util.styleText('redBright', `remote data got issues, cannot proceed with the diff`))
     throw err
@@ -455,7 +459,7 @@ export default async function diff(
 
   try {
     var localData = getLocalData({
-      gameId,
+      gameId: inputSet.gameId,
       throwOnFirstError: false,
     })
   } catch (err) {
@@ -464,7 +468,7 @@ export default async function diff(
   }
 
   if (!localData) {
-    const filePath = resolveRACache(`./RACache/Data/${gameId}-User.txt`)
+    const filePath = resolveRACache(`./RACache/Data/${inputSet.gameId}-User.txt`)
     log(
       util.styleText(
         'yellowBright',

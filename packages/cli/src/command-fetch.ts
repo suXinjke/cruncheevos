@@ -191,16 +191,18 @@ export function getSetFromRemoteData(remoteData: RemoteData, setId?: number) {
 // TODO: add support for setId
 export async function getSetFromRemote(opts: {
   gameId: number
+  setId?: number
   excludeUnofficial: boolean
   timeout: number
 }) {
-  const { gameId } = opts
+  const { gameId, setId } = opts
 
   const remoteData = await getRemoteData(opts)
-  const { Achievements, Leaderboards } = getSetFromRemoteData(remoteData)
+  const { Achievements, Leaderboards } = getSetFromRemoteData(remoteData, setId)
 
   const set = new AchievementSet({
     gameId,
+    id: setId,
     title: remoteData.Title,
   })
 

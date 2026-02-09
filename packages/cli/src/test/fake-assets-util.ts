@@ -187,7 +187,7 @@ export function prepareFakeAssets(
 
     baseConditions?: (opts: Omit<FakeAssetContext, 'base'>) => RenameLater
     remote?: string | ((opts: FakeAssetContext) => void)
-    local?: (opts: FakeAssetContext) => void
+    local?: string | ((opts: FakeAssetContext) => void)
     rich?: string | ReturnType<typeof RichPresence>
   } & (
     | {
@@ -241,6 +241,8 @@ export function prepareFakeAssets(
         }),
       ),
     )
+  } else if (typeof local === 'string') {
+    mockedFiles[`./RACache/Data/${gameId}-User.txt`] = local
   }
 
   vol.mkdirSync('./RACache/Data', { recursive: true })

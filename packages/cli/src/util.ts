@@ -312,6 +312,10 @@ function* iterateMatchables(matchables: Set<Asset>, asset: Asset) {
       continue
     }
 
+    if (match.setId !== undefined && match.setId !== asset.setId) {
+      continue
+    }
+
     yield match
   }
 }
@@ -319,6 +323,10 @@ function* iterateMatchables(matchables: Set<Asset>, asset: Asset) {
 function getMatchByIdFrom(matchables: Set<Asset>, asset: Asset) {
   for (const match of matchables) {
     if (match.constructor !== asset.constructor) {
+      continue
+    }
+
+    if (match.setId !== undefined && match.setId !== asset.setId) {
       continue
     }
 
