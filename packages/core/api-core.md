@@ -20,6 +20,7 @@
   - [`toArrayPretty(): string[]`](#conditiontoarraypretty-string)
 - [Achievement](#achievement)
   - [`id`](#id-number)
+  - [`setId`](#setid-number)
   - [`title`](#title-string)
   - [`description`](#description-string)
   - [`author`](#author-string)
@@ -30,9 +31,10 @@
   - [`new Achievement(def: Achievement.InputObject)`](#new-achievementdef-achievementinputobject)
   - [`new Achievement(def: string)`](#new-achievementdef-string)
   - [`with(data: DeepPartial<Achievement.InputObject>): Achievement`](#achievementwithdata-deeppartialachievementinputobject-achievement)
-  - [`toString(desiredData: 'conditions' | 'achievement'): string`](#achievementtostringdesireddata-conditions--achievement-string)
+  - [`toString(desiredData: 'conditions' | 'achievement' | 'achievement-legacy'): string`](#achievementtostringdesireddata-conditions--achievement--achievement-legacy-string)
 - [Leaderboard](#leaderboard)
   - [`id`](#id-number-1)
+  - [`setId`](#setid-number-1)
   - [`title`](#title-string-1)
   - [`description`](#description-string-1)
   - [`type`](#type-score--time--frames--millisecs--secs--timesecs--minutes--secs_as_mins--value--unsigned--tens--hundreds--thousands--fixed1--fixed2--fixed3)
@@ -41,9 +43,10 @@
   - [`new Leaderboard(def: Leaderboard.InputObject)`](#new-leaderboarddef-leaderboardinputobject)
   - [`new Leaderboard(def: string)`](#new-leaderboarddef-string)
   - [`with(data: DeepPartial<Leaderboard.InputObject>): Leaderboard`](#leaderboardwithdata-deeppartialleaderboardinputobject-leaderboard)
-  - [`toString(desiredData: 'conditions' | 'leaderboard'): string`](#leaderboardtostringdesireddata-conditions--leaderboard-string)
+  - [`toString(desiredData: 'conditions' | 'leaderboard' | 'leaderboard-legacy'): string`](#leaderboardtostringdesireddata-conditions--leaderboard--leaderboard-legacy-string)
 - [AchievementSet](#achievementset)
   - [`gameId`](#gameid-number)
+  - [`id`](#id-number-2)
   - [`title`](#title-string-2)
   - [`achievements`](#achievements--id-string-achievement-)
   - [`leaderboards`](#leaderboards--id-string-leaderboard-)
@@ -51,7 +54,7 @@
   - [`addAchievement(def: Achievement | AchievementSet.AchievementInput): AchievementSet`](#achievementsetaddachievementdef-achievement--achievementsetachievementinput-achievementset)
   - [`addLeaderboard(def: Leaderboard | AchievementSet.LeaderboardInput): AchievementSet`](#achievementsetaddleaderboarddef-leaderboard--achievementsetleaderboardinput-achievementset)
   - [`[Symbol.iterator]()`](#achievementsetsymboliterator)
-  - [`toString(): string`](#achievementsettostring-string)
+  - [`toString(desiredData: 'set' | 'set-legacy'): string`](#achievementsettostringdesireddata-set--set-legacy-string)
 - [RichPresence(params: RichPresence.Params)](#richpresenceparams-richpresenceparams)
   - [`RichPresence.display(condition: ConditionBuilder | Condition.Input, displayString: string)`](#richpresencedisplaycondition-conditionbuilder--conditioninput-displaystring-string)
   - [`RichPresence.format(params: RichPresence.FormatParams)`](#richpresenceformatparams-richpresenceformatparams)
@@ -215,6 +218,10 @@ If Asset does not exist on the server yet, `id` should be set
 to a high number like 111000001, similar to what RAIntegration
 does when creating local assets.
 
+#### `setId: number`
+
+Optional Subset ID that an Asset belongs to, matching the one on server.
+
 #### `title: string`
 
 Title of an Asset, must be set.
@@ -267,6 +274,7 @@ import { define as $ } from '@cruncheevos/core'
 
 new Achievement({
   id: 58, // or numeric string
+  setId: 1024, // or numeric string, optional
   title: 'My Achievement',
   description: 'Do something funny',
   points: 5,
@@ -307,6 +315,11 @@ new Achievement(
  '58:"0xHfff0=0_0xHfffb=0S0xHfe10>d0xHfe10_0xHfe11=0S0=1"' +
  ':My Achievement:Do something funny::::peepy:5:::::"local\\\\my_achievement.png"'
 )
+
+new Achievement(
+ '58|1024:"0xHfff0=0_0xHfffb=0S0xHfe10>d0xHfe10_0xHfe11=0S0=1"' +
+ ':My Achievement:Do something funny::::peepy:5:::::"local\\\\my_achievement.png"'
+)
 ```
 #### `achievement.with(data: DeepPartial<Achievement.InputObject>): Achievement`
 
@@ -316,7 +329,7 @@ Returns new Achievement instance with different values merged.
 someAchievement
   .with({ title: someAchievement.title + 'suffix' })
 ```
-#### `achievement.toString(desiredData: 'conditions' | 'achievement'): string`
+#### `achievement.toString(desiredData: 'conditions' | 'achievement' | 'achievement-legacy'): string`
 
 Returns string representation of Achievement suitable
 for `RACache/Data/GameId-User.txt` file.
@@ -327,6 +340,14 @@ someAchievement.toString('achievement')
 // '58:"0=1":My Achievement:Do something funny::::cruncheevos:5:::::00000'
 
 someAchievement.toString('conditions') // '0=1'
+
+// if setId is set
+someAchievement.toString()
+someAchievement.toString('achievement')
+// '58|1024:"0=1":My Achievement:Do something funny::::cruncheevos:5:::::00000'
+
+someAchievement.toString('achievement-legacy')
+// '58:"0=1":My Achievement:Do something funny::::cruncheevos:5:::::00000'
 ```
 
 ## Leaderboard
@@ -343,6 +364,10 @@ ID of an Asset matching the one on server.
 If Asset does not exist on the server yet, `id` should be set
 to a high number like 111000001, similar to what RAIntegration
 does when creating local assets.
+
+#### `setId: number`
+
+Optional Subset ID that an Asset belongs to, matching the one on server.
 
 #### `title: string`
 
@@ -382,6 +407,7 @@ import { define as $ } from '@cruncheevos/core'
 
 new Leaderboard({
   id: 58, // or numeric string
+  setId: 1024, // or numeric string, optional
   title: 'My Leaderboard',
   description: 'Best score while doing something funny',
   type: 'SCORE',
@@ -415,6 +441,11 @@ new Leaderboard(
  'L58:"0xHfff0=1S":"0=1":"1=1":"M:0xX34440*2"' +
  ':SCORE:My Leaderboard:Best score while doing something funny:0'
 )
+
+new Leaderboard(
+ 'L58|1024:"0xHfff0=1S":"0=1":"1=1":"M:0xX34440*2"' +
+ ':SCORE:My Leaderboard:Best score while doing something funny:0'
+)
 ```
 #### `leaderboard.with(data: DeepPartial<Leaderboard.InputObject>): Leaderboard`
 
@@ -424,7 +455,7 @@ Returns new Leaderboard instance with different values merged.
 someLeaderboard
   .with({ title: someLeaderboard.title + 'suffix' })
 ```
-#### `leaderboard.toString(desiredData: 'conditions' | 'leaderboard'): string`
+#### `leaderboard.toString(desiredData: 'conditions' | 'leaderboard' | 'leaderboard-legacy'): string`
 
 Returns string representation of Leaderboard suitable
 for `RACache/Data/GameId-User.txt` file.
@@ -435,6 +466,14 @@ someLeaderboard.toString('leaderboard')
 // 'L58:"0xHfff0=1S":"0=1":"1=1":"M:0xX34440*2":SCORE:My Leaderboard:Best score while doing something funny:0'
 
 someLeaderboard.toString('conditions') // '"0xHfff0=1S":"0=1":"1=1":"M:0xX34440*2"'
+
+// if setId is set
+someLeaderboard.toString()
+someLeaderboard.toString('leaderboard')
+// 'L58|1024:"0xHfff0=1S":"0=1":"1=1":"M:0xX34440*2":SCORE:My Leaderboard:Best score while doing something funny:0'
+
+someLeaderboard.toString('leaderboard-legacy')
+// 'L58:"0xHfff0=1S":"0=1":"1=1":"M:0xX34440*2":SCORE:My Leaderboard:Best score while doing something funny:0'
 ```
 
 ## AchievementSet
@@ -451,6 +490,18 @@ for `@cruncheevos/cli` to update local file in RACache.
 
 Game ID matching the one on RetroAchievement servers,
 must be set correctly if using this class with @cruncheevos/cli
+
+#### `id: number`
+
+Optional Set ID matching the one on RetroAchievement servers.
+@cruncheevos/cli respects this when performing asset diff and updates.
+This will automatically inject setId to added Achievements and Leaderboards.
+If Achievement or Leaderboard already specifies setId - it will be overridden.
+
+Technically all achievement sets on RetroAchievement servers have an ID,
+but they used not to and you would rely solely on Game ID instead.
+In practice you'd specify Set ID only when you need to refer to a subset,
+but remember that Core sets also have Set ID.
 
 #### `title: string`
 
@@ -563,7 +614,7 @@ for (const asset of achSet) {
   }
 }
 ```
-#### `achievementSet.toString(): string`
+#### `achievementSet.toString(desiredData: 'set' | 'set-legacy'): string`
 
 Returns string representation of AchievementSet suitable for
 `RACache/Data/GameId-User.txt` file.
@@ -587,6 +638,30 @@ Funny Game
 111000001:"0x cafe=101":Ach1:Desc1::::cruncheevos:1:::::00000
 L58:"0x cafe=102":"0=1":"1=1":"M:0x feed":FRAMES:Lb2:Desc2:1
 L111000001:"0x cafe=101":"0=1":"1=1":"M:0x feed":SCORE:Lb1:Desc1:0
+`
+
+new AchievementSet({ gameId: 1234, id: 5800, title: 'Funny Game' })
+ .addAchievement(...)
+ .addLeaderboard(...)
+ .toString()
+// may result in:
+`
+1.0
+Funny Game
+57|5800:"0x cafe=102":Ach2:Desc2::::cruncheevos:2:::::00000
+L58|5800:"0x cafe=102":"0=1":"1=1":"M:0x feed":FRAMES:Lb2:Desc2:1
+`
+
+new AchievementSet({ gameId: 1234, id: 5800, title: 'Funny Game' })
+ .addAchievement(...)
+ .addLeaderboard(...)
+ .toString('set-legacy')
+// may result in:
+`
+1.0
+Funny Game
+57:"0x cafe=102":Ach2:Desc2::::cruncheevos:2:::::00000
+L58:"0x cafe=102":"0=1":"1=1":"M:0x feed":FRAMES:Lb2:Desc2:1
 `
 ```
 
@@ -667,6 +742,17 @@ RichPresence({
 ---
 #### `RichPresence.display(condition: ConditionBuilder | Condition.Input, displayString: string)`
 
+new AchievementSet({ gameId: 1234, id: 5800, title: 'Funny Game' })
+ .addAchievement(...)
+ .addLeaderboard(...)
+ .toString()
+// may result in:
+`
+1.0
+Funny Game
+57|5800:"0x cafe=102":Ach2:Desc2::::cruncheevos:2:::::00000
+L58|5800:"0x cafe=102":"0=1":"1=1":"M:0x feed":FRAMES:Lb2:Desc2:1
+`
 Returns a string representing Rich Presence Display line
 
 Does not check if provided arguments are of correct type
@@ -683,6 +769,17 @@ Creates an object representing Rich Presence Format
 ```ts
 import { RichPresence } from '@cruncheevos/core'
 
+new AchievementSet({ gameId: 1234, id: 5800, title: 'Funny Game' })
+ .addAchievement(...)
+ .addLeaderboard(...)
+ .toString('set-legacy')
+// may result in:
+`
+1.0
+Funny Game
+57:"0x cafe=102":Ach2:Desc2::::cruncheevos:2:::::00000
+L58:"0x cafe=102":"0=1":"1=1":"M:0x feed":FRAMES:Lb2:Desc2:1
+`
 const format = RichPresence.format({
   name: 'Score',
   type: 'VALUE',
