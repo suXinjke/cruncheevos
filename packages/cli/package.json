@@ -1,6 +1,6 @@
 {
   "name": "@cruncheevos/cli",
-  "version": "0.0.9",
+  "version": "0.1.0",
   "description": "Maintain achievement sets for RetroAchievements.org using JavaScript, an alternative to RATools",
   "keywords": [
     "retroachievements",
@@ -29,7 +29,7 @@
   },
   "dependencies": {
     "@commander-js/extra-typings": "^14.0.0",
-    "@cruncheevos/core": "~0.0.0",
+    "@cruncheevos/core": "~0.1.0",
     "commander": "^14.0.2",
     "dotenv": "^17.2.3",
     "json-diff": "^1.0.6",

@@ -1,4 +1,19 @@
 # Changelog
+## 0.1.0 (2026-02-10)
+
+* **BREAKING:** bump required node version to 22.18, this version specifically to motivate usage of TypeScript and native type stripping ([8085041](https://github.com/suXinjke/cruncheevos/commit/808504169666ea3d64adf526b4bde53079a88abf))
+
+
+### Features
+
+* **BREAKING:** refetch option was removed from all commands; remote assets are not automatically refetched anymore in case of issues; run fetch command yourself if you have to ([e4c39c9](https://github.com/suXinjke/cruncheevos/commit/e4c39c9865b4c4612af0d8473211024676ce148a))
+* diff, save, diff-save commands now recognize id within `AchievementSet`, allowing to properly work with subsets after RetroAchievements Multiset update ([ea6baf6](https://github.com/suXinjke/cruncheevos/commit/ea6baf6f306f3324252957f5e304a97bc6f671d0))
+
+
+### Fixes
+
+* allow excess arguments for save, diff, diff-save, rich-save commands like it was allowed prior to commander package update; this is needed for scripts that expect additional arguments unrelated to cruncheevos ([6e801fd](https://github.com/suXinjke/cruncheevos/commit/6e801fdabad9e914531ae1f4ab6db48e8e9e0a2d))
+
 ## 0.0.9 (2025-12-02)
 
 

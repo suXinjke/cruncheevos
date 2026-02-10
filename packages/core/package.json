@@ -1,6 +1,6 @@
 {
   "name": "@cruncheevos/core",
-  "version": "0.0.8",
+  "version": "0.1.0",
   "description": "Parse and generate achievements and leaderboards for RetroAchievements.org",
   "keywords": [
     "retroachievements",

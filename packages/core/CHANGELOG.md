@@ -1,4 +1,12 @@
 # Changelog
+## 0.1.0 (2026-02-10)
+
+
+### Features
+
+* allow to specify setId for Achievement, Leaderboard; id for AchievementSet ([e5e5570](https://github.com/suXinjke/cruncheevos/commit/e5e5570c54d6cdb8a22a75a8c69fb90ffdf3dedc))
+* **BREAKING:** allow empty strings for Achievement and Leaderboard title, do not allow null and undefined for title and description ([43afd96](https://github.com/suXinjke/cruncheevos/commit/43afd964503040c106fc4d07a2dc3df412a18899))
+
 ## 0.0.8 (2024-12-17)
 
 
