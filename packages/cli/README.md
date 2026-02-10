@@ -14,6 +14,7 @@ CLI expects Node 22.18 LTS and respects working in ESM environment only.
 - [Recipes](#recipes)
   - [Handling different regions or versions of a game](#handling-different-regions-or-versions-of-a-game)
   - [AddAddress handling](#addaddress-handling)
+  - [Subsets](#subsets)
   - [Badges](#badges)
   - [Rich Presence](#rich-presence)
   - [Async execution](#async-execution)
