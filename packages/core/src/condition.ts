@@ -114,9 +114,9 @@ export namespace Condition {
 
   export type GroupNormalized = Condition[][]
   export type Group = (Condition.Input | ConditionBuilder)[] | string | ConditionBuilder
-  export type GroupSetObject<G = Group> = {
-    core: G
-    [x: `alt${bigint}`]: G
+  export type GroupSetObject = {
+    core: Group
+    [x: `alt${bigint}`]: Group
   }
   export type GroupSet = Group | GroupSetObject
 }
