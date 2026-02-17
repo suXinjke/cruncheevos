@@ -19,15 +19,12 @@ import {
 
 export namespace Achievement {
   export type Type = '' | 'missable' | 'progression' | 'win_condition'
-
-  export interface InputObject extends AchievementCommon {
+  export interface InputObject extends AchievementData {
     conditions: Condition.GroupSet | string
   }
-
-  export type Input = InputObject | string
 }
 
-interface AchievementCommon extends AssetData {
+interface AchievementData extends AssetData {
   /**
    * Achievement's author name, it's not necessary and
    * is not sent to servers, but local RACache
@@ -61,18 +58,6 @@ interface AchievementCommon extends AssetData {
   badge?: string | number
 
   conditions: Condition.GroupSet | Condition.GroupNormalized | string
-}
-
-interface AchievementData extends AchievementCommon {
-  id: number
-  badge?: string
-
-  /**
-   * Array of arrays containing Condition class instances:
-   * * Outer array represents Condition groups like Core, Alt 1, Alt 2 ...
-   * * Inner array represents individual Conditions within the group
-   */
-  conditions: Condition.GroupNormalized
 }
 
 const allowedAchievementTypesForDisplay = ['missable', 'progression', 'win_condition']
@@ -203,7 +188,7 @@ function achievementDataFromString(str: string) {
     description: col[3],
     type,
     author: col[7],
-    points: Number(col[8]) as AchievementData['points'],
+    points: Number(col[8]),
     badge: validate.andNormalizeBadge(col[13] || ''),
 
     conditions: normalizedConditionGroupSetFromString(col[1]),
@@ -228,6 +213,12 @@ export class Achievement implements AchievementData {
   declare points: number
   declare type: Achievement.Type
   declare badge: string
+
+  /**
+   * Array of arrays containing Condition class instances:
+   * * Outer array represents Condition groups like Core, Alt 1, Alt 2 ...
+   * * Inner array represents individual Conditions within the group
+   */
   declare conditions: Condition.GroupNormalized
 
   /**
@@ -290,8 +281,8 @@ export class Achievement implements AchievementData {
   /**
    * @ignore Stub definition to please TypeScript, this accepts all the previous types.
    */
-  constructor(def: Achievement.Input)
-  constructor(def: Achievement.Input) {
+  constructor(def: Achievement.InputObject | string)
+  constructor(def: Achievement.InputObject | string) {
     const isAchievementInstance = def instanceof Achievement
 
     if (typeof def === 'string') {

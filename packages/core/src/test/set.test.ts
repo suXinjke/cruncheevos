@@ -125,7 +125,9 @@ describe('Achievement Set', () => {
     set.addAchievement(makeAchievementInput('Ach2'))
     set.addAchievement(makeAchievementInput('Ach3', 47))
     set.addAchievement(
-      new Achievement(makeAchievementInput('Ach4', 111000008) as Achievement.Input).toString(),
+      new Achievement(
+        makeAchievementInput('Ach4', 111000008) as Achievement.InputObject,
+      ).toString(),
     )
     set.addAchievement(makeAchievementInput('Ach5'))
 
