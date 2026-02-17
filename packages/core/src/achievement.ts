@@ -27,7 +27,7 @@ export namespace Achievement {
   export type Input = InputObject | string
 }
 
-interface AchievementCommon extends AssetData<string | number> {
+interface AchievementCommon extends AssetData {
   /**
    * Achievement's author name, it's not necessary and
    * is not sent to servers, but local RACache

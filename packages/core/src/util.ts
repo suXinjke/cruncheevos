@@ -1,19 +1,19 @@
 import type { Achievement } from './achievement.js'
 import type { Leaderboard } from './leaderboard.js'
 
-export interface AssetData<IdType = number> {
+export interface AssetData {
   /**
    * ID of an Asset matching the one on server.
    * If Asset does not exist on the server yet, `id` should be set
    * to a high number like 111000001, similar to what RAIntegration
    * does when creating local assets.
    */
-  id: IdType
+  id: string | number
 
   /**
    * Optional Subset ID that an Asset belongs to, matching the one on server.
    */
-  setId?: IdType
+  setId?: string | number
 
   /**
    * Title of an Asset, must be set.

@@ -52,7 +52,7 @@ interface LeaderboardConditions<Type> {
   value: Type
 }
 
-interface LeaderboardCommon extends AssetData<string | number> {
+interface LeaderboardCommon extends AssetData {
   /**
    * Specifies how to interpret Leaderboard's value.
    *

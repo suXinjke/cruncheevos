@@ -5,6 +5,10 @@ const fs = getFs()
 import { getFs, log, resolveRACache } from './mockable.js'
 import { wrappedError, Asset, AssetData } from '@cruncheevos/core/util'
 
+interface AssetDataFilterable extends AssetData {
+  id: number
+}
+
 export const remoteRefetchRecommendation =
   `you can try to delete remote data and run the command again, ` +
   `or refetch remote data by running 'fetch' command`
@@ -639,18 +643,18 @@ export function makeAssetFilter(arg: string): AssetFilter {
 
   if (type === 'id') {
     const ids = new Set(arg.split(/,\s*/).map(Number))
-    return function filter(asset: AssetData) {
+    return function filter(asset: AssetDataFilterable) {
       return ids.has(asset.id)
     }
   }
 
   const regex = new RegExp(arg, 'i')
-  return function filter(asset: AssetData) {
+  return function filter(asset: AssetDataFilterable) {
     return regex.test(asset[type])
   }
 }
 
-export function filtersMatch(asset: AssetData, filters: AssetFilter[]) {
+export function filtersMatch(asset: AssetDataFilterable, filters: AssetFilter[]) {
   return filters.length === 0 || filters.some(filter => filter(asset))
 }
 
