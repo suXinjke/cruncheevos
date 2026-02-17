@@ -21,9 +21,9 @@ export interface AssetData<IdType = number> {
   title: string
 
   /**
-   * Description of an Asset, required by server, but optional for library.
+   * Description of an Asset, must be set.
    */
-  description?: string
+  description: string
 }
 
 export type Asset = Achievement | Leaderboard

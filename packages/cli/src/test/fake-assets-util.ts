@@ -30,15 +30,17 @@ type RepeatGroupsFunction = typeof repeatGroups
 type RenameLater = {
   achievements?: Record<
     number,
-    Omit<Achievement.InputObject, 'id' | 'title' | 'points'> &
-      Partial<Pick<Achievement.InputObject, 'id' | 'title' | 'points'>> & {
+    Omit<Achievement.InputObject, 'id' | 'title' | 'description' | 'points'> &
+      Partial<Pick<Achievement.InputObject, 'id' | 'title' | 'description' | 'points'>> & {
         flags?: number
       }
   >
   leaderboards?: Record<
     number,
-    Omit<Leaderboard.InputObject, 'id' | 'title' | 'lowerIsBetter' | 'type'> &
-      Partial<Pick<Leaderboard.InputObject, 'id' | 'title' | 'lowerIsBetter' | 'type'>> & {
+    Omit<Leaderboard.InputObject, 'id' | 'title' | 'description' | 'lowerIsBetter' | 'type'> &
+      Partial<
+        Pick<Leaderboard.InputObject, 'id' | 'title' | 'description' | 'lowerIsBetter' | 'type'>
+      > & {
         hidden?: boolean
       }
   >
