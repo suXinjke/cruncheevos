@@ -148,7 +148,7 @@ describe('Achievement Set', () => {
     set.addLeaderboard(makeLeaderboardInput('Lb2'))
     set.addLeaderboard(makeLeaderboardInput('Lb3', 47))
     set.addLeaderboard(
-      new Leaderboard(makeLeaderboardInput('Lb4', 111000008) as Leaderboard.Input).toString(),
+      new Leaderboard(makeLeaderboardInput('Lb4', 111000008) as Leaderboard.InputObject).toString(),
     )
     set.addLeaderboard(makeLeaderboardInput('Lb5'))
 

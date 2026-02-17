@@ -38,11 +38,9 @@ export namespace Leaderboard {
 
   export type InputConditions = LeaderboardConditions<Condition.GroupSet>
 
-  export interface InputObject extends LeaderboardCommon {
+  export interface InputObject extends LeaderboardData {
     conditions: InputConditions | string
   }
-
-  export type Input = InputObject | string
 }
 
 interface LeaderboardConditions<Type> {
@@ -52,7 +50,7 @@ interface LeaderboardConditions<Type> {
   value: Type
 }
 
-interface LeaderboardCommon extends AssetData {
+interface LeaderboardData extends AssetData {
   /**
    * Specifies how to interpret Leaderboard's value.
    *
@@ -65,24 +63,10 @@ interface LeaderboardCommon extends AssetData {
    */
   lowerIsBetter: boolean
 
-  conditions: LeaderboardConditions<Condition.GroupSet | Condition.GroupNormalized> | string
-}
-
-interface LeaderboardData extends LeaderboardCommon {
-  id: number
-
-  /**
-   * Object representing four condition groups that make up Leaderboard code.
-   *
-   * Each group is an array of arrays containing Condition class instances:
-   * * Outer array represents Condition groups like Core, Alt 1, Alt 2 ...
-   * * Inner array represents individual Conditions within the group
-   * * For `value` group, each outer array represents Value retrieval
-   * and Max of these values is taken
-   *
-   * @alias \{ start: Condition[][], cancel: Condition[][], submit: Condition[][], value: Condition[][] \}
-   */
-  conditions: LeaderboardConditions<Condition.GroupNormalized>
+  conditions:
+    | LeaderboardConditions<Condition.GroupSet>
+    | LeaderboardConditions<Condition.GroupNormalized>
+    | string
 }
 
 const allowedLeaderboardConditionGroups = new Set(['start', 'cancel', 'submit', 'value'])
@@ -255,6 +239,18 @@ export class Leaderboard implements LeaderboardData {
   declare description: string
   declare type: Leaderboard.Type
   declare lowerIsBetter: boolean
+
+  /**
+   * Object representing four condition groups that make up Leaderboard code.
+   *
+   * Each group is an array of arrays containing Condition class instances:
+   * * Outer array represents Condition groups like Core, Alt 1, Alt 2 ...
+   * * Inner array represents individual Conditions within the group
+   * * For `value` group, each outer array represents Value retrieval
+   * and Max of these values is taken
+   *
+   * @alias \{ start: Condition[][], cancel: Condition[][], submit: Condition[][], value: Condition[][] \}
+   */
   declare conditions: LeaderboardConditions<Condition.GroupNormalized>
 
   /**
@@ -310,8 +306,8 @@ export class Leaderboard implements LeaderboardData {
   /**
    * @ignore Stub definition to please TypeScript, this accepts all the previous types.
    */
-  constructor(def: Leaderboard.Input)
-  constructor(def: Leaderboard.Input) {
+  constructor(def: Leaderboard.InputObject | string)
+  constructor(def: Leaderboard.InputObject | string) {
     const isLeaderboardInstance = def instanceof Leaderboard
 
     if (typeof def === 'string') {
