@@ -1,5 +1,5 @@
 import { Condition } from './condition.js'
-import { DeepPartial, stringToNumberLE } from './util.js'
+import { stringToNumberLE } from './util.js'
 
 type ConditionBuilderInput = Array<boolean | Condition.Input | ConditionBuilder>
 
