@@ -67,14 +67,14 @@ describe('save and linting', () => {
   })
 
   test('warn about duplicate names for achievements and leaderboards without ID', async ctx => {
-    const ach: AchievementSet.AchievementInput = {
+    const ach: AchievementSet.AchievementInputObject = {
       title: 'Ach1',
       description: 'AchDesc1',
       points: 5,
       conditions: '1=0',
     }
 
-    const lb: AchievementSet.LeaderboardInput = {
+    const lb: AchievementSet.LeaderboardInputObject = {
       title: 'Lb1',
       description: 'LbDesc1',
       lowerIsBetter: true,

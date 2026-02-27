@@ -3,8 +3,8 @@ import { Leaderboard } from './leaderboard.js'
 import { PartialByKey, validate } from './util.js'
 
 export namespace AchievementSet {
-  export type AchievementInput = PartialByKey<Achievement.InputObject, 'id'> | string
-  export type LeaderboardInput = PartialByKey<Leaderboard.InputObject, 'id'> | string
+  export type AchievementInputObject = PartialByKey<Achievement.InputObject, 'id'>
+  export type LeaderboardInputObject = PartialByKey<Leaderboard.InputObject, 'id'>
 
   export interface Input {
     gameId: number | string
@@ -139,7 +139,7 @@ export class AchievementSet {
    *   }
    * }).addAchievement(...)
    */
-  addAchievement(def: AchievementSet.AchievementInput | Achievement) {
+  addAchievement(def: AchievementSet.AchievementInputObject | Achievement | string) {
     const privateData = privateMap.get(this)
 
     // prettier-ignore
@@ -205,7 +205,7 @@ export class AchievementSet {
    *   },
    * }).addLeaderboard(...)
    */
-  addLeaderboard(def: AchievementSet.LeaderboardInput | Leaderboard) {
+  addLeaderboard(def: AchievementSet.LeaderboardInputObject | Leaderboard | string) {
     const privateData = privateMap.get(this)
 
     // prettier-ignore
