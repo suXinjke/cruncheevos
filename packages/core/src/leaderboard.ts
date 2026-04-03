@@ -249,7 +249,7 @@ export class Leaderboard implements LeaderboardData {
    * * For `value` group, each outer array represents Value retrieval
    * and Max of these values is taken
    *
-   * @alias \{ start: Condition[][], cancel: Condition[][], submit: Condition[][], value: Condition[][] \}
+   * @alias { start: Condition[][], cancel: Condition[][], submit: Condition[][], value: Condition[][] }
    */
   declare conditions: LeaderboardConditions<Condition.GroupNormalized>
 

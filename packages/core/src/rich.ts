@@ -567,7 +567,7 @@ function makeRichPresenceLookup(params: RichPresence.LookupParams) {
  *  Display:
  *  ?0x cafe=1?Cafe at value 1, Song: ＠Song(0x100), Mode: ＠Mode(0x990)
  *  ?0xCAFE=2?Cafe at value 2, format example: ＠Score(0x600)
- *  ?0xCAFE=3?Default macro test @Score(0xfeed)
+ *  ?0xCAFE=3?Default macro test ＠Score(0xfeed)
  *  Playing a good game`
  */
 export const RichPresence = <

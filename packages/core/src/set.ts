@@ -37,13 +37,13 @@ function* iterateObject(this: Record<string, any>) {
 export class AchievementSet {
   /**
    * Game ID matching the one on RetroAchievement servers,
-   * must be set correctly if using this class with @cruncheevos/cli
+   * must be set correctly if using this class with `@cruncheevos/cli`
    */
   declare gameId: number
 
   /**
    * Optional Set ID matching the one on RetroAchievement servers.
-   * @cruncheevos/cli respects this when performing asset diff and updates.
+   * `@cruncheevos/cli` respects this when performing asset diff and updates.
    * This will automatically inject setId to added Achievements and Leaderboards.
    * If Achievement or Leaderboard already specifies setId - it will be overridden.
    *
@@ -65,8 +65,6 @@ export class AchievementSet {
    * Treat it as read-only unless you know better.
    *
    * Also implements Symbol.iterator which yields each Achievement stored.
-   *
-   * @alias \{ [id: string]: Achievement \}
    */
   declare achievements: Record<string, Achievement> & Iterable<Achievement>
 
@@ -75,8 +73,6 @@ export class AchievementSet {
    * Treat it as read-only unless you know better.
    *
    * Also implements Symbol.iterator which yields each Leaderboard stored.
-   *
-   * @alias \{ [id: string]: Leaderboard \}
    */
   declare leaderboards: Record<string, Leaderboard> & Iterable<Leaderboard>
 
