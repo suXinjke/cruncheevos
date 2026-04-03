@@ -1,66 +1,66 @@
 # @cruncheevos/core API
 
 - [Condition](#condition)
-  - [`flag`](#flag---pauseif--resetif--resetnextif--addhits--subhits--andnext--ornext--measured--measured--measuredif--trigger--addsource--subsource--addaddress--remember)
-  - [`lvalue`](#lvalue-conditionvalue)
-  - [`cmp`](#cmp----------------------------)
-  - [`rvalue`](#rvalue-conditionvalue)
-  - [`hits`](#hits-number)
-  - [Condition.Value](#conditionvalue)
-    - [`type`](#type---mem--delta--prior--bcd--invert--value--float--recall)
-    - [`size`](#size---bit0--bit1--bit2--bit3--bit4--bit5--bit6--bit7--lower4--upper4--8bit--16bit--24bit--32bit--16bitbe--24bitbe--32bitbe--bitcount--float--floatbe--double32--double32be--mbf32--mbf32le)
-    - [`value`](#value-number)
+  - [`flag`](#conditionflag-conditionflag)
+  - [`lvalue`](#conditionlvalue-conditionvalue)
+  - [`cmp`](#conditioncmp-conditionoperator)
+  - [`rvalue`](#conditionrvalue-conditionvalue)
+  - [`hits`](#conditionhits-number)
   - [`new Condition(def: Condition.Array)`](#new-conditiondef-conditionarray)
   - [`new Condition(def: string)`](#new-conditiondef-string)
   - [`new Condition(def: Condition)`](#new-conditiondef-condition)
   - [`new Condition(def: Condition.Data)`](#new-conditiondef-conditiondata)
-  - [`with(data: DeepPartial<Condition.Data>): Condition`](#conditionwithdata-deeppartialconditiondata-condition)
+  - [`with(data: Condition.PartialMergedData): Condition`](#conditionwithdata-conditionpartialmergeddata-condition)
   - [`toString(): string`](#conditiontostring-string)
   - [`toArray(): Condition.Array`](#conditiontoarray-conditionarray)
   - [`toArrayPretty(): string[]`](#conditiontoarraypretty-string)
+- [Condition.Value](#conditionvalue)
+  - [`type`](#valuetype-valuetype)
+  - [`size`](#valuesize-size)
+  - [`value`](#valuevalue-number)
 - [Achievement](#achievement)
-  - [`id`](#id-number)
-  - [`setId`](#setid-number)
-  - [`title`](#title-string)
-  - [`description`](#description-string)
-  - [`author`](#author-string)
-  - [`points`](#points-number)
-  - [`type`](#type---missable--progression--win_condition)
-  - [`badge`](#badge-string)
-  - [`conditions`](#conditions-conditiongroupnormalized)
+  - [`id`](#achievementid-number)
+  - [`setId`](#achievementsetid-number)
+  - [`title`](#achievementtitle-string)
+  - [`description`](#achievementdescription-string)
+  - [`author`](#achievementauthor-string)
+  - [`points`](#achievementpoints-number)
+  - [`type`](#achievementtype-achievementtype)
+  - [`badge`](#achievementbadge-string)
+  - [`conditions`](#achievementconditions-conditiongroupnormalized)
   - [`new Achievement(def: Achievement.InputObject)`](#new-achievementdef-achievementinputobject)
   - [`new Achievement(def: string)`](#new-achievementdef-string)
   - [`with(data: DeepPartial<Achievement.InputObject>): Achievement`](#achievementwithdata-deeppartialachievementinputobject-achievement)
-  - [`toString(desiredData: 'conditions' | 'achievement' | 'achievement-legacy'): string`](#achievementtostringdesireddata-conditions--achievement--achievement-legacy-string)
+  - [`toString(desiredData: 'achievement' | 'achievement-legacy' | 'conditions'): string`](#achievementtostringdesireddata-achievement--achievement-legacy--conditions-string)
 - [Leaderboard](#leaderboard)
-  - [`id`](#id-number-1)
-  - [`setId`](#setid-number-1)
-  - [`title`](#title-string-1)
-  - [`description`](#description-string-1)
-  - [`type`](#type-score--time--frames--millisecs--secs--timesecs--minutes--secs_as_mins--value--unsigned--tens--hundreds--thousands--fixed1--fixed2--fixed3)
-  - [`lowerIsBetter`](#lowerisbetter-boolean)
-  - [`conditions`](#conditions--start-condition-cancel-condition-submit-condition-value-condition-)
+  - [`id`](#leaderboardid-number)
+  - [`setId`](#leaderboardsetid-number)
+  - [`title`](#leaderboardtitle-string)
+  - [`description`](#leaderboarddescription-string)
+  - [`type`](#leaderboardtype-leaderboardtype)
+  - [`lowerIsBetter`](#leaderboardlowerisbetter-boolean)
+  - [`conditions`](#leaderboardconditions-leaderboardconditionsconditiongroupnormalized)
   - [`new Leaderboard(def: Leaderboard.InputObject)`](#new-leaderboarddef-leaderboardinputobject)
   - [`new Leaderboard(def: string)`](#new-leaderboarddef-string)
   - [`with(data: DeepPartial<Leaderboard.InputObject>): Leaderboard`](#leaderboardwithdata-deeppartialleaderboardinputobject-leaderboard)
-  - [`toString(desiredData: 'conditions' | 'leaderboard' | 'leaderboard-legacy'): string`](#leaderboardtostringdesireddata-conditions--leaderboard--leaderboard-legacy-string)
+  - [`toString(desiredData: 'leaderboard' | 'leaderboard-legacy' | 'conditions'): string`](#leaderboardtostringdesireddata-leaderboard--leaderboard-legacy--conditions-string)
 - [AchievementSet](#achievementset)
-  - [`gameId`](#gameid-number)
-  - [`id`](#id-number-2)
-  - [`title`](#title-string-2)
-  - [`achievements`](#achievements--id-string-achievement-)
-  - [`leaderboards`](#leaderboards--id-string-leaderboard-)
-  - [`new AchievementSet(opts: AchievementSet.Input)`](#new-achievementsetopts-achievementsetinput)
-  - [`addAchievement(def: Achievement | AchievementSet.AchievementInput): AchievementSet`](#achievementsetaddachievementdef-achievement--achievementsetachievementinput-achievementset)
-  - [`addLeaderboard(def: Leaderboard | AchievementSet.LeaderboardInput): AchievementSet`](#achievementsetaddleaderboarddef-leaderboard--achievementsetleaderboardinput-achievementset)
+  - [`gameId`](#achievementsetgameid-number)
+  - [`id`](#achievementsetid-number-1)
+  - [`title`](#achievementsettitle-string)
+  - [`achievements`](#achievementsetachievements-recordstring-achievement--iterableachievement)
+  - [`leaderboards`](#achievementsetleaderboards-recordstring-leaderboard--iterableleaderboard)
+  - [`addAchievement(def: AchievementSet.AchievementInputObject | Achievement | string): this`](#achievementsetaddachievementdef-achievementsetachievementinputobject--achievement--string-this)
+  - [`addLeaderboard(def: AchievementSet.LeaderboardInputObject | Leaderboard | string): this`](#achievementsetaddleaderboarddef-achievementsetleaderboardinputobject--leaderboard--string-this)
   - [`[Symbol.iterator]()`](#achievementsetsymboliterator)
   - [`toString(desiredData: 'set' | 'set-legacy'): string`](#achievementsettostringdesireddata-set--set-legacy-string)
 - [RichPresence(params: RichPresence.Params)](#richpresenceparams-richpresenceparams)
-  - [`RichPresence.display(condition: ConditionBuilder | Condition.Input, displayString: string)`](#richpresencedisplaycondition-conditionbuilder--conditioninput-displaystring-string)
+  - [`RichPresence.display(condition: Condition.Input | ConditionBuilder, displayString: string)`](#richpresencedisplaycondition-conditioninput--conditionbuilder-displaystring-string)
   - [`RichPresence.format(params: RichPresence.FormatParams)`](#richpresenceformatparams-richpresenceformatparams)
   - [`RichPresence.lookup(params: RichPresence.LookupParams)`](#richpresencelookupparams-richpresencelookupparams)
-  - [`RichPresence.tag(strings: TemplateStringsArray, args: undefined)`](#richpresencetagstrings-templatestringsarray-args-undefined)
+  - [`RichPresence.tag(strings: TemplateStringsArray, ...args)`](#richpresencetagstrings-templatestringsarray-args)
   - [`RichPresence.macro`](#richpresencemacro)
+
 ## Condition
 
 This class represents a code piece that can be part of achievements, leaderboards or rich presence for RetroAchievements.
@@ -69,45 +69,34 @@ Conditions are immutable, if you need to a make a new Condition instance based o
 
 ---
 
-#### `flag: '' | 'PauseIf' | 'ResetIf' | 'ResetNextIf' | 'AddHits' | 'SubHits' | 'AndNext' | 'OrNext' | 'Measured' | 'Measured%' | 'MeasuredIf' | 'Trigger' | 'AddSource' | 'SubSource' | 'AddAddress' | 'Remember'`
+#### `condition.flag: Condition.Flag`
 
 Affects condition logic or the way it reads memory.
 
 Individual documentation for each flag [can be seen here](https://docs.retroachievements.org/developer-docs/achievement-development-overview.html#flags).
 
-#### `lvalue: Condition.Value`
+Possible values are: `'' | 'PauseIf' | 'ResetIf' | 'ResetNextIf' | 'AddHits' | 'SubHits' | 'AndNext' | 'OrNext' | 'Measured' | 'Measured%' | 'MeasuredIf' | 'Trigger' | 'AddSource' | 'SubSource' | 'AddAddress' | 'Remember'`
+
+#### `condition.lvalue: Condition.Value`
 
 Condition's left value, it always exists.
 
-#### `cmp: '' | '=' | '!=' | '<' | '<=' | '>' | '>=' | '+' | '-' | '*' | '/' | '%' | '&' | '^'`
+#### `condition.cmp: Condition.Operator`
 
 An operator set between left and right value. Empty string is allowed for conditions that don't specify right value.
 
-#### `rvalue: Condition.Value`
+Possible values are: `'' | '=' | '!=' | '<' | '<=' | '>' | '>=' | '+' | '-' | '*' | '/' | '%' | '&' | '^'`
+
+#### `condition.rvalue: Condition.Value`
 
 Condition's optional right value. If it's not set - rvalue properties are empty strings.
 
-#### `hits: number`
+#### `condition.hits: number`
 
 Amount of hits set (also known as Hit Count), additional explanation [can be seen here](https://docs.retroachievements.org/developer-docs/hit-counts.html).
 
 ---
 
-### Condition.Value
-
-#### `type: '' | 'Mem' | 'Delta' | 'Prior' | 'BCD' | 'Invert' | 'Value' | 'Float' | 'Recall'`
-
-Specifies if value is read from memory and the way it's read/interpreted, or if value is constant. Empty string is allowed for rvalue.
-
-#### `size: '' | 'Bit0' | 'Bit1' | 'Bit2' | 'Bit3' | 'Bit4' | 'Bit5' | 'Bit6' | 'Bit7' | 'Lower4' | 'Upper4' | '8bit' | '16bit' | '24bit' | '32bit' | '16bitBE' | '24bitBE' | '32bitBE' | 'BitCount' | 'Float' | 'FloatBE' | 'Double32' | 'Double32BE' | 'MBF32' | 'MBF32LE'`
-
-Specifies how to interpret the value at specified memory address. Not required for constant values.
-
-#### `value: number`
-
-If value type implies reading from memory - this specifies memory address, otherwise specifies constant value.
-
----
 #### `new Condition(def: Condition.Array)`
 
 Creates Condition using array representing it.
@@ -115,6 +104,7 @@ Creates Condition using array representing it.
 ```ts
 new Condition(['ResetIf', 'Mem', 'Bit0', 71, '>', 'Delta', 'Bit1', 71, 3])
 ```
+
 #### `new Condition(def: string)`
 
 Creates Condition using a string representing the condition.
@@ -124,6 +114,7 @@ new Condition('R:0xM47>d0xN47.3.')
 // same as
 new Condition(['ResetIf', 'Mem', 'Bit0', 71, '>', 'Delta', 'Bit1', 71, 3])
 ```
+
 #### `new Condition(def: Condition)`
 
 Returns the same Condition instance passed,
@@ -150,7 +141,8 @@ new Condition({
   hits: 0,
 })
 ```
-#### `condition.with(data: DeepPartial<Condition.Data>): Condition`
+
+#### `condition.with(data: Condition.PartialMergedData): Condition`
 
 Returns new Condition instance with different values merged.
 
@@ -169,6 +161,7 @@ new Condition('0xXcafe=0xXfeed')
   .with({ rvalue: ['Delta'] })
   .toString() // 0xXcafe=d0xXfeed
 ```
+
 #### `condition.toString(): string`
 
 Returns string representation of Condition
@@ -177,6 +170,7 @@ suitable for RetroAchievements and local files.
 ```ts
 new Condition(['ResetIf', 'Mem', 'Bit0', 71, '>', 'Delta', 'Bit1', 71, 3]).toString() // 'R:0xM47>d0xN47.3.'
 ```
+
 #### `condition.toArray(): Condition.Array`
 
 Returns direct Array representation of Condition,
@@ -186,6 +180,7 @@ values are exactly same as properties of Condition.
 new Condition(['Measured', 'Mem', '8bit', 4]).toArray()
 // [ "Measured", "Mem", "8bit", 4, "", "", "", 0, 0 ]
 ```
+
 #### `condition.toArrayPretty(): string[]`
 
 Returns prettier Array representation of Condition, which is more suitable for display:
@@ -203,6 +198,26 @@ new cruncheevos.Condition(['', 'Value', '', -4097, '>', 'Value', '', -1]).toArra
 // [ "", "Value", "", "0xffffefff", ">", "Value", "", "-1", "" ]
 ```
 
+## Condition.Value
+
+---
+
+#### `value.type: ValueType`
+
+Specifies if value is read from memory and the way it's read/interpreted, or if value is constant. Empty string is allowed for rvalue.
+
+Possible values are: `'' | 'Mem' | 'Delta' | 'Prior' | 'BCD' | 'Invert' | 'Value' | 'Float' | 'Recall'`
+
+#### `value.size: Size`
+
+Specifies how to interpret the value at specified memory address. Not required for constant values.
+
+Possible values are: `'' | 'Float' | 'Bit0' | 'Bit1' | 'Bit2' | 'Bit3' | 'Bit4' | 'Bit5' | 'Bit6' | 'Bit7' | 'Lower4' | 'Upper4' | '8bit' | '16bit' | '24bit' | '32bit' | '16bitBE' | '24bitBE' | '32bitBE' | 'BitCount' | 'FloatBE' | 'Double32' | 'Double32BE' | 'MBF32' | 'MBF32LE'`
+
+#### `value.value: number`
+
+If value type implies reading from memory - this specifies memory address, otherwise specifies constant value.
+
 ## Achievement
 
 This class represents an achievement for RetroAchievements. Achievement can be a part of AchievementSet class instance, or used separately if your goal is to parse and produce string representations of achievement that would go into local RACache file.
@@ -211,32 +226,32 @@ Achievements are immutable, if you need to a make a new Achievement instance bas
 
 ---
 
-#### `id: number`
+#### `achievement.id: number`
 
 ID of an Asset matching the one on server.
 If Asset does not exist on the server yet, `id` should be set
 to a high number like 111000001, similar to what RAIntegration
 does when creating local assets.
 
-#### `setId: number`
+#### `achievement.setId: number`
 
 Optional Subset ID that an Asset belongs to, matching the one on server.
 
-#### `title: string`
+#### `achievement.title: string`
 
 Title of an Asset, must be set.
 
-#### `description: string`
+#### `achievement.description: string`
 
-Description of an Asset, required by server, but optional for library.
+Description of an Asset, must be set.
 
-#### `author: string`
+#### `achievement.author: string`
 
 Achievement's author name, it's not necessary and
 is not sent to servers, but local RACache
 files do mention the author.
 
-#### `points: number`
+#### `achievement.points: number`
 
 Amount of points that players will get when earning
 the Achievement. Must be set to any positive integer or 0.
@@ -246,25 +261,28 @@ Server accepts following values: 0, 1, 2, 3, 4, 5, 10, 25, 50, 100.
 Server may still have odd Achievements with incorrect point values,
 which is the reason for allowing any positive integer for points.
 
-#### `type: '' | 'missable' | 'progression' | 'win_condition'`
+#### `achievement.type: Achievement.Type`
 
 Optional type of achievement, accepted strings are self-explanatory.
 
 Falsy values are treated as empty string, which marks no type set.
 
-#### `badge: string`
+Possible values are: `'' | 'missable' | 'progression' | 'win_condition'`
+
+#### `achievement.badge: string`
 
 Optional numeric string representing Achievement's badge ID on server.
 
 Alternatively, can be set to a string like `'local\\\\mybadge.png'`, which will be recognized by RAIntegration.
 
-#### `conditions: Condition.GroupNormalized`
+#### `achievement.conditions: Condition.GroupNormalized`
 
 Array of arrays containing Condition class instances:
 * Outer array represents Condition groups like Core, Alt 1, Alt 2 ...
 * Inner array represents individual Conditions within the group
 
 ---
+
 #### `new Achievement(def: Achievement.InputObject)`
 
 Creates Achievement using object representing it.
@@ -306,6 +324,7 @@ new Achievement({
   ] // same as providing an object: { core: [ ... ] }
 })
 ```
+
 #### `new Achievement(def: string)`
 
 Creates Achievement using string representing it, taken from `RACache/Data/GameId-User.txt` file.
@@ -321,6 +340,7 @@ new Achievement(
  ':My Achievement:Do something funny::::peepy:5:::::"local\\\\my_achievement.png"'
 )
 ```
+
 #### `achievement.with(data: DeepPartial<Achievement.InputObject>): Achievement`
 
 Returns new Achievement instance with different values merged.
@@ -329,7 +349,8 @@ Returns new Achievement instance with different values merged.
 someAchievement
   .with({ title: someAchievement.title + 'suffix' })
 ```
-#### `achievement.toString(desiredData: 'conditions' | 'achievement' | 'achievement-legacy'): string`
+
+#### `achievement.toString(desiredData: 'achievement' | 'achievement-legacy' | 'conditions'): string`
 
 Returns string representation of Achievement suitable
 for `RACache/Data/GameId-User.txt` file.
@@ -358,36 +379,38 @@ Leaderboard are immutable, if you need to a make a new Leaderboard instance base
 
 ---
 
-#### `id: number`
+#### `leaderboard.id: number`
 
 ID of an Asset matching the one on server.
 If Asset does not exist on the server yet, `id` should be set
 to a high number like 111000001, similar to what RAIntegration
 does when creating local assets.
 
-#### `setId: number`
+#### `leaderboard.setId: number`
 
 Optional Subset ID that an Asset belongs to, matching the one on server.
 
-#### `title: string`
+#### `leaderboard.title: string`
 
 Title of an Asset, must be set.
 
-#### `description: string`
+#### `leaderboard.description: string`
 
-Description of an Asset, required by server, but optional for library.
+Description of an Asset, must be set.
 
-#### `type: 'SCORE' | 'TIME' | 'FRAMES' | 'MILLISECS' | 'SECS' | 'TIMESECS' | 'MINUTES' | 'SECS_AS_MINS' | 'VALUE' | 'UNSIGNED' | 'TENS' | 'HUNDREDS' | 'THOUSANDS' | 'FIXED1' | 'FIXED2' | 'FIXED3'`
+#### `leaderboard.type: Leaderboard.Type`
 
 Specifies how to interpret Leaderboard's value.
 
 Additional info [can be seen here](https://docs.retroachievements.org/developer-docs/leaderboards.html#value-format)
 
-#### `lowerIsBetter: boolean`
+Possible values are: `'SCORE' | 'TIME' | 'FRAMES' | 'MILLISECS' | 'SECS' | 'TIMESECS' | 'MINUTES' | 'SECS_AS_MINS' | 'VALUE' | 'UNSIGNED' | 'TENS' | 'HUNDREDS' | 'THOUSANDS' | 'FIXED1' | 'FIXED2' | 'FIXED3'`
+
+#### `leaderboard.lowerIsBetter: boolean`
 
 Self explanatory, affects how leaderboard results are displayed.
 
-#### `conditions: { start: Condition[][], cancel: Condition[][], submit: Condition[][], value: Condition[][] }`
+#### `leaderboard.conditions: LeaderboardConditions<Condition.GroupNormalized>`
 
 Object representing four condition groups that make up Leaderboard code.
 
@@ -398,6 +421,7 @@ Each group is an array of arrays containing Condition class instances:
 and Max of these values is taken
 
 ---
+
 #### `new Leaderboard(def: Leaderboard.InputObject)`
 
 Creates Leaderboard using object representing it.
@@ -432,6 +456,7 @@ new Leaderboard({
   },
 })
 ```
+
 #### `new Leaderboard(def: string)`
 
 Creates Leaderboard using string representing it, taken from `RACache/Data/GameId-User.txt` file.
@@ -447,6 +472,7 @@ new Leaderboard(
  ':SCORE:My Leaderboard:Best score while doing something funny:0'
 )
 ```
+
 #### `leaderboard.with(data: DeepPartial<Leaderboard.InputObject>): Leaderboard`
 
 Returns new Leaderboard instance with different values merged.
@@ -455,7 +481,8 @@ Returns new Leaderboard instance with different values merged.
 someLeaderboard
   .with({ title: someLeaderboard.title + 'suffix' })
 ```
-#### `leaderboard.toString(desiredData: 'conditions' | 'leaderboard' | 'leaderboard-legacy'): string`
+
+#### `leaderboard.toString(desiredData: 'leaderboard' | 'leaderboard-legacy' | 'conditions'): string`
 
 Returns string representation of Leaderboard suitable
 for `RACache/Data/GameId-User.txt` file.
@@ -486,15 +513,15 @@ for `@cruncheevos/cli` to update local file in RACache.
 
 ---
 
-#### `gameId: number`
+#### `achievementSet.gameId: number`
 
 Game ID matching the one on RetroAchievement servers,
-must be set correctly if using this class with @cruncheevos/cli
+must be set correctly if using this class with `@cruncheevos/cli`
 
-#### `id: number`
+#### `achievementSet.id: number`
 
 Optional Set ID matching the one on RetroAchievement servers.
-@cruncheevos/cli respects this when performing asset diff and updates.
+`@cruncheevos/cli` respects this when performing asset diff and updates.
 This will automatically inject setId to added Achievements and Leaderboards.
 If Achievement or Leaderboard already specifies setId - it will be overridden.
 
@@ -503,19 +530,19 @@ but they used not to and you would rely solely on Game ID instead.
 In practice you'd specify Set ID only when you need to refer to a subset,
 but remember that Core sets also have Set ID.
 
-#### `title: string`
+#### `achievementSet.title: string`
 
 Game title or name, it doesn't have to be exact match and
 is merely put on the second line of produced local file.
 
-#### `achievements: { [id: string]: Achievement }`
+#### `achievementSet.achievements: Record<string, Achievement> & Iterable<Achievement>`
 
 Object containing all added achievements, with achievement id as a key.
 Treat it as read-only unless you know better.
 
 Also implements Symbol.iterator which yields each Achievement stored.
 
-#### `leaderboards: { [id: string]: Leaderboard }`
+#### `achievementSet.leaderboards: Record<string, Leaderboard> & Iterable<Leaderboard>`
 
 Object containing all added leaderboards, with leaderboard id as a key.
 Treat it as read-only unless you know better.
@@ -523,14 +550,8 @@ Treat it as read-only unless you know better.
 Also implements Symbol.iterator which yields each Leaderboard stored.
 
 ---
-#### `new AchievementSet(opts: AchievementSet.Input)`
 
-Creates AchievementSet.
-
-```ts
-new AchievementSet({ gameId: 1234, title: 'Funny Game' })
-```
-#### `achievementSet.addAchievement(def: Achievement | AchievementSet.AchievementInput): AchievementSet`
+#### `achievementSet.addAchievement(def: AchievementSet.AchievementInputObject | Achievement | string): this`
 
 Adds Achievement to the set, accepts same data as Achievement class constructor,
 but you're allowed to omit id when passing an object (id will be assigned automatically, similar to how RAIntegration does it).
@@ -562,7 +583,8 @@ set.addAchievement({
   }
 }).addAchievement(...)
 ```
-#### `achievementSet.addLeaderboard(def: Leaderboard | AchievementSet.LeaderboardInput): AchievementSet`
+
+#### `achievementSet.addLeaderboard(def: AchievementSet.LeaderboardInputObject | Leaderboard | string): this`
 
 Adds Leaderboard to the set, accepts same data as Leaderboard class constructor,
 but you're allowed to omit id when passing an object (id will be assigned automatically, similar to how RAIntegration does it).
@@ -600,6 +622,7 @@ set.addLeaderboard({
   },
 }).addLeaderboard(...)
 ```
+
 #### `achievementSet[Symbol.iterator]()`
 
 Allows to iterate the whole set for both achievements and leaderboards.
@@ -614,6 +637,7 @@ for (const asset of achSet) {
   }
 }
 ```
+
 #### `achievementSet.toString(desiredData: 'set' | 'set-legacy'): string`
 
 Returns string representation of AchievementSet suitable for
@@ -736,23 +760,12 @@ RichPresence({
  Display:
  ?0x cafe=1?Cafe at value 1, Song: ＠Song(0x100), Mode: ＠Mode(0x990)
  ?0xCAFE=2?Cafe at value 2, format example: ＠Score(0x600)
- ?0xCAFE=3?Default macro test @Score(0xfeed)
+ ?0xCAFE=3?Default macro test ＠Score(0xfeed)
  Playing a good game`
 ```
----
-#### `RichPresence.display(condition: ConditionBuilder | Condition.Input, displayString: string)`
 
-new AchievementSet({ gameId: 1234, id: 5800, title: 'Funny Game' })
- .addAchievement(...)
- .addLeaderboard(...)
- .toString()
-// may result in:
-`
-1.0
-Funny Game
-57|5800:"0x cafe=102":Ach2:Desc2::::cruncheevos:2:::::00000
-L58|5800:"0x cafe=102":"0=1":"1=1":"M:0x feed":FRAMES:Lb2:Desc2:1
-`
+#### `RichPresence.display(condition: Condition.Input | ConditionBuilder, displayString: string)`
+
 Returns a string representing Rich Presence Display line
 
 Does not check if provided arguments are of correct type
@@ -762,6 +775,7 @@ import { RichPresence } from '@cruncheevos/core'
 RichPresence.display('0=1', 'Nothing is happening'))
 // '?0=1?Nothing is happening'
 ```
+
 #### `RichPresence.format(params: RichPresence.FormatParams)`
 
 Creates an object representing Rich Presence Format
@@ -769,17 +783,6 @@ Creates an object representing Rich Presence Format
 ```ts
 import { RichPresence } from '@cruncheevos/core'
 
-new AchievementSet({ gameId: 1234, id: 5800, title: 'Funny Game' })
- .addAchievement(...)
- .addLeaderboard(...)
- .toString('set-legacy')
-// may result in:
-`
-1.0
-Funny Game
-57:"0x cafe=102":Ach2:Desc2::::cruncheevos:2:::::00000
-L58:"0x cafe=102":"0=1":"1=1":"M:0x feed":FRAMES:Lb2:Desc2:1
-`
 const format = RichPresence.format({
   name: 'Score',
   type: 'VALUE',
@@ -789,6 +792,7 @@ format.at('0xCAFE_v1') // '@Score(0xCAFE_v1)'
 format.at($(['Measured', 'Mem', '16bit', 0xCAFE])) // '@Score(0xcafe)'
 format.toString() // 'Format:Score\nFormatType=VALUE'
 ```
+
 #### `RichPresence.lookup(params: RichPresence.LookupParams)`
 
 Creates an object representing Rich Presence Lookup
@@ -814,7 +818,8 @@ lookup.at('0xCAFE_v1') // '@Score(0xCAFE_v1)'
 lookup.at($(['Measured', 'Mem', 'Float', 0xCAFE])) // '@Car(fFcafe)'
 lookup.toString() // `Lookup:Car\n0x1=First!\n0x2=Second!\n0x4-0x5=Same'
 ```
-#### `RichPresence.tag(strings: TemplateStringsArray, args: undefined)`
+
+#### `RichPresence.tag(strings: TemplateStringsArray, ...args)`
 
 Tagged template literal function which can accept Rich Presence Lookup instances.
 This allows for less noisy display strings.
@@ -826,6 +831,7 @@ const lookup = RichPresence.lookup({ name: 'Song', defaultAddress: 0xfeed, value
 
 RichPresence.tag`${lookup} - now playing` // '@Song(0xfeed) - now playing'
 ```
+
 #### `RichPresence.macro`
 
 Provides an object containing default Rich Presence Macros
@@ -836,4 +842,3 @@ import { RichPresence } from '@cruncheevos/core'
 RichPresence.macro.Score.at('0xCAFE') // '@Score(0xCAFE)'
 RichPresence.macro.ASCIIChar.at('0xCAFE') // '@ASCIIChar(0xCAFE)'
 ```
-
