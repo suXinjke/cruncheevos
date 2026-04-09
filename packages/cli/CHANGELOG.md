@@ -8,6 +8,7 @@
 
 * **BREAKING:** refetch option was removed from all commands; remote assets are not automatically refetched anymore in case of issues; run fetch command yourself if you have to ([e4c39c9](https://github.com/suXinjke/cruncheevos/commit/e4c39c9865b4c4612af0d8473211024676ce148a))
 * diff, save, diff-save commands now recognize id within `AchievementSet`, allowing to properly work with subsets after RetroAchievements Multiset update ([ea6baf6](https://github.com/suXinjke/cruncheevos/commit/ea6baf6f306f3324252957f5e304a97bc6f671d0))
+* generate command now outputs `id` and `badge` property at the start of object literal instead of at the end ([0117175)](https://github.com/suXinjke/cruncheevos/commit/01171755f70f474080c664ad07ee56fe383b5286)
 
 
 ### Fixes
