@@ -1,12 +1,14 @@
 import { defineConfig } from 'vitest/config'
-import tsconfigPaths from 'vite-tsconfig-paths'
 
 import * as url from 'url'
 import * as path from 'path'
 const thisModuleDir = path.dirname(url.fileURLToPath(import.meta.url))
 
 export default defineConfig({
-  plugins: [tsconfigPaths()],
+  resolve: {
+    // This allows for relevant 'package/cli' tests to be automatically run in watch mode when code in 'package/core' changes
+    tsconfigPaths: true,
+  },
   test: {
     coverage: {
       provider: 'istanbul',
