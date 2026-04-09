@@ -139,7 +139,6 @@ export default async function save(
   const absoluteModulePath = path.resolve(inputFilePath)
   const module = await achievementSetImport(absoluteModulePath)
   const inputSet = await extractAchievementSetFromModule(module, absoluteModulePath)
-  const { gameId } = inputSet
 
   const achievementCount = Object.keys(inputSet.achievements).length
   const leaderboardCount = Object.keys(inputSet.leaderboards).length
@@ -155,7 +154,10 @@ export default async function save(
   }
 
   try {
-    var localData = getLocalData({ gameId, throwOnFirstError: true })
+    var localData = getLocalData({
+      gameId: inputSet.gameId,
+      throwOnFirstError: true,
+    })
   } catch (err) {
     if (!forceRewrite) {
       log(util.styleText('yellowBright', `local file got issues`))
@@ -171,7 +173,12 @@ export default async function save(
   }
 
   try {
-    var remoteSet = await getSetFromRemote({ gameId, excludeUnofficial, timeout })
+    var remoteSet = await getSetFromRemote({
+      gameId: inputSet.gameId,
+      setId: inputSet.id,
+      excludeUnofficial,
+      timeout,
+    })
   } catch (err) {
     log(util.styleText('redBright', err.message))
     log(util.styleText('redBright', `remote data got issues, cannot proceed with the save`))
@@ -185,7 +192,7 @@ export default async function save(
     changes,
     inputSet,
     localData,
-    outputFilePath: resolveRACache(`./RACache/Data/${gameId}-User.txt`),
+    outputFilePath: resolveRACache(`./RACache/Data/${inputSet.gameId}-User.txt`),
   })
   logWarnings(inputSet)
 }
