@@ -1,4 +1,16 @@
 # Changelog
+## 0.2.0 (2026-04-09)
+
+
+### Features
+
+* **BREAKING**: remove generic from Condition.GroupSetObject ([acb8e68](https://github.com/suXinjke/cruncheevos/commit/acb8e688ddfe45e729943de7e7c3c80997e9e272))
+* **BREAKING**: remove generic from AssetData interface ([b3e6b7a](https://github.com/suXinjke/cruncheevos/commit/b3e6b7ac1a6357ff2343363f955c85a2e5e45d4d))
+
+### Fixes
+
+* require description to be set on achievement/leaderboard by type ([daa30fa](https://github.com/suXinjke/cruncheevos/commit/daa30fa530ea998132a3e26e1a2a80e28accf020))
+
 ## 0.1.0 (2026-02-10)
 
 

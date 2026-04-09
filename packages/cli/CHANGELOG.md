@@ -1,4 +1,11 @@
 # Changelog
+## 0.2.0 (2026-04-09)
+
+
+### Fixes
+
+* properly pass subset ID when using save command ([221cf91](https://github.com/suXinjke/cruncheevos/commit/221cf915219f73f032e34e7df654aee5d8ab772e))
+
 ## 0.1.0 (2026-02-10)
 
 * **BREAKING:** bump required node version to 22.18, this version specifically to motivate usage of TypeScript and native type stripping ([8085041](https://github.com/suXinjke/cruncheevos/commit/808504169666ea3d64adf526b4bde53079a88abf))
