@@ -1,14 +1,15 @@
 {
   "compilerOptions": {
-    "baseUrl": "./src",
     "moduleResolution": "node16",
     "module": "Node16",
     "target": "ES2020",
+    "rootDir": "./src",
     "outDir": "./dist",
+    "strict": false,
     "allowJs": true,
     "paths": {
-      "@cruncheevos/core": ["../../core/src/index.js"],
-      "@cruncheevos/core/util": ["../../core/src/util.js"]
+      "@cruncheevos/core": ["../core/src/index.js"],
+      "@cruncheevos/core/util": ["../core/src/util.js"]
     }
   }
 }

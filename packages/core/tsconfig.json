@@ -1,10 +1,12 @@
 {
   "compilerOptions": {
-    "outDir": "./dist/",
+    "rootDir": "./src",
+    "outDir": "./dist",
     "moduleResolution": "node16",
     "module": "Node16",
     "target": "ES2018",
-    "noImplicitThis": true
+    "noImplicitThis": true,
+    "strict": false
   },
   "include": ["src/**/*.ts"]
 }
