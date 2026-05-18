@@ -50,6 +50,7 @@ export default set
 * [wolfman2000/cruncheevos](https://github.com/wolfman2000/cruncheevos)
 * [Maximdraco/RA-Scripts](https://github.com/Maximdraco/RA-Scripts)
 * [ryoxdx/RetroAchievementsSets](https://github.com/ryoxdx/RetroAchievementsSets)
+* [akleemans/cruncheevos-scripts](https://github.com/akleemans/cruncheevos-scripts)
 * .. your repository here? ..
 
 ## Contributing
