@@ -4,6 +4,7 @@ import { Leaderboard } from './leaderboard.js'
 import { AchievementSet } from './set.js'
 
 export { Condition, Achievement, Leaderboard, AchievementSet }
+export type { Asset, AssetData } from './asset.js'
 export * from './define.js'
 export { RichPresence } from './rich.js'
 export { stringToNumberLE } from './util.js'

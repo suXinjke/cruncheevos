@@ -4,8 +4,8 @@ import {
   normalizedConditionGroupSetFromString,
   validateRegularMeasuredConditions,
 } from './condition.js'
+import type { AssetData } from './asset.js'
 import {
-  AssetData,
   deepFreeze,
   eatSymbols,
   isNumber,

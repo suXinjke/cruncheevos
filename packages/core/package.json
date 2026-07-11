@@ -21,9 +21,6 @@
       "types": "./dist/index.d.ts",
       "import": "./dist/cruncheevos.js",
       "require": "./dist/cruncheevos.umd.js"
-    },
-    "./util": {
-      "import": "./dist/util.js"
     }
   },
   "main": "./dist/cruncheevos.umd.js",

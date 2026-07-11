@@ -9,8 +9,7 @@
     "allowJs": true,
     "skipLibCheck": true,
     "paths": {
-      "@cruncheevos/core": ["../core/src/index.js"],
-      "@cruncheevos/core/util": ["../core/src/util.js"]
+      "@cruncheevos/core": ["../core/src/index.js"]
     }
   }
 }

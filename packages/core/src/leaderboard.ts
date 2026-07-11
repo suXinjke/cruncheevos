@@ -3,8 +3,8 @@ import {
   normalizedConditionGroupSet,
   validateRegularMeasuredConditions,
 } from './condition.js'
+import type { AssetData } from './asset.js'
 import {
-  AssetData,
   eatSymbols,
   isObject,
   parseCSV,
