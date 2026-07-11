@@ -1,0 +1,15 @@
+{
+  "name": "testapp",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "workspaces": [
+    "../../packages/core",
+    "../../packages/utils"
+  ],
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  }
+}

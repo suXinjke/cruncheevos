@@ -1,0 +1,43 @@
+{
+  "name": "@cruncheevos/utils",
+  "version": "0.2.0",
+  "description": "Additional utilities for @cruncheevos/core package to aid in application development.",
+  "keywords": [
+    "retroachievements",
+    "achievements"
+  ],
+  "homepage": "https://github.com/suXinjke/cruncheevos",
+  "bugs": "https://github.com/suXinjke/cruncheevos/issues",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/suXinjke/cruncheevos.git",
+    "directory": "packages/core"
+  },
+  "license": "MIT",
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/cruncheevos-utils.js",
+      "require": "./dist/cruncheevos-utils.umd.js"
+    }
+  },
+  "main": "./dist/cruncheevos-utils.umd.js",
+  "module": "./dist/cruncheevos-utils.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist",
+    "*.md"
+  ],
+  "scripts": {
+    "build": "concurrently npm:bundle:min npm:bundle:dev npm:build:dts npm:build:dev",
+    "build:dev": "tsc --project tsconfig.build.json",
+    "build:dts": "tsc --project tsconfig.build-dts.json",
+    "bundle:dev": "vite build --mode=dev",
+    "bundle:min": "vite build --mode=production",
+    "typecheck": "tsc --noEmit"
+  },
+  "peerDependencies": {
+    "@cruncheevos/core": "~0.2.0"
+  }
+}

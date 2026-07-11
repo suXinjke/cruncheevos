@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "rootDir": "./src",
+    "outDir": "./dist",
+    "moduleResolution": "node16",
+    "module": "Node16",
+    "target": "ES2018",
+    "noImplicitThis": true,
+    "strict": false,
+    "paths": {
+      "@cruncheevos/core": ["../core/src/index.js"]
+    }
+  },
+  "include": ["src/**/*.ts"]
+}

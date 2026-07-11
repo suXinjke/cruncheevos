@@ -1,1 +1,1 @@
-export default ['packages/core', 'packages/cli']
+export default ['packages/core', 'packages/utils', 'packages/cli']

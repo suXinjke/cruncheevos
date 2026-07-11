@@ -5,6 +5,7 @@
   "type": "module",
   "workspaces": [
     "packages/core",
+    "packages/utils",
     "packages/cli"
   ],
   "scripts": {
