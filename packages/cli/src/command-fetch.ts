@@ -1,5 +1,5 @@
 import { Achievement, AchievementSet, Leaderboard } from '@cruncheevos/core'
-import { wrappedError } from '@cruncheevos/core/util'
+import { wrappedError } from './util.js'
 
 import { getFs, log, resolveRACache } from './mockable.js'
 const fs = getFs()

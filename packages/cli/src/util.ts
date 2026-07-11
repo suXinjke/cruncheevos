@@ -1,12 +1,28 @@
-import { Achievement, AchievementSet, Leaderboard, Condition } from '@cruncheevos/core'
+import {
+  Asset,
+  AssetData,
+  Achievement,
+  AchievementSet,
+  Leaderboard,
+  Condition,
+} from '@cruncheevos/core'
 import * as util from 'util'
 
 const fs = getFs()
 import { getFs, log, resolveRACache } from './mockable.js'
-import { wrappedError, Asset, AssetData } from '@cruncheevos/core/util'
 
 interface AssetDataFilterable extends AssetData {
   id: number
+}
+
+export function wrappedError(err: Error, message: string) {
+  const wrappedError = new Error(message)
+  ;(wrappedError as any).cause = err
+  return wrappedError
+}
+
+export function capitalizeWord(word: string) {
+  return word[0].toUpperCase() + word.slice(1)
 }
 
 export const remoteRefetchRecommendation =

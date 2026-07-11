@@ -1,11 +1,10 @@
 import { Achievement, Condition, Leaderboard } from '@cruncheevos/core'
-import { wrappedError } from '@cruncheevos/core/util'
 
 import * as util from 'util'
 
 import { RemoteData, getRemoteData, getSetFromRemoteData } from './command-fetch.js'
 import { confirm, getFs, log } from './mockable.js'
-import { AssetFilter, filtersMatch } from './util.js'
+import { AssetFilter, filtersMatch, wrappedError } from './util.js'
 const fs = getFs()
 
 function conditionIsSimple(condition: Condition) {

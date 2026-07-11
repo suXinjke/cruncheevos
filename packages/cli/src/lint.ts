@@ -1,5 +1,4 @@
-import { Achievement, AchievementSet, Leaderboard } from '@cruncheevos/core'
-import { Asset } from '@cruncheevos/core/util'
+import { Asset, Achievement, AchievementSet, Leaderboard } from '@cruncheevos/core'
 import * as util from 'util'
 
 import { log } from './mockable.js'

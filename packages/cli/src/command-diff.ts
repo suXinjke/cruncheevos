@@ -5,12 +5,12 @@ import * as path from 'path'
 import * as util from 'util'
 import { achievementSetImport, log, resolveRACache } from './mockable.js'
 
-import { Condition, Leaderboard, Achievement } from '@cruncheevos/core'
-import { capitalizeWord, Asset } from '@cruncheevos/core/util'
+import { Condition, Asset, Leaderboard, Achievement } from '@cruncheevos/core'
 import {
   extractAchievementSetFromModule,
   calculateSetChanges,
   getLocalData,
+  capitalizeWord,
   AssetFilter,
 } from './util.js'
 import { getSetFromRemote } from './command-fetch.js'
