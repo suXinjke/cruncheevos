@@ -15,7 +15,7 @@ export default defineConfig(({ mode }) => {
           return mode === 'dev' ? `cruncheevos.${prefix}js` : `cruncheevos.min.${prefix}js`
         },
       },
-      rollupOptions: {
+      rolldownOptions: {
         plugins: mode !== 'dev' ? [cleanup({ extensions: ['ts'] })] : [],
       },
     },
